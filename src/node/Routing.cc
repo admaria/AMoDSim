@@ -78,6 +78,9 @@ void Routing::handleMessage(cMessage *msg)
 
 /**
  * Return the time distance from current node to target one.
+ * 
+ * @param dstAddress
+ * @return 
  */
 double Routing::getDistanceToTarget(int dstAddress){
     return dtable.find(dstAddress)->second;
@@ -85,6 +88,9 @@ double Routing::getDistanceToTarget(int dstAddress){
 
 /**
  * Evaluate time distance from current node to target one.
+ * 
+ * @param thisNode
+ * @return 
  */
 double Routing::timeDistanceToTarget(cTopology::Node *thisNode)
 {
@@ -102,7 +108,7 @@ double Routing::timeDistanceToTarget(cTopology::Node *thisNode)
 }
 
 /**
- * Get the current node address
+ * Get the current node address.
  */
 int Routing::getAddress() const
 {

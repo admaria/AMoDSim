@@ -175,7 +175,11 @@ void App::handleMessage(cMessage *msg)
 }
 
 /**
- * Handle the signals
+ * Handle an Omnet signal.
+ * 
+ * @param source
+ * @param signalID
+ * @param obj
  */
 void App::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj){
 

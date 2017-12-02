@@ -1,0 +1,1650 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile>
+  <compound kind="file">
+    <name>App.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/node/</path>
+    <filename>App_8cc</filename>
+    <includes id="Packet__m_8h" name="Packet_m.h" local="yes" imported="no">Packet_m.h</includes>
+    <includes id="Vehicle_8h" name="Vehicle.h" local="yes" imported="no">Vehicle.h</includes>
+    <includes id="TripRequest_8h" name="TripRequest.h" local="yes" imported="no">TripRequest.h</includes>
+    <includes id="Routing_8h" name="Routing.h" local="yes" imported="no">Routing.h</includes>
+    <includes id="TripCoordinator_8h" name="TripCoordinator.h" local="yes" imported="no">TripCoordinator.h</includes>
+    <class kind="class">App</class>
+    <member kind="function">
+      <type></type>
+      <name>Define_Module</name>
+      <anchorfile>App_8cc.html</anchorfile>
+      <anchor>aefcea387a398d5bc420e472bcfd49caf</anchor>
+      <arglist>(App)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>GeographicalArea.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/areasmanager/</path>
+    <filename>GeographicalArea_8cc</filename>
+    <includes id="GeographicalArea_8h" name="GeographicalArea.h" local="no" imported="no">GeographicalArea.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>GeographicalArea.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/areasmanager/</path>
+    <filename>GeographicalArea_8h</filename>
+    <class kind="class">GeographicalArea</class>
+  </compound>
+  <compound kind="file">
+    <name>Geohash.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/areasmanager/</path>
+    <filename>Geohash_8cc</filename>
+    <includes id="Geohash_8h" name="Geohash.h" local="no" imported="no">Geohash.h</includes>
+    <member kind="define">
+      <type>#define</type>
+      <name>MAX_HASH_LENGTH</name>
+      <anchorfile>Geohash_8cc.html</anchorfile>
+      <anchor>af821c8917d36beef730044dd32d29f74</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>REFINE_RANGE</name>
+      <anchorfile>Geohash_8cc.html</anchorfile>
+      <anchor>abdc2aa63a3fe1adb6fea0719d9401a13</anchor>
+      <arglist>(range, bits, offset)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SET_BIT</name>
+      <anchorfile>Geohash_8cc.html</anchorfile>
+      <anchor>a3980bb91bc96c04698acaa0cb736f851</anchor>
+      <arglist>(bits, mid, range, value, offset)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Geohash.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/areasmanager/</path>
+    <filename>Geohash_8h</filename>
+    <class kind="struct">GEOHASH_range</class>
+    <class kind="struct">GEOHASH_area</class>
+    <class kind="struct">GEOHASH_neighbors</class>
+    <class kind="class">Geohash</class>
+    <member kind="enumeration">
+      <type></type>
+      <name>GEOHASH_direction</name>
+      <anchorfile>Geohash_8h.html</anchorfile>
+      <anchor>a3a7130d481fcafbbdaea3fbbf7b54a8c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <type>@</type>
+      <name>GEOHASH_NORTH</name>
+      <anchorfile>Geohash_8h.html</anchorfile>
+      <anchor>a3a7130d481fcafbbdaea3fbbf7b54a8cac3dd570b32d880635680ac8b57ae86a0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <type>@</type>
+      <name>GEOHASH_EAST</name>
+      <anchorfile>Geohash_8h.html</anchorfile>
+      <anchor>a3a7130d481fcafbbdaea3fbbf7b54a8ca2b42811ab6cfc32c02e6259a51af6329</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <type>@</type>
+      <name>GEOHASH_WEST</name>
+      <anchorfile>Geohash_8h.html</anchorfile>
+      <anchor>a3a7130d481fcafbbdaea3fbbf7b54a8cae9440576a704d3d20b6bc74c015cfeed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <type>@</type>
+      <name>GEOHASH_SOUTH</name>
+      <anchorfile>Geohash_8h.html</anchorfile>
+      <anchor>a3a7130d481fcafbbdaea3fbbf7b54a8ca0e42582119ec990da5b93c28f7934616</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>L2Queue.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/node/</path>
+    <filename>L2Queue_8cc</filename>
+    <class kind="class">L2Queue</class>
+    <member kind="function">
+      <type></type>
+      <name>Define_Module</name>
+      <anchorfile>L2Queue_8cc.html</anchorfile>
+      <anchor>a41ba1c35972f7850a93070c723e070f8</anchor>
+      <arglist>(L2Queue)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Packet_m.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>Packet__m_8h</filename>
+    <class kind="class">Packet</class>
+    <member kind="define">
+      <type>#define</type>
+      <name>MSGC_VERSION</name>
+      <anchorfile>Packet__m_8h.html</anchorfile>
+      <anchor>a77f5ea746b531cbdbc322a93741e33a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>doPacking</name>
+      <anchorfile>Packet__m_8h.html</anchorfile>
+      <anchor>a6ad9b468fb1826a85c7b652e787e4da6</anchor>
+      <arglist>(cCommBuffer *b, Packet &amp;obj)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>doUnpacking</name>
+      <anchorfile>Packet__m_8h.html</anchorfile>
+      <anchor>aa5daab419bc27c59d66b2218995ffe0e</anchor>
+      <arglist>(cCommBuffer *b, Packet &amp;obj)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>README.md</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/</path>
+    <filename>README_8md</filename>
+  </compound>
+  <compound kind="file">
+    <name>Routing.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/node/</path>
+    <filename>Routing_8cc</filename>
+    <includes id="Packet__m_8h" name="Packet_m.h" local="yes" imported="no">Packet_m.h</includes>
+    <includes id="Vehicle_8h" name="Vehicle.h" local="yes" imported="no">Vehicle.h</includes>
+    <includes id="Routing_8h" name="Routing.h" local="yes" imported="no">Routing.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>Define_Module</name>
+      <anchorfile>Routing_8cc.html</anchorfile>
+      <anchor>a6eeb74869f41c893ae49b8b4fd8c6290</anchor>
+      <arglist>(Routing)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Routing.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/node/</path>
+    <filename>Routing_8h</filename>
+    <class kind="class">Routing</class>
+  </compound>
+  <compound kind="file">
+    <name>StopPoint.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>StopPoint_8cc</filename>
+    <includes id="StopPoint_8h" name="StopPoint.h" local="no" imported="no">StopPoint.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>StopPoint.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>StopPoint_8h</filename>
+    <class kind="class">StopPoint</class>
+  </compound>
+  <compound kind="file">
+    <name>TripCoordinator.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/coordinator/</path>
+    <filename>TripCoordinator_8cc</filename>
+    <includes id="TripCoordinator_8h" name="TripCoordinator.h" local="yes" imported="no">TripCoordinator.h</includes>
+    <includes id="TripRequest_8h" name="TripRequest.h" local="yes" imported="no">TripRequest.h</includes>
+    <includes id="Routing_8h" name="Routing.h" local="yes" imported="no">Routing.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>Define_Module</name>
+      <anchorfile>TripCoordinator_8cc.html</anchorfile>
+      <anchor>a6b970e8ec3536f51f392520d62a244f6</anchor>
+      <arglist>(TripCoordinator)</arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>netXsize</name>
+      <anchorfile>TripCoordinator_8cc.html</anchorfile>
+      <anchor>a709d28e451523887363bed756c5410b7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>netYsize</name>
+      <anchorfile>TripCoordinator_8cc.html</anchorfile>
+      <anchor>a94e24f538245cd4262c955aaf27ef368</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>TripCoordinator.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/coordinator/</path>
+    <filename>TripCoordinator_8h</filename>
+    <includes id="TripRequest_8h" name="TripRequest.h" local="yes" imported="no">TripRequest.h</includes>
+    <includes id="Vehicle_8h" name="Vehicle.h" local="yes" imported="no">Vehicle.h</includes>
+    <class kind="class">TripCoordinator</class>
+  </compound>
+  <compound kind="file">
+    <name>TripRequest.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>TripRequest_8cc</filename>
+    <includes id="TripRequest_8h" name="TripRequest.h" local="no" imported="no">TripRequest.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>TripRequest.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>TripRequest_8h</filename>
+    <includes id="StopPoint_8h" name="StopPoint.h" local="yes" imported="no">StopPoint.h</includes>
+    <class kind="class">TripRequest</class>
+  </compound>
+  <compound kind="file">
+    <name>Vehicle.cc</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>Vehicle_8cc</filename>
+    <includes id="Vehicle_8h" name="Vehicle.h" local="no" imported="no">Vehicle.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>Vehicle.h</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>Vehicle_8h</filename>
+    <includes id="Packet__m_8h" name="Packet_m.h" local="no" imported="no">Packet_m.h</includes>
+    <class kind="class">Vehicle</class>
+  </compound>
+  <compound kind="page">
+    <name>md_README</name>
+    <title>README</title>
+    <filename>md_README</filename>
+  </compound>
+  <compound kind="class">
+    <name>App</name>
+    <filename>classApp.html</filename>
+    <base>cSimpleModule</base>
+    <base protection="private">cListener</base>
+    <member kind="function">
+      <type></type>
+      <name>App</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>acb8cbf3e285b91d0170ffe87df5989c5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~App</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a34f1f253b1cef5f4ecbac66eaf6964ec</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>initialize</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>aad16fd386868f1be01a7fdd3309d714d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>handleMessage</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a02dd7f36909205a67212d51e2f03b45a</anchor>
+      <arglist>(cMessage *msg)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>receiveSignal</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a54479c21180d555ac71c4bc3fc52551f</anchor>
+      <arglist>(cComponent *source, simsignal_t signalID, cObject *obj)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual TripRequest *</type>
+      <name>buildTripRequest</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>aee28ef681907f7b493c06783bdd182f4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>std::map&lt; int, Vehicle * &gt;</type>
+      <name>Vehicles</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a4ac3b5b2a9de2821d72f4daa6b041e9c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>myAddress</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a50bdb7f8f609fbf0eda16c182db7eb58</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>x_coord</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a82bfd8c6b79066c0849531db44ce4083</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>y_coord</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a0a2535e9fac8f96cb90d12ee6740d92a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>nodePath</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>abbae4594f8d854bce7608fc429d0831f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>hasVehicle</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>ae7f07e9b22a0352bfeb973ad97e02a51</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>destAddresses</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a8da0cf26000e5c9d3dfc9a7c39522c15</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>TripCoordinator *</type>
+      <name>tcoord</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a36198d0e58ee55082b484ccad173cd76</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cPar *</type>
+      <name>sendIATime</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a0bbead50089948224d4073f956ea14f6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cPar *</type>
+      <name>maxWaitingTime</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a92fd1cedd03ea038596c1bf062218eb6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cPar *</type>
+      <name>packetLengthBytes</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a0af8286566910581b22632ca9cbdbf12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Routing *</type>
+      <name>r</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>abc4c742572b9433553b79f6e790ddaca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Vehicles</type>
+      <name>vehicles</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>ade0c8e7378851c2de8b255da2702c5ad</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cMessage *</type>
+      <name>generatePacket</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a576465b3d4590d6befa908b2e5f3ee5a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>long</type>
+      <name>pkCounter</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a0b5a5f9f7d233b454c4fe39245cb95ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>tripRequest</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a6509d02da4a2db43bdc5a599d7ef5a72</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>newTripAssigned</name>
+      <anchorfile>classApp.html</anchorfile>
+      <anchor>a6ed3b1c607fd8416451e4316414eb494</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>GeographicalArea</name>
+    <filename>classGeographicalArea.html</filename>
+    <base>cObject</base>
+    <member kind="function">
+      <type></type>
+      <name>GeographicalArea</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>afde0b07d013086ab1ff0da9ff4c3a494</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>GeographicalArea</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>a395571b4e6c8ca96e7fe740749623f1a</anchor>
+      <arglist>(char *hash)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~GeographicalArea</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>ae6a5bd080416cb6835cab36517ae3088</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual std::list&lt; std::string &gt;</type>
+      <name>getNodes</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>ac4fe4dffe9e530f4cece9f29324d9bb5</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>addNode</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>aa41bb2fd7130c1c19a438b760a24bbfb</anchor>
+      <arglist>(std::string nodeID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setMeanTravelTime</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>aeea2c869a4ddbf131705fad50ec0722d</anchor>
+      <arglist>(double meanTime)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getMeanTravelTime</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>a68d541ac3b92bdeef77fba3729cae6d4</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>char *</type>
+      <name>hash</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>a2b7da2bd064b3bf3dd15ebcc4d00c6cd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::list&lt; std::string &gt;</type>
+      <name>nodes</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>a3da7485945534e39f76d7262794a64c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>double</type>
+      <name>meanTravelTime</name>
+      <anchorfile>classGeographicalArea.html</anchorfile>
+      <anchor>ab7e25937b7763e7b9f7218bd9e8b8af5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Geohash</name>
+    <filename>classGeohash.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Geohash</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>a2e8f88478463fde1d5a874eb71807185</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>GEOHASH_verify_hash</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>aab7f0720bda99f5ce026c1161d1cced7</anchor>
+      <arglist>(const char *hash)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual char *</type>
+      <name>GEOHASH_encode</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>ab8b094a6d9a151b8eb4a7c61292d1025</anchor>
+      <arglist>(double latitude, double longitude, unsigned int hash_length)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual GEOHASH_area *</type>
+      <name>GEOHASH_decode</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>aa96f80483b40aaa868bd18f37ec05c07</anchor>
+      <arglist>(const char *hash)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual GEOHASH_neighbors *</type>
+      <name>GEOHASH_get_neighbors</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>ab409ecf56b47ceb72990df7aa246e0ce</anchor>
+      <arglist>(const char *hash)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>GEOHASH_free_neighbors</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>a48a116270e18051a7b4c3b4054168b04</anchor>
+      <arglist>(GEOHASH_neighbors *neighbors)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual char *</type>
+      <name>GEOHASH_get_adjacent</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>a89c014b7b22b7ca27a8d6f3990b303ac</anchor>
+      <arglist>(const char *hash, GEOHASH_direction dir)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>GEOHASH_free_area</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>aaea7a71d8e196c97686fd1c1c80ec769</anchor>
+      <arglist>(GEOHASH_area *area)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual std::list&lt; char * &gt;</type>
+      <name>getNeighbors</name>
+      <anchorfile>classGeohash.html</anchorfile>
+      <anchor>ae3e45176a89eb2918f42682deffd76a4</anchor>
+      <arglist>(const char *hash)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>GEOHASH_area</name>
+    <filename>structGEOHASH__area.html</filename>
+    <member kind="variable">
+      <type>GEOHASH_range</type>
+      <name>latitude</name>
+      <anchorfile>structGEOHASH__area.html</anchorfile>
+      <anchor>a4ca66ebfce45493172f0341a4d28f476</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GEOHASH_range</type>
+      <name>longitude</name>
+      <anchorfile>structGEOHASH__area.html</anchorfile>
+      <anchor>af4e9ef75ea3e43dce2114c7f1923dbfd</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>GEOHASH_neighbors</name>
+    <filename>structGEOHASH__neighbors.html</filename>
+    <member kind="variable">
+      <type>char *</type>
+      <name>north</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a97f0edb58ae5b6bd527b9acfbd4905b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>east</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>abbc9a6a5001764f3f8b9f2eff423d103</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>west</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a287e103f4be840c68fded10372aa7a81</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>south</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a455e5efa363fb1d4ef78468b2b195c68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>north_east</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>ab51b389ba33c987102067eeaf785175d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>south_east</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a42247b925be6fdecf2a55e9a5f8b74be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>north_west</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a6a26e67ba0673f4f5cb054bb5bd9bc0c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>char *</type>
+      <name>south_west</name>
+      <anchorfile>structGEOHASH__neighbors.html</anchorfile>
+      <anchor>a80bd659d9fab3513a9f8e604dd42b162</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>GEOHASH_range</name>
+    <filename>structGEOHASH__range.html</filename>
+    <member kind="variable">
+      <type>double</type>
+      <name>max</name>
+      <anchorfile>structGEOHASH__range.html</anchorfile>
+      <anchor>acc6ca6afd14df56690478b5e6acd8ed4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>min</name>
+      <anchorfile>structGEOHASH__range.html</anchorfile>
+      <anchor>af3289c97957f461ea2690c1628f5044e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>L2Queue</name>
+    <filename>classL2Queue.html</filename>
+    <base>cSimpleModule</base>
+    <member kind="function">
+      <type></type>
+      <name>L2Queue</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a4950aa9f9f959e8f5bb6029bf6f887ba</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~L2Queue</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a3d97633b2c57e07fc3d3e84e2372f202</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>initialize</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a101cc049992996e2d6f6e91fd543820f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>handleMessage</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a7551cfcb1ff36012b6a9b9a7612fa8ff</anchor>
+      <arglist>(cMessage *msg)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>startTransmitting</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a57d569103aa047b0ae90b496af58d24e</anchor>
+      <arglist>(cMessage *msg)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>displayStatus</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a5c2bc0aada8a47f8ac273131ade17565</anchor>
+      <arglist>(bool isBusy)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>long</type>
+      <name>frameCapacity</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a744cc32cf078f123c7f8bbd84cd5c326</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cQueue</type>
+      <name>queue</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a2057276d5149ae61345d3443f87a7aed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cMessage *</type>
+      <name>endTransmissionEvent</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>ae9bddc428c9a78e40b3408006d73d416</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>qlenSignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>abb0f6d8dbfd1b97991515d2d916589e5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>busySignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a4485a2fdf462777a655ccd0d8d53c51c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>queueingTimeSignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>ac6b26750f192332f70cdf71c28748b4f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>dropSignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a2a8d98ba72a89ddd62e85a39fdc4f9d8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>txBytesSignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>aba2f70b89ba6c452a9ffc338ad470d3b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>rxBytesSignal</name>
+      <anchorfile>classL2Queue.html</anchorfile>
+      <anchor>a95b1ccd5f3cd100fee6e40e9101c2ffc</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Packet</name>
+    <filename>classPacket.html</filename>
+    <base>cPacket</base>
+    <member kind="function">
+      <type></type>
+      <name>Packet</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a884189f2e5f410bb2a00fe2ae1a5c665</anchor>
+      <arglist>(const char *name=NULL, int kind=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Packet</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>ae8d5dfea51fa7fe55e4705b176f326ec</anchor>
+      <arglist>(const Packet &amp;other)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~Packet</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a69d431d5730177a1bf6e1f8bbbbb6066</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Packet &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a91a6b0c6ea561b9726597468acac252d</anchor>
+      <arglist>(const Packet &amp;other)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual Packet *</type>
+      <name>dup</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a6d1f709f7adca518d67b8d6fd028f013</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>parsimPack</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a5cb5c734cb12ae26c12b6cf862d3c9bb</anchor>
+      <arglist>(cCommBuffer *b)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>parsimUnpack</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a707ac6bb2e9cd3024a6e49ad8cc41172</anchor>
+      <arglist>(cCommBuffer *b)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getSrcAddr</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a6f42f96371991ed30e898d3f4d0568b5</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setSrcAddr</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>ad4446e08653d3da7fd887e31755e6303</anchor>
+      <arglist>(int srcAddr)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getDestAddr</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>ae9a8f9615efef8c153c7be53d053dba1</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setDestAddr</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a66667a03d57fb6c61c306fe19aefdd6a</anchor>
+      <arglist>(int destAddr)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getHopCount</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a7a227b54b6f5a552d1611631e6d2e07c</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setHopCount</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a992007aed69d2cb30e265f0112030618</anchor>
+      <arglist>(int hopCount)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>ac812596cba491c324eea3710822fbfa8</anchor>
+      <arglist>(const Packet &amp;)</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>srcAddr_var</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>aca64a2a9a92e1f17a534279010306f20</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>destAddr_var</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>abfd5134a9876a237015acf5e411eef79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>hopCount_var</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a71c6919c7c724613d60ddd472d5839f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>copy</name>
+      <anchorfile>classPacket.html</anchorfile>
+      <anchor>a95be293f767f42ce2e87f636d0a7e153</anchor>
+      <arglist>(const Packet &amp;other)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Routing</name>
+    <filename>classRouting.html</filename>
+    <base>cSimpleModule</base>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getAddress</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a34dde015c63b66abe788ddf8b515fae1</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getDistanceToTarget</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>afabf25493a976ab44ae8c2977a4f886a</anchor>
+      <arglist>(int dstAddr)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>initialize</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a4a805de60e81a7ab10a1a41f7db15abf</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>handleMessage</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a09c44e71b4e8ad9862262b2756603f52</anchor>
+      <arglist>(cMessage *msg)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual double</type>
+      <name>timeDistanceToTarget</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>aa0b18cfee0c4ef314507f650f826f442</anchor>
+      <arglist>(cTopology::Node *thisNode)</arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>std::map&lt; int, int &gt;</type>
+      <name>RoutingTable</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a0b1d84b422ea8ac25bd517743f9a83d1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>std::map&lt; int, double &gt;</type>
+      <name>DistanceTable</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>aede2c1624ebcc3d86a958af50e396f89</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>myAddress</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>ab1ef7ab9ebf282cd94329f2c51aeadb7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>double</type>
+      <name>channelTime</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a250863dac74aaff1f6e2d4ab569fbbbc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>cTopology *</type>
+      <name>topo</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>ab2ac489ed383e1ea194c995a050aff5c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>RoutingTable</type>
+      <name>rtable</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>ac34a93c5caf0a8cea4be724c0e2629b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>DistanceTable</type>
+      <name>dtable</name>
+      <anchorfile>classRouting.html</anchorfile>
+      <anchor>a996b0fa30f2c1aecee33ec5ef4280754</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>StopPoint</name>
+    <filename>classStopPoint.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>StopPoint</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a59fabd20af0894df3f1468fa82460b4f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>StopPoint</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ae84ff75c7a55ba3ee1cee1001ae2e7a6</anchor>
+      <arglist>(int requestID, int location, bool isPickup, double time, double maxWaitingTime)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>StopPoint</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>aa1af6d51512ebdecfbf8ef798d3507bc</anchor>
+      <arglist>(const StopPoint &amp;other)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~StopPoint</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>aa1f450ae146cb9c82989efcd685a0bde</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setRequestID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a2fc13ef5edfa5d54bb8d2a9eb772144a</anchor>
+      <arglist>(int requestID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getRequestID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a5a18196ee7c15763235fb424a9b3d016</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setPassenger</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a9df12a6035bdb5f2b38a774b8a936839</anchor>
+      <arglist>(int passenger)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getPassenger</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>af49fdb546ec5b9fa724af22dc519e598</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setLocation</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ae8a338f92d5e511a87dd0e74e35cd89d</anchor>
+      <arglist>(int location)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getLocation</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a8f2e785c1299fbd56b9f4bf4c2dda11f</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setNodeID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a75263e0e5c0b0ec4e6f6c0e7e54ed8b5</anchor>
+      <arglist>(std::string nodeID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual std::string</type>
+      <name>getNodeID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>abd4a037422191697227c713722b20ef9</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setIsPickup</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a2a9226adf9a0e49dac164b3a77b6bcf0</anchor>
+      <arglist>(bool isPickup)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>getIsPickup</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ac6d464ec10b3989072e52d91d37e34c8</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a93d3f7d3f028f70804c5ec9666b643ed</anchor>
+      <arglist>(double time)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a8f65ac5eeed92d6f7dffbbb496f40f27</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setActualTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ae942a17cf2ec03b792e882c433ece3a0</anchor>
+      <arglist>(double time)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getActualTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a7be92469ad736bb12507cfce0f3856eb</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setMaxWaitingTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a4cae83ec706778f889020b89723ded3d</anchor>
+      <arglist>(double maxWaitingTime)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getMaxWaitingTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>afc24005e28fdff5b1f4c432085e867ec</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setXcoord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a8e0dbe5e351c61f8b733310ccece4fe7</anchor>
+      <arglist>(int x_coord)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getXcoord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a1e1884be8a64f858a5ab587e7046e355</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setYcoord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a938da8eaedca70b04cc61b6892186184</anchor>
+      <arglist>(int y_coord)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getYcoord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ab59771321e775c363a5f719616b992f8</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>requestID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ae32c784b3aa174882829ced15b4a4bbc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>location</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a57548acd22826ee66e326335a43350e8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>x_coord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a29912727b8ce12bc8b3eebe0eafab9d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>y_coord</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a48fb4459ae9fb8285b90f68651d2c8b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::string</type>
+      <name>nodeID</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a9229ca52aecda099db8ca923579cb5af</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>passenger</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a947e3fe6b8e4c17a6cb0f7ae256cec0e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>bool</type>
+      <name>isPickup</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>af134a891bfd21b220fbff39cb7575a9f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>double</type>
+      <name>time</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a177670cdebb454667a6190b776dfb4bc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>double</type>
+      <name>actualTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>ad1b8ff12f8fc82e8a631c5722ccb42b4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>double</type>
+      <name>maxWaitingTime</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a53c16f064ae2e942ce215d553419ca75</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>copy</name>
+      <anchorfile>classStopPoint.html</anchorfile>
+      <anchor>a729ae91d0acfc601b49a5eebfe64b848</anchor>
+      <arglist>(const StopPoint &amp;other)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>TripCoordinator</name>
+    <filename>classTripCoordinator.html</filename>
+    <base>cSimpleModule</base>
+    <base protection="private">cListener</base>
+    <member kind="function" virtualness="virtual">
+      <type>virtual StopPoint *</type>
+      <name>getNextStopPoint</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>aa9158ced48318bbc9b4a95fb662f459b</anchor>
+      <arglist>(int vehicleID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual StopPoint *</type>
+      <name>getCurrentStopPoint</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a23cd395584e94a575509fe5928c85aeb</anchor>
+      <arglist>(int vehicleID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>registerVehicle</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>aeafaff5f10597b2d5d3172c7ca97c5ac</anchor>
+      <arglist>(Vehicle *v, std::string nodeID)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>initialize</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a3fd4bfb089d6c24e0b56ddcc92ba852c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>finish</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a8b937965a5bb1307e97170169f1ba5b4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>receiveSignal</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>ac30b539ad1693837bbec2cd57268e035</anchor>
+      <arglist>(cComponent *source, simsignal_t signalID, cObject *obj)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual std::map&lt; int, double &gt;</type>
+      <name>getMinDistanceToPickup</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a8ecbeed5ad0806a62f1cbc9b1545a57f</anchor>
+      <arglist>(StopPoint *pickupSP)</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual double</type>
+      <name>getDistance</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a70add4d2e57468bef656e5239e002a5d</anchor>
+      <arglist>(std::string sourceNode, int targetAddress)</arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>std::map&lt; int, std::list&lt; StopPoint * &gt; &gt;</type>
+      <name>RequestsPerVehicle</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>ae111787013e341119ab52f7c2a14fd16</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef" protection="private">
+      <type>std::map&lt; int, TripRequest * &gt;</type>
+      <name>UnservedRequests</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a7ff6ebeb962b93fd6a8d60bbff86f54b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>totrequests</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a8925d93a4a9eba1e4591f83fb5b03639</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>tripRequest</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>ac27893c004b954442b981c0c940ed8a5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>newTripAssigned</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a5ac45475e320a9071187fc1bbe7e721e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>simsignal_t</type>
+      <name>waitingTime</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>ab6889dae1430c9f1f413fbf0417de93b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; Vehicle *, std::string &gt;</type>
+      <name>vehicles</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a1c2c7defae1e67f86c64927e5e0bb295</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>RequestsPerVehicle</type>
+      <name>rPerVehicle</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>a0468807ab9e495ed3e019daad962a244</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>UnservedRequests</type>
+      <name>uRequests</name>
+      <anchorfile>classTripCoordinator.html</anchorfile>
+      <anchor>ac1eacaf96140d9660cc9176a012e66e6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>TripRequest</name>
+    <filename>classTripRequest.html</filename>
+    <base>cObject</base>
+    <member kind="function">
+      <type></type>
+      <name>TripRequest</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ab15bb014af46b1c2f4d580da5bedfda1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~TripRequest</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a99cf6064845ccd1ea47f7de60434022b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TripRequest</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a97642649bb460af70b512d1e5995770b</anchor>
+      <arglist>(const TripRequest &amp;other)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual StopPoint *</type>
+      <name>getPickupSP</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ae8f2f01e025315e9863aee1deca365bf</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setPickupSP</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ae11dfdc7743ff1260ab2fb3c70f12f83</anchor>
+      <arglist>(StopPoint *pickupSP)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual StopPoint *</type>
+      <name>getDropoffSP</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a23cada138ab0700a86f5396a10ecd804</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setDropoffSP</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a972ffbf0b1cece9b81b768b827f1e52d</anchor>
+      <arglist>(StopPoint *dropoffSP)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getID</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>aca20223c8e3861af0b3ece59c8293d04</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getVehicleID</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>aaeea4d577d7b288ee02491274dcdeba1</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setVehicleID</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a2246e5bd749ce6aef3d00c5e725de5ca</anchor>
+      <arglist>(int vehicleID)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getNPassenger</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>acb5714397f1d55bff2876dcb60c0e68d</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setNPassenger</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a53daa559f24324ec32993002f50bb5a3</anchor>
+      <arglist>(int nPassenger)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getDistanceToPickup</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ae4084a81d2a5a8bd3ec09280f8ff9e91</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setDistanceToPickup</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a0e6e066737de04c1b9357913b763a379</anchor>
+      <arglist>(int distanceToPickup)</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>id</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a8155da8ac4cab9bb7eb0c7e871feb2ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>StopPoint *</type>
+      <name>pickup</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a6507c85d70656f4570b3653f40ede175</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>StopPoint *</type>
+      <name>dropoff</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a6bb627eca1e801551529dfac99414e04</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>vehicleID</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>a1bb844defff2dfd7c0de06e564a9530c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>nPassenger</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>aecece72ab47df58cfe96c9187442b756</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>distanceToPickup</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>aa36e6e4122cf20f308718f3aac5b11c4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected" static="yes">
+      <type>static int</type>
+      <name>nextID</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ac2e1bbdc295f2a1e72317912ef62e89c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>copy</name>
+      <anchorfile>classTripRequest.html</anchorfile>
+      <anchor>ab04765e69f14d4eba2cf1480f0c9f8e4</anchor>
+      <arglist>(const TripRequest &amp;other)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Vehicle</name>
+    <filename>classVehicle.html</filename>
+    <base>Packet</base>
+    <member kind="function">
+      <type></type>
+      <name>Vehicle</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>abaad8187d9f2ede4fb8ea18de0a6764c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~Vehicle</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a61ab140c755b8e0e824d54117cf4546f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getID</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a0ecf545df2595a1e8cf215c742dafc71</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getTraveledDistance</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a3fbdbeb26b8575c4842830bd4d7de0e2</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setTraveledDistance</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a362c0814d08d1b3faba95ffc665d48e6</anchor>
+      <arglist>(int distance)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual int</type>
+      <name>getSeats</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a4e7830946ccd2112891d5d01d55b25e0</anchor>
+      <arglist>() const </arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>setSeats</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a8c2a83745c2d880cde4316c782f70b9f</anchor>
+      <arglist>(int seats)</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>id</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a7421a7a2d98b4ec6dfabd1041261aa03</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>seats</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a371cc93ead75f79a56ff719d5bb95099</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>traveledDistance</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>a42ebae2f047a2d43c33f25b2a9ead044</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected" static="yes">
+      <type>static int</type>
+      <name>nextID</name>
+      <anchorfile>classVehicle.html</anchorfile>
+      <anchor>aab9619b0db39d6fc2c6ab84327cb4660</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>NEDSupport</name>
+    <filename>namespaceNEDSupport.html</filename>
+  </compound>
+  <compound kind="dir">
+    <name>areasmanager</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/areasmanager/</path>
+    <filename>dir_ecf6eeb7b55ed5d7647a8e7020f6b0b0.html</filename>
+    <file>GeographicalArea.cc</file>
+    <file>GeographicalArea.h</file>
+    <file>Geohash.cc</file>
+    <file>Geohash.h</file>
+  </compound>
+  <compound kind="dir">
+    <name>common</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/common/</path>
+    <filename>dir_fdedb0aba14d44ce9d99bc100e026e6a.html</filename>
+    <file>Packet_m.h</file>
+    <file>StopPoint.cc</file>
+    <file>StopPoint.h</file>
+    <file>TripRequest.cc</file>
+    <file>TripRequest.h</file>
+    <file>Vehicle.cc</file>
+    <file>Vehicle.h</file>
+  </compound>
+  <compound kind="dir">
+    <name>coordinator</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/coordinator/</path>
+    <filename>dir_180dea3577fd2c06d7642ce156219f7e.html</filename>
+    <file>TripCoordinator.cc</file>
+    <file>TripCoordinator.h</file>
+  </compound>
+  <compound kind="dir">
+    <name>node</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/node/</path>
+    <filename>dir_18ae7af74d885898b85cbb543ae51b63.html</filename>
+    <file>App.cc</file>
+    <file>L2Queue.cc</file>
+    <file>Routing.cc</file>
+    <file>Routing.h</file>
+  </compound>
+  <compound kind="dir">
+    <name>src</name>
+    <path>/home/andrea/omnetpp-4.6/WorkspaceTesi/AMoD_Simulator/src/</path>
+    <filename>dir_68267d1309a1af8e8297ef4c3efbcdba.html</filename>
+    <dir>areasmanager</dir>
+    <dir>common</dir>
+    <dir>coordinator</dir>
+    <dir>node</dir>
+  </compound>
+</tagfile>

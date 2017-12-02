@@ -1,0 +1,26 @@
+var classApp =
+[
+    [ "Vehicles", "classApp.html#a4ac3b5b2a9de2821d72f4daa6b041e9c", null ],
+    [ "App", "classApp.html#acb8cbf3e285b91d0170ffe87df5989c5", null ],
+    [ "~App", "classApp.html#a34f1f253b1cef5f4ecbac66eaf6964ec", null ],
+    [ "buildTripRequest", "classApp.html#aee28ef681907f7b493c06783bdd182f4", null ],
+    [ "handleMessage", "classApp.html#a02dd7f36909205a67212d51e2f03b45a", null ],
+    [ "initialize", "classApp.html#aad16fd386868f1be01a7fdd3309d714d", null ],
+    [ "receiveSignal", "classApp.html#a54479c21180d555ac71c4bc3fc52551f", null ],
+    [ "destAddresses", "classApp.html#a8da0cf26000e5c9d3dfc9a7c39522c15", null ],
+    [ "generatePacket", "classApp.html#a576465b3d4590d6befa908b2e5f3ee5a", null ],
+    [ "hasVehicle", "classApp.html#ae7f07e9b22a0352bfeb973ad97e02a51", null ],
+    [ "maxWaitingTime", "classApp.html#a92fd1cedd03ea038596c1bf062218eb6", null ],
+    [ "myAddress", "classApp.html#a50bdb7f8f609fbf0eda16c182db7eb58", null ],
+    [ "newTripAssigned", "classApp.html#a6ed3b1c607fd8416451e4316414eb494", null ],
+    [ "nodePath", "classApp.html#abbae4594f8d854bce7608fc429d0831f", null ],
+    [ "packetLengthBytes", "classApp.html#a0af8286566910581b22632ca9cbdbf12", null ],
+    [ "pkCounter", "classApp.html#a0b5a5f9f7d233b454c4fe39245cb95ec", null ],
+    [ "r", "classApp.html#abc4c742572b9433553b79f6e790ddaca", null ],
+    [ "sendIATime", "classApp.html#a0bbead50089948224d4073f956ea14f6", null ],
+    [ "tcoord", "classApp.html#a36198d0e58ee55082b484ccad173cd76", null ],
+    [ "tripRequest", "classApp.html#a6509d02da4a2db43bdc5a599d7ef5a72", null ],
+    [ "vehicles", "classApp.html#ade0c8e7378851c2de8b255da2702c5ad", null ],
+    [ "x_coord", "classApp.html#a82bfd8c6b79066c0849531db44ce4083", null ],
+    [ "y_coord", "classApp.html#a0a2535e9fac8f96cb90d12ee6740d92a", null ]
+];

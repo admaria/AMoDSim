@@ -80,7 +80,10 @@ void TripCoordinator::receiveSignal(cComponent *source, simsignal_t signalID, cO
 }
 
 /**
- * Get for each vehicle the min time needed to reach the pickupSP
+ * Get for each vehicle the min time needed to reach the pickupSP.
+ * 
+ * @param pickupSP
+ * @return 
  */
 std::map<int,double> TripCoordinator::getMinDistanceToPickup(StopPoint *pickupSP)
 {
@@ -122,7 +125,11 @@ std::map<int,double> TripCoordinator::getMinDistanceToPickup(StopPoint *pickupSP
 
 
 /**
- * Get the time-distance from the sourceNode to the targetNode
+ * Get the time-distance from the sourceNode to the targetNode.
+ * 
+ * @param sourceNode The source node fullPath (e.g. AMoD.n[0])
+ * @param targetAddress The destination address
+ * @return Time needed to reach the target address starting from the source node
  */
 double TripCoordinator::getDistance(std::string sourceNode, int targetAddress)
 {
@@ -137,7 +144,10 @@ double TripCoordinator::getDistance(std::string sourceNode, int targetAddress)
 
 
 /**
- * Give the next stop point for the specific vehicle
+ * Get the next stop point for the specified vehicle.
+ * 
+ * @param vehicleID
+ * @return 
  */
 StopPoint* TripCoordinator::getNextStopPoint(int vehicleID)
 {
@@ -156,7 +166,10 @@ StopPoint* TripCoordinator::getNextStopPoint(int vehicleID)
 }
 
 /**
- * Give the current stop point for the specific vehicle
+ * Get the current stop point for the specified vehicle.
+ * 
+ * @param vehicleID
+ * @return 
  */
 StopPoint* TripCoordinator::getCurrentStopPoint(int vehicleID)
 {
@@ -191,7 +204,10 @@ void TripCoordinator::finish()
 }
 
 /**
- * Register the vehicle v in the node nodeID
+ * Register the vehicle v in the node nodeID.
+ * 
+ * @param v
+ * @param nodeID The full path of the node (e.g. AMoD.n[0])
  */
 void TripCoordinator::registerVehicle(Vehicle *v, std::string nodeID)
 {
