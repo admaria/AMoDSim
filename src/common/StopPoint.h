@@ -43,7 +43,7 @@ class StopPoint {
         virtual void setTime(double time);
         virtual double getTime() const;
 
-        virtual void setActualTime(double time);
+        virtual void setActualTime(double actualTime);
         virtual double getActualTime() const;
 
         virtual void setMaxWaitingTime(double maxWaitingTime);
@@ -54,6 +54,7 @@ class StopPoint {
 
         virtual void setYcoord(int y_coord);
         virtual int getYcoord() const;
+        
 };
 
 #endif /* STOPPOINT_H_ */

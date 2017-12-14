@@ -6,7 +6,7 @@ var searchData=
   ['vehicle_2ecc',['Vehicle.cc',['../Vehicle_8cc.html',1,'']]],
   ['vehicle_2eh',['Vehicle.h',['../Vehicle_8h.html',1,'']]],
   ['vehicleid',['vehicleID',['../classTripRequest.html#a1bb844defff2dfd7c0de06e564a9530c',1,'TripRequest']]],
-  ['vehicles',['vehicles',['../classTripCoordinator.html#a1c2c7defae1e67f86c64927e5e0bb295',1,'TripCoordinator::vehicles()'],['../classApp.html#ade0c8e7378851c2de8b255da2702c5ad',1,'App::vehicles()'],['../classApp.html#a4ac3b5b2a9de2821d72f4daa6b041e9c',1,'App::Vehicles()']]],
+  ['vehicles',['Vehicles',['../classApp.html#a4ac3b5b2a9de2821d72f4daa6b041e9c',1,'App::Vehicles()'],['../classBaseCoord.html#aa247b13a4ba09a9695d5b5cc8ffd9428',1,'BaseCoord::vehicles()'],['../classApp.html#ade0c8e7378851c2de8b255da2702c5ad',1,'App::vehicles()']]],
   ['visit',['visit',['/home/andrea/omnetpp-4.6//doc/api/classcVisitor.html#acb24dffe98329aa11479419c644ccdb4',1,'cVisitor']]],
   ['voiddelfunc',['VoidDelFunc',['/home/andrea/omnetpp-4.6//doc/api/group__EnumsTypes.html#ga4b8f31d53f8936a0c556ceece17a058f',1,]]],
   ['voiddupfunc',['VoidDupFunc',['/home/andrea/omnetpp-4.6//doc/api/group__EnumsTypes.html#ga0f99009fbbd87108d6c0679188d7730a',1,]]]

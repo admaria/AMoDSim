@@ -142,6 +142,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afabf25493a976ab44ae8c2977a4f886a"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#afabf25493a976ab44ae8c2977a4f886a">getDistanceToTarget</a> (int dstAddr)</td></tr>
 <tr class="memdesc:afabf25493a976ab44ae8c2977a4f886a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the time distance from current node to target one.  <a href="#afabf25493a976ab44ae8c2977a4f886a">More...</a><br/></td></tr>
 <tr class="separator:afabf25493a976ab44ae8c2977a4f886a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0c1282078be533aace240461c2ad636"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#ac0c1282078be533aace240461c2ad636">getSpaceDistanceToTarget</a> (int dstAddr)</td></tr>
+<tr class="memdesc:ac0c1282078be533aace240461c2ad636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the space distance from current node to target one.  <a href="#ac0c1282078be533aace240461c2ad636">More...</a><br/></td></tr>
+<tr class="separator:ac0c1282078be533aace240461c2ad636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcSimpleModule"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcSimpleModule')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html">cSimpleModule</a></td></tr>
 <tr class="memitem:a73cd49242b12142d1bcf9d8e44725d20 inherit pub_methods_classcSimpleModule"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a73cd49242b12142d1bcf9d8e44725d20">cSimpleModule</a> (unsigned stacksize=0)</td></tr>
 <tr class="separator:a73cd49242b12142d1bcf9d8e44725d20 inherit pub_methods_classcSimpleModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -488,6 +491,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa0b18cfee0c4ef314507f650f826f442"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#aa0b18cfee0c4ef314507f650f826f442">timeDistanceToTarget</a> (<a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html">cTopology::Node</a> *thisNode)</td></tr>
 <tr class="memdesc:aa0b18cfee0c4ef314507f650f826f442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate time distance from current node to target one.  <a href="#aa0b18cfee0c4ef314507f650f826f442">More...</a><br/></td></tr>
 <tr class="separator:aa0b18cfee0c4ef314507f650f826f442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c07b73b01d582649eb60dd737d2e6a2"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#a7c07b73b01d582649eb60dd737d2e6a2">spaceDistanceToTarget</a> (<a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html">cTopology::Node</a> *thisNode)</td></tr>
+<tr class="memdesc:a7c07b73b01d582649eb60dd737d2e6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate space distance from current node to target one.  <a href="#a7c07b73b01d582649eb60dd737d2e6a2">More...</a><br/></td></tr>
+<tr class="separator:a7c07b73b01d582649eb60dd737d2e6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcSimpleModule"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcSimpleModule')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html">cSimpleModule</a></td></tr>
 <tr class="memitem:ae7367768a6ad61a0e2256635e1ef6de2 inherit pro_methods_classcSimpleModule"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ae7367768a6ad61a0e2256635e1ef6de2">activity</a> ()</td></tr>
 <tr class="separator:ae7367768a6ad61a0e2256635e1ef6de2 inherit pro_methods_classcSimpleModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -515,11 +521,15 @@ Private Types</h2></td></tr>
 <tr class="separator:a0b1d84b422ea8ac25bd517743f9a83d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aede2c1624ebcc3d86a958af50e396f89"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#aede2c1624ebcc3d86a958af50e396f89">DistanceTable</a></td></tr>
 <tr class="separator:aede2c1624ebcc3d86a958af50e396f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc751fadaf72058c45f645a2ede02e02"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#abc751fadaf72058c45f645a2ede02e02">SpaceDistanceTable</a></td></tr>
+<tr class="separator:abc751fadaf72058c45f645a2ede02e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab1ef7ab9ebf282cd94329f2c51aeadb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a></td></tr>
 <tr class="separator:ab1ef7ab9ebf282cd94329f2c51aeadb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab68627d1dc7febd88581c4b240391275"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#ab68627d1dc7febd88581c4b240391275">channelLength</a></td></tr>
+<tr class="separator:ab68627d1dc7febd88581c4b240391275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a250863dac74aaff1f6e2d4ab569fbbbc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">channelTime</a></td></tr>
 <tr class="separator:a250863dac74aaff1f6e2d4ab569fbbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ac489ed383e1ea194c995a050aff5c"><td class="memItemLeft" align="right" valign="top"><a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html">cTopology</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a></td></tr>
@@ -528,6 +538,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ac34a93c5caf0a8cea4be724c0e2629b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a996b0fa30f2c1aecee33ec5ef4280754"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRouting.html#aede2c1624ebcc3d86a958af50e396f89">DistanceTable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">dtable</a></td></tr>
 <tr class="separator:a996b0fa30f2c1aecee33ec5ef4280754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd7fad6adb246f1395f63c3d08c8abe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRouting.html#abc751fadaf72058c45f645a2ede02e02">SpaceDistanceTable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRouting.html#a3cd7fad6adb246f1395f63c3d08c8abe">sdtable</a></td></tr>
+<tr class="separator:a3cd7fad6adb246f1395f63c3d08c8abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -587,6 +599,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abc751fadaf72058c45f645a2ede02e02"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;int,double&gt; <a class="el" href="classRouting.html#abc751fadaf72058c45f645a2ede02e02">Routing::SpaceDistanceTable</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a34dde015c63b66abe788ddf8b515fae1"></a>
 <div class="memitem">
@@ -610,9 +642,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the current node address. </p>
-<div class="fragment"><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;{</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
 <div class="ttc" id="classRouting_html_ab1ef7ab9ebf282cd94329f2c51aeadb7"><div class="ttname"><a href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">Routing::myAddress</a></div><div class="ttdeci">int myAddress</div><div class="ttdef"><b>Definition:</b> Routing.h:16</div></div>
 </div><!-- fragment -->
 </div>
@@ -628,7 +660,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">double Routing::getDistanceToTarget </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dstAddr</em></td><td>)</td>
+          <td class="paramname"><em>dstAddress</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -640,10 +672,54 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Return the time distance from current node to target one. </p>
-<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                                 {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">dtable</a>.find(dstAddress)-&gt;second;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="ttc" id="classRouting_html_a996b0fa30f2c1aecee33ec5ef4280754"><div class="ttname"><a href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">Routing::dtable</a></div><div class="ttdeci">DistanceTable dtable</div><div class="ttdef"><b>Definition:</b> Routing.h:24</div></div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dstAddress</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                                 {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">dtable</a>.find(dstAddress)-&gt;second;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="ttc" id="classRouting_html_a996b0fa30f2c1aecee33ec5ef4280754"><div class="ttname"><a href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">Routing::dtable</a></div><div class="ttdeci">DistanceTable dtable</div><div class="ttdef"><b>Definition:</b> Routing.h:25</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ac0c1282078be533aace240461c2ad636"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Routing::getSpaceDistanceToTarget </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the space distance from current node to target one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dstAddress</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                      {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRouting.html#a3cd7fad6adb246f1395f63c3d08c8abe">sdtable</a>.find(dstAddress)-&gt;second;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="ttc" id="classRouting_html_a3cd7fad6adb246f1395f63c3d08c8abe"><div class="ttname"><a href="classRouting.html#a3cd7fad6adb246f1395f63c3d08c8abe">Routing::sdtable</a></div><div class="ttdeci">SpaceDistanceTable sdtable</div><div class="ttdef"><b>Definition:</b> Routing.h:28</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -670,46 +746,42 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ac1a639fd9b931de297477fca26341650">cSimpleModule</a>.</p>
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classVehicle.html">Vehicle</a> *pk = <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/group__Functions.html#gac05a322b9912da77f8b797eeab7805f4">check_and_cast</a>&lt;<a class="code" href="classVehicle.html">Vehicle</a> *&gt;(msg);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> destAddr = pk-&gt;<a class="code" href="classPacket.html#ae9a8f9615efef8c153c7be53d053dba1">getDestAddr</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">//If this node is the destination, forward the vehicle to the application level</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (destAddr == <a class="code" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a>)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a94590ba6481116f29f4c43d00733deea">send</a>(pk, <span class="stringliteral">&quot;localOut&quot;</span>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    RoutingTable::iterator it = <a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>.find(destAddr);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">//The destination address is not reachable</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (it==<a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>.end())</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">delete</span> pk;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">int</span> outGateIndex = (*it).second;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    pk-&gt;<a class="code" href="classPacket.html#a992007aed69d2cb30e265f0112030618">setHopCount</a>(pk-&gt;<a class="code" href="classPacket.html#a7a227b54b6f5a552d1611631e6d2e07c">getHopCount</a>()+1);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    pk-&gt;<a class="code" href="classVehicle.html#a362c0814d08d1b3faba95ffc665d48e6">setTraveledDistance</a>(pk-&gt;<a class="code" href="classVehicle.html#a3fbdbeb26b8575c4842830bd4d7de0e2">getTraveledDistance</a>()+ <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a4000b9e28b62b3c1816d69695d93da95">getNodeFor</a>(<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>())-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0)-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">getWeight</a>());</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">//send the vehicle to the next node</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a94590ba6481116f29f4c43d00733deea">send</a>(pk, <span class="stringliteral">&quot;out&quot;</span>, outGateIndex);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classVehicle.html">Vehicle</a> *pk = <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/group__Functions.html#gac05a322b9912da77f8b797eeab7805f4">check_and_cast</a>&lt;<a class="code" href="classVehicle.html">Vehicle</a> *&gt;(msg);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">int</span> destAddr = pk-&gt;<a class="code" href="classPacket.html#ae9a8f9615efef8c153c7be53d053dba1">getDestAddr</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">//If this node is the destination, forward the vehicle to the application level</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (destAddr == <a class="code" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a>)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a94590ba6481116f29f4c43d00733deea">send</a>(pk, <span class="stringliteral">&quot;localOut&quot;</span>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    RoutingTable::iterator it = <a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>.find(destAddr);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">//The destination address is not reachable</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> (it==<a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>.end())</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">delete</span> pk;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">int</span> outGateIndex = (*it).second;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    pk-&gt;<a class="code" href="classPacket.html#a992007aed69d2cb30e265f0112030618">setHopCount</a>(pk-&gt;<a class="code" href="classPacket.html#a7a227b54b6f5a552d1611631e6d2e07c">getHopCount</a>()+1);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    pk-&gt;<a class="code" href="classVehicle.html#a362c0814d08d1b3faba95ffc665d48e6">setTraveledDistance</a>(pk-&gt;<a class="code" href="classVehicle.html#a3fbdbeb26b8575c4842830bd4d7de0e2">getTraveledDistance</a>() + <a class="code" href="classRouting.html#ab68627d1dc7febd88581c4b240391275">channelLength</a>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">//send the vehicle to the next node</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a94590ba6481116f29f4c43d00733deea">send</a>(pk, <span class="stringliteral">&quot;out&quot;</span>, outGateIndex);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="ttc" id="classRouting_html_ab68627d1dc7febd88581c4b240391275"><div class="ttname"><a href="classRouting.html#ab68627d1dc7febd88581c4b240391275">Routing::channelLength</a></div><div class="ttdeci">int channelLength</div><div class="ttdef"><b>Definition:</b> Routing.h:17</div></div>
 <div class="ttc" id="classVehicle_html"><div class="ttname"><a href="classVehicle.html">Vehicle</a></div><div class="ttdef"><b>Definition:</b> Vehicle.h:6</div></div>
 <div class="ttc" id="classVehicle_html_a362c0814d08d1b3faba95ffc665d48e6"><div class="ttname"><a href="classVehicle.html#a362c0814d08d1b3faba95ffc665d48e6">Vehicle::setTraveledDistance</a></div><div class="ttdeci">virtual void setTraveledDistance(int distance)</div><div class="ttdef"><b>Definition:</b> Vehicle.cc:35</div></div>
 <div class="ttc" id="classPacket_html_ae9a8f9615efef8c153c7be53d053dba1"><div class="ttname"><a href="classPacket.html#ae9a8f9615efef8c153c7be53d053dba1">Packet::getDestAddr</a></div><div class="ttdeci">virtual int getDestAddr() const </div></div>
 <div class="ttc" id="classVehicle_html_a3fbdbeb26b8575c4842830bd4d7de0e2"><div class="ttname"><a href="classVehicle.html#a3fbdbeb26b8575c4842830bd4d7de0e2">Vehicle::getTraveledDistance</a></div><div class="ttdeci">virtual int getTraveledDistance() const </div><div class="ttdef"><b>Definition:</b> Vehicle.cc:30</div></div>
 <div class="ttc" id="classcSimpleModule_html_a94590ba6481116f29f4c43d00733deea"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#a94590ba6481116f29f4c43d00733deea">cSimpleModule::send</a></div><div class="ttdeci">int send(cMessage *msg, int gateid)</div></div>
-<div class="ttc" id="classRouting_html_ac34a93c5caf0a8cea4be724c0e2629b8"><div class="ttname"><a href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">Routing::rtable</a></div><div class="ttdeci">RoutingTable rtable</div><div class="ttdef"><b>Definition:</b> Routing.h:21</div></div>
+<div class="ttc" id="classRouting_html_ac34a93c5caf0a8cea4be724c0e2629b8"><div class="ttname"><a href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">Routing::rtable</a></div><div class="ttdeci">RoutingTable rtable</div><div class="ttdef"><b>Definition:</b> Routing.h:22</div></div>
 <div class="ttc" id="classPacket_html_a992007aed69d2cb30e265f0112030618"><div class="ttname"><a href="classPacket.html#a992007aed69d2cb30e265f0112030618">Packet::setHopCount</a></div><div class="ttdeci">virtual void setHopCount(int hopCount)</div></div>
-<div class="ttc" id="classcTopology_html_a4000b9e28b62b3c1816d69695d93da95"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a4000b9e28b62b3c1816d69695d93da95">cTopology::getNodeFor</a></div><div class="ttdeci">Node * getNodeFor(cModule *mod)</div></div>
 <div class="ttc" id="classRouting_html_ab1ef7ab9ebf282cd94329f2c51aeadb7"><div class="ttname"><a href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">Routing::myAddress</a></div><div class="ttdeci">int myAddress</div><div class="ttdef"><b>Definition:</b> Routing.h:16</div></div>
-<div class="ttc" id="classRouting_html_ab2ac489ed383e1ea194c995a050aff5c"><div class="ttname"><a href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">Routing::topo</a></div><div class="ttdeci">cTopology * topo</div><div class="ttdef"><b>Definition:</b> Routing.h:18</div></div>
-<div class="ttc" id="classcTopology_1_1Link_html_a60a0887cfc44372e86a23fc2a5385fbc"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">cTopology::Link::getWeight</a></div><div class="ttdeci">double getWeight() const </div></div>
 <div class="ttc" id="classPacket_html_a7a227b54b6f5a552d1611631e6d2e07c"><div class="ttname"><a href="classPacket.html#a7a227b54b6f5a552d1611631e6d2e07c">Packet::getHopCount</a></div><div class="ttdeci">virtual int getHopCount() const </div></div>
-<div class="ttc" id="classcTopology_1_1Node_html_aefec9c109d20b4603ef6cccece08249a"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">cTopology::Node::getPath</a></div><div class="ttdeci">LinkOut * getPath(int) const </div></div>
-<div class="ttc" id="classcModule_html_a6e487556d9301e41654d25c767d58148"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">cModule::getParentModule</a></div><div class="ttdeci">virtual cModule * getParentModule() const </div></div>
 <div class="ttc" id="group__Functions_html_gac05a322b9912da77f8b797eeab7805f4"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/group__Functions.html#gac05a322b9912da77f8b797eeab7805f4">check_and_cast</a></div><div class="ttdeci">T check_and_cast(cObject *p)</div></div>
 </div><!-- fragment -->
 </div>
@@ -739,46 +811,50 @@ Additional Inherited Members</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">myAddress</a> = <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">par</a>(<span class="stringliteral">&quot;address&quot;</span>);</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">channelTime</a> = <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">par</a>(<span class="stringliteral">&quot;channelTime&quot;</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// Brute force approach -- every node does topology discovery on its own,</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">// and finds routes to all other nodes independently, at the beginning</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">// of the simulation. This could be improved: (1) central routing database,</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// (2) on-demand route calculation</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a> = <span class="keyword">new</span> <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html">cTopology</a>(<span class="stringliteral">&quot;topo&quot;</span>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::vector&lt;std::string&gt; nedTypes;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    nedTypes.push_back(<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a4c211e317ca16d4aa76f3f685ed82843">getNedTypeName</a>());</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#ae2b6970c74322b7179e136029a187f9c">extractByNedTypeName</a>(nedTypes);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html">cTopology::Node</a> *thisNode = <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a4000b9e28b62b3c1816d69695d93da95">getNodeFor</a>(<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>());</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classRouting.html#ab68627d1dc7febd88581c4b240391275">channelLength</a> = <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">par</a>(<span class="stringliteral">&quot;nodeDistance&quot;</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">// Brute force approach -- every node does topology discovery on its own,</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// and finds routes to all other nodes independently, at the beginning</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">// of the simulation. This could be improved: (1) central routing database,</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// (2) on-demand route calculation</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a> = <span class="keyword">new</span> <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html">cTopology</a>(<span class="stringliteral">&quot;topo&quot;</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    std::vector&lt;std::string&gt; nedTypes;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    nedTypes.push_back(<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a4c211e317ca16d4aa76f3f685ed82843">getNedTypeName</a>());</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#ae2b6970c74322b7179e136029a187f9c">extractByNedTypeName</a>(nedTypes);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// find and store next hops</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a9ab37e112ec07e7cdded2c5046910957">getNumNodes</a>(); i++)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i)==thisNode) <span class="keywordflow">continue</span>; <span class="comment">// skip ourselves</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="comment">//topo-&gt;calculateUnweightedSingleShortestPathsTo(topo-&gt;getNode(i));</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a51a47079b356ff3a70964f4f518e3a3e">calculateWeightedSingleShortestPathsTo</a>(<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i));</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html">cTopology::Node</a> *thisNode = <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a4000b9e28b62b3c1816d69695d93da95">getNodeFor</a>(<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">getParentModule</a>());</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// find and store next hops</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a9ab37e112ec07e7cdded2c5046910957">getNumNodes</a>(); i++)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i)==thisNode) <span class="keywordflow">continue</span>; <span class="comment">// skip ourselves</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">//topo-&gt;calculateUnweightedSingleShortestPathsTo(topo-&gt;getNode(i));</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a5dc7c43818c611596d155f75e8326a77">getNumPaths</a>()==0) <span class="keywordflow">continue</span>; <span class="comment">// not connected</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a51a47079b356ff3a70964f4f518e3a3e">calculateWeightedSingleShortestPathsTo</a>(<a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i));</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html">cGate</a> *parentModuleGate = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0)-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#aea44c077b46de76a7202bf243ac2b6d7">getLocalGate</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">int</span> gateIndex = parentModuleGate-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html#a0ec58c0c39b875a03cfc18bd20059d3b">getIndex</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">int</span> address = <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i)-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a3c1a00ba6a226ea0438f8c7d1726d9b0">getModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">par</a>(<span class="stringliteral">&quot;address&quot;</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>[address] = gateIndex;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">dtable</a>[address] = <a class="code" href="classRouting.html#aa0b18cfee0c4ef314507f650f826f442">timeDistanceToTarget</a>(thisNode);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//delete topo;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a5dc7c43818c611596d155f75e8326a77">getNumPaths</a>()==0) <span class="keywordflow">continue</span>; <span class="comment">// not connected</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html">cGate</a> *parentModuleGate = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0)-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#aea44c077b46de76a7202bf243ac2b6d7">getLocalGate</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">int</span> gateIndex = parentModuleGate-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html#a0ec58c0c39b875a03cfc18bd20059d3b">getIndex</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">int</span> address = <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">getNode</a>(i)-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a3c1a00ba6a226ea0438f8c7d1726d9b0">getModule</a>()-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">par</a>(<span class="stringliteral">&quot;address&quot;</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">rtable</a>[address] = gateIndex;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">dtable</a>[address] = <a class="code" href="classRouting.html#aa0b18cfee0c4ef314507f650f826f442">timeDistanceToTarget</a>(thisNode);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classRouting.html#a3cd7fad6adb246f1395f63c3d08c8abe">sdtable</a>[address] = <a class="code" href="classRouting.html#a7c07b73b01d582649eb60dd737d2e6a2">spaceDistanceToTarget</a>(thisNode);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">topo</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="ttc" id="classcComponent_html_a4c211e317ca16d4aa76f3f685ed82843"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a4c211e317ca16d4aa76f3f685ed82843">cComponent::getNedTypeName</a></div><div class="ttdeci">virtual const char * getNedTypeName() const </div></div>
-<div class="ttc" id="classRouting_html_a996b0fa30f2c1aecee33ec5ef4280754"><div class="ttname"><a href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">Routing::dtable</a></div><div class="ttdeci">DistanceTable dtable</div><div class="ttdef"><b>Definition:</b> Routing.h:24</div></div>
+<div class="ttc" id="classRouting_html_ab68627d1dc7febd88581c4b240391275"><div class="ttname"><a href="classRouting.html#ab68627d1dc7febd88581c4b240391275">Routing::channelLength</a></div><div class="ttdeci">int channelLength</div><div class="ttdef"><b>Definition:</b> Routing.h:17</div></div>
+<div class="ttc" id="classRouting_html_a996b0fa30f2c1aecee33ec5ef4280754"><div class="ttname"><a href="classRouting.html#a996b0fa30f2c1aecee33ec5ef4280754">Routing::dtable</a></div><div class="ttdeci">DistanceTable dtable</div><div class="ttdef"><b>Definition:</b> Routing.h:25</div></div>
 <div class="ttc" id="classcGate_html_a0ec58c0c39b875a03cfc18bd20059d3b"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html#a0ec58c0c39b875a03cfc18bd20059d3b">cGate::getIndex</a></div><div class="ttdeci">int getIndex() const </div></div>
-<div class="ttc" id="classRouting_html_aa0b18cfee0c4ef314507f650f826f442"><div class="ttname"><a href="classRouting.html#aa0b18cfee0c4ef314507f650f826f442">Routing::timeDistanceToTarget</a></div><div class="ttdeci">virtual double timeDistanceToTarget(cTopology::Node *thisNode)</div><div class="ttdoc">Evaluate time distance from current node to target one. </div><div class="ttdef"><b>Definition:</b> Routing.cc:89</div></div>
+<div class="ttc" id="classRouting_html_aa0b18cfee0c4ef314507f650f826f442"><div class="ttname"><a href="classRouting.html#aa0b18cfee0c4ef314507f650f826f442">Routing::timeDistanceToTarget</a></div><div class="ttdeci">virtual double timeDistanceToTarget(cTopology::Node *thisNode)</div><div class="ttdoc">Evaluate time distance from current node to target one. </div><div class="ttdef"><b>Definition:</b> Routing.cc:108</div></div>
 <div class="ttc" id="classcComponent_html_a73111b3f286cc723519595a4d8d318f7"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a73111b3f286cc723519595a4d8d318f7">cComponent::par</a></div><div class="ttdeci">virtual cPar &amp; par(int k)</div></div>
 <div class="ttc" id="classcTopology_html_a90e795af4b961529b8e2d83eca316079"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a90e795af4b961529b8e2d83eca316079">cTopology::getNode</a></div><div class="ttdeci">Node * getNode(int i)</div></div>
-<div class="ttc" id="classRouting_html_ac34a93c5caf0a8cea4be724c0e2629b8"><div class="ttname"><a href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">Routing::rtable</a></div><div class="ttdeci">RoutingTable rtable</div><div class="ttdef"><b>Definition:</b> Routing.h:21</div></div>
+<div class="ttc" id="classRouting_html_ac34a93c5caf0a8cea4be724c0e2629b8"><div class="ttname"><a href="classRouting.html#ac34a93c5caf0a8cea4be724c0e2629b8">Routing::rtable</a></div><div class="ttdeci">RoutingTable rtable</div><div class="ttdef"><b>Definition:</b> Routing.h:22</div></div>
 <div class="ttc" id="classcTopology_1_1Node_html_a5dc7c43818c611596d155f75e8326a77"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a5dc7c43818c611596d155f75e8326a77">cTopology::Node::getNumPaths</a></div><div class="ttdeci">int getNumPaths() const </div></div>
 <div class="ttc" id="classcGate_html"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcGate.html">cGate</a></div></div>
 <div class="ttc" id="classcTopology_1_1Node_html_a3c1a00ba6a226ea0438f8c7d1726d9b0"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a3c1a00ba6a226ea0438f8c7d1726d9b0">cTopology::Node::getModule</a></div><div class="ttdeci">cModule * getModule() const </div></div>
@@ -786,14 +862,68 @@ Additional Inherited Members</h2></td></tr>
 <div class="ttc" id="classcTopology_html_a4000b9e28b62b3c1816d69695d93da95"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a4000b9e28b62b3c1816d69695d93da95">cTopology::getNodeFor</a></div><div class="ttdeci">Node * getNodeFor(cModule *mod)</div></div>
 <div class="ttc" id="classcTopology_html_ae2b6970c74322b7179e136029a187f9c"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#ae2b6970c74322b7179e136029a187f9c">cTopology::extractByNedTypeName</a></div><div class="ttdeci">void extractByNedTypeName(const std::vector&lt; std::string &gt; &amp;nedTypeNames)</div></div>
 <div class="ttc" id="classRouting_html_ab1ef7ab9ebf282cd94329f2c51aeadb7"><div class="ttname"><a href="classRouting.html#ab1ef7ab9ebf282cd94329f2c51aeadb7">Routing::myAddress</a></div><div class="ttdeci">int myAddress</div><div class="ttdef"><b>Definition:</b> Routing.h:16</div></div>
+<div class="ttc" id="classRouting_html_a3cd7fad6adb246f1395f63c3d08c8abe"><div class="ttname"><a href="classRouting.html#a3cd7fad6adb246f1395f63c3d08c8abe">Routing::sdtable</a></div><div class="ttdeci">SpaceDistanceTable sdtable</div><div class="ttdef"><b>Definition:</b> Routing.h:28</div></div>
 <div class="ttc" id="classcTopology_html"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html">cTopology</a></div></div>
-<div class="ttc" id="classRouting_html_ab2ac489ed383e1ea194c995a050aff5c"><div class="ttname"><a href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">Routing::topo</a></div><div class="ttdeci">cTopology * topo</div><div class="ttdef"><b>Definition:</b> Routing.h:18</div></div>
+<div class="ttc" id="classRouting_html_ab2ac489ed383e1ea194c995a050aff5c"><div class="ttname"><a href="classRouting.html#ab2ac489ed383e1ea194c995a050aff5c">Routing::topo</a></div><div class="ttdeci">cTopology * topo</div><div class="ttdef"><b>Definition:</b> Routing.h:19</div></div>
 <div class="ttc" id="classcTopology_html_a51a47079b356ff3a70964f4f518e3a3e"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a51a47079b356ff3a70964f4f518e3a3e">cTopology::calculateWeightedSingleShortestPathsTo</a></div><div class="ttdeci">void calculateWeightedSingleShortestPathsTo(Node *target)</div></div>
+<div class="ttc" id="classRouting_html_a7c07b73b01d582649eb60dd737d2e6a2"><div class="ttname"><a href="classRouting.html#a7c07b73b01d582649eb60dd737d2e6a2">Routing::spaceDistanceToTarget</a></div><div class="ttdeci">virtual double spaceDistanceToTarget(cTopology::Node *thisNode)</div><div class="ttdoc">Evaluate space distance from current node to target one. </div><div class="ttdef"><b>Definition:</b> Routing.cc:129</div></div>
 <div class="ttc" id="classcTopology_1_1Node_html_aefec9c109d20b4603ef6cccece08249a"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">cTopology::Node::getPath</a></div><div class="ttdeci">LinkOut * getPath(int) const </div></div>
 <div class="ttc" id="classcTopology_html_a9ab37e112ec07e7cdded2c5046910957"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology.html#a9ab37e112ec07e7cdded2c5046910957">cTopology::getNumNodes</a></div><div class="ttdeci">int getNumNodes() const </div></div>
 <div class="ttc" id="classcTopology_1_1LinkOut_html_aea44c077b46de76a7202bf243ac2b6d7"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#aea44c077b46de76a7202bf243ac2b6d7">cTopology::LinkOut::getLocalGate</a></div><div class="ttdeci">cGate * getLocalGate() const </div></div>
 <div class="ttc" id="classcModule_html_a6e487556d9301e41654d25c767d58148"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcModule.html#a6e487556d9301e41654d25c767d58148">cModule::getParentModule</a></div><div class="ttdeci">virtual cModule * getParentModule() const </div></div>
-<div class="ttc" id="classRouting_html_a250863dac74aaff1f6e2d4ab569fbbbc"><div class="ttname"><a href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">Routing::channelTime</a></div><div class="ttdeci">double channelTime</div><div class="ttdef"><b>Definition:</b> Routing.h:17</div></div>
+<div class="ttc" id="classRouting_html_a250863dac74aaff1f6e2d4ab569fbbbc"><div class="ttname"><a href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">Routing::channelTime</a></div><div class="ttdeci">double channelTime</div><div class="ttdef"><b>Definition:</b> Routing.h:18</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a7c07b73b01d582649eb60dd737d2e6a2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Routing::spaceDistanceToTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="elRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html">cTopology::Node</a> *&#160;</td>
+          <td class="paramname"><em>thisNode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evaluate space distance from current node to target one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thisNode</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="fragment"><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">double</span> distToTarget = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a030f27dd8bbb6587988ca91a8232cb47">getDistanceToTarget</a>(); <span class="comment">//get the hops to reach the target</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">double</span> weight = 0.0;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;distToTarget; i++)</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html">cTopology::LinkOut</a> *linkOut = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        weight += linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">getWeight</a>();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        thisNode = linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#af8c64819f67c9cddd3706faaf8d59020">getRemoteNode</a>();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">return</span> weight*<a class="code" href="classRouting.html#ab68627d1dc7febd88581c4b240391275">channelLength</a>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
+<div class="ttc" id="classRouting_html_ab68627d1dc7febd88581c4b240391275"><div class="ttname"><a href="classRouting.html#ab68627d1dc7febd88581c4b240391275">Routing::channelLength</a></div><div class="ttdeci">int channelLength</div><div class="ttdef"><b>Definition:</b> Routing.h:17</div></div>
+<div class="ttc" id="classcTopology_1_1Node_html_a030f27dd8bbb6587988ca91a8232cb47"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a030f27dd8bbb6587988ca91a8232cb47">cTopology::Node::getDistanceToTarget</a></div><div class="ttdeci">double getDistanceToTarget() const </div></div>
+<div class="ttc" id="classcTopology_1_1Link_html_a60a0887cfc44372e86a23fc2a5385fbc"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">cTopology::Link::getWeight</a></div><div class="ttdeci">double getWeight() const </div></div>
+<div class="ttc" id="classcTopology_1_1Node_html_aefec9c109d20b4603ef6cccece08249a"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">cTopology::Node::getPath</a></div><div class="ttdeci">LinkOut * getPath(int) const </div></div>
+<div class="ttc" id="classcTopology_1_1LinkOut_html"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html">cTopology::LinkOut</a></div></div>
+<div class="ttc" id="classcTopology_1_1LinkOut_html_af8c64819f67c9cddd3706faaf8d59020"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#af8c64819f67c9cddd3706faaf8d59020">cTopology::LinkOut::getRemoteNode</a></div><div class="ttdeci">Node * getRemoteNode() const </div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -820,29 +950,56 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Evaluate time distance from current node to target one. </p>
-<div class="fragment"><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">double</span> distToTarget = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a030f27dd8bbb6587988ca91a8232cb47">getDistanceToTarget</a>();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">double</span> weight = 0.0;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;distToTarget; i++)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html">cTopology::LinkOut</a> *linkOut = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        weight += linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">getWeight</a>();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        thisNode = linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#af8c64819f67c9cddd3706faaf8d59020">getRemoteNode</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> weight*<a class="code" href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">channelTime</a>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thisNode</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">double</span> distToTarget = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a030f27dd8bbb6587988ca91a8232cb47">getDistanceToTarget</a>(); <span class="comment">//get the hops to reach the target</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">double</span> weight = 0.0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;distToTarget; i++)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html">cTopology::LinkOut</a> *linkOut = thisNode-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">getPath</a>(0);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        weight += linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">getWeight</a>();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        thisNode = linkOut-&gt;<a class="codeRef" doxygen="/home/andrea/omnetpp-4.6/doc/api/opptags.xml:/home/andrea/omnetpp-4.6//doc/api/" href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#af8c64819f67c9cddd3706faaf8d59020">getRemoteNode</a>();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> weight*<a class="code" href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">channelTime</a>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
 <div class="ttc" id="classcTopology_1_1Node_html_a030f27dd8bbb6587988ca91a8232cb47"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#a030f27dd8bbb6587988ca91a8232cb47">cTopology::Node::getDistanceToTarget</a></div><div class="ttdeci">double getDistanceToTarget() const </div></div>
 <div class="ttc" id="classcTopology_1_1Link_html_a60a0887cfc44372e86a23fc2a5385fbc"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Link.html#a60a0887cfc44372e86a23fc2a5385fbc">cTopology::Link::getWeight</a></div><div class="ttdeci">double getWeight() const </div></div>
 <div class="ttc" id="classcTopology_1_1Node_html_aefec9c109d20b4603ef6cccece08249a"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1Node.html#aefec9c109d20b4603ef6cccece08249a">cTopology::Node::getPath</a></div><div class="ttdeci">LinkOut * getPath(int) const </div></div>
 <div class="ttc" id="classcTopology_1_1LinkOut_html"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html">cTopology::LinkOut</a></div></div>
 <div class="ttc" id="classcTopology_1_1LinkOut_html_af8c64819f67c9cddd3706faaf8d59020"><div class="ttname"><a href="/home/andrea/omnetpp-4.6//doc/api/classcTopology_1_1LinkOut.html#af8c64819f67c9cddd3706faaf8d59020">cTopology::LinkOut::getRemoteNode</a></div><div class="ttdeci">Node * getRemoteNode() const </div></div>
-<div class="ttc" id="classRouting_html_a250863dac74aaff1f6e2d4ab569fbbbc"><div class="ttname"><a href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">Routing::channelTime</a></div><div class="ttdeci">double channelTime</div><div class="ttdef"><b>Definition:</b> Routing.h:17</div></div>
+<div class="ttc" id="classRouting_html_a250863dac74aaff1f6e2d4ab569fbbbc"><div class="ttname"><a href="classRouting.html#a250863dac74aaff1f6e2d4ab569fbbbc">Routing::channelTime</a></div><div class="ttdeci">double channelTime</div><div class="ttdef"><b>Definition:</b> Routing.h:18</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ab68627d1dc7febd88581c4b240391275"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Routing::channelLength</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a250863dac74aaff1f6e2d4ab569fbbbc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -923,6 +1080,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3cd7fad6adb246f1395f63c3d08c8abe"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRouting.html#abc751fadaf72058c45f645a2ede02e02">SpaceDistanceTable</a> Routing::sdtable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ab2ac489ed383e1ea194c995a050aff5c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -953,7 +1130,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classRouting.html">Routing</a></li>
-    <li class="footer">Generated on Sat Dec 2 2017 11:15:23 for AMoD_Simulator by
+    <li class="footer">Generated on Thu Dec 14 2017 23:39:24 for AMoD_Simulator by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

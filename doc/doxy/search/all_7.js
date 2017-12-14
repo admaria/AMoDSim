@@ -3,6 +3,7 @@ var searchData=
   ['halt',['halt',['/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ae6230498997a3c7e77301629b61d3199',1,'cSimpleModule']]],
   ['handlemessage',['handleMessage',['/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ac1a639fd9b931de297477fca26341650',1,'cSimpleModule::handleMessage()'],['../classApp.html#a02dd7f36909205a67212d51e2f03b45a',1,'App::handleMessage()'],['../classL2Queue.html#a7551cfcb1ff36012b6a9b9a7612fa8ff',1,'L2Queue::handleMessage()'],['../classRouting.html#a09c44e71b4e8ad9862262b2756603f52',1,'Routing::handleMessage()']]],
   ['handleparameterchange',['handleParameterChange',['/home/andrea/omnetpp-4.6//doc/api/classcComponent.html#a2c290c145b8c16e2de68def880659506',1,'cComponent::handleParameterChange()'],['/home/andrea/omnetpp-4.6//doc/api/classcDatarateChannel.html#a2ac0771fe54446fd174401f589c1aaba',1,'cDatarateChannel::handleParameterChange()'],['/home/andrea/omnetpp-4.6//doc/api/classcDelayChannel.html#ae9ece70c6f3c38ffb458ab6db0c07175',1,'cDelayChannel::handleParameterChange()']]],
+  ['handletriprequest',['handleTripRequest',['../classBaseCoord.html#a36c0f24b1089108d164c9be93d8dea0c',1,'BaseCoord::handleTripRequest()'],['../classHeuristicCoord.html#af7f187a050d732dce154249eea152ba4',1,'HeuristicCoord::handleTripRequest()'],['../classRadioTaxiCoord.html#adb460523d3f1bf939b923c484cb88e8f',1,'RadioTaxiCoord::handleTripRequest()']]],
   ['hasattributes',['hasAttributes',['/home/andrea/omnetpp-4.6//doc/api/classcXMLElement.html#ab6df920921539a5ecb54888b3d49b6f9',1,'cXMLElement']]],
   ['hasbiterror',['hasBitError',['/home/andrea/omnetpp-4.6//doc/api/classcPacket.html#a02a0212405b1d989bc744897ea32cf0f',1,'cPacket']]],
   ['haschanged',['hasChanged',['/home/andrea/omnetpp-4.6//doc/api/classcMsgPar.html#ac53c9224256b56804a180a0d69dd9641',1,'cMsgPar']]],
@@ -20,5 +21,8 @@ var searchData=
   ['hasvarargs',['hasVarArgs',['/home/andrea/omnetpp-4.6//doc/api/classcNEDFunction.html#af0cbe05a5ec9ac6e7b9bc6c775ea2945',1,'cNEDFunction']]],
   ['hasvehicle',['hasVehicle',['../classApp.html#ae7f07e9b22a0352bfeb973ad97e02a51',1,'App']]],
   ['head',['head',['/home/andrea/omnetpp-4.6//doc/api/classcLinkedList.html#a84815256c700ec2f80d7d73f59a6e28e',1,'cLinkedList']]],
+  ['heuristiccoord',['HeuristicCoord',['../classHeuristicCoord.html',1,'']]],
+  ['heuristiccoord_2ecc',['HeuristicCoord.cc',['../HeuristicCoord_8cc.html',1,'']]],
+  ['heuristiccoord_2eh',['HeuristicCoord.h',['../HeuristicCoord_8h.html',1,'']]],
   ['hopcount_5fvar',['hopCount_var',['../classPacket.html#a71c6919c7c724613d60ddd472d5839f4',1,'Packet']]]
 ];

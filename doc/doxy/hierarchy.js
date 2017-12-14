@@ -3,7 +3,10 @@ var hierarchy =
     [ "cIListener", "/home/andrea/omnetpp-4.6//doc/api/classcIListener.html", [
       [ "cListener", "/home/andrea/omnetpp-4.6//doc/api/classcListener.html", [
         [ "App", "classApp.html", null ],
-        [ "TripCoordinator", "classTripCoordinator.html", null ]
+        [ "BaseCoord", "classBaseCoord.html", [
+          [ "HeuristicCoord", "classHeuristicCoord.html", null ],
+          [ "RadioTaxiCoord", "classRadioTaxiCoord.html", null ]
+        ] ]
       ] ]
     ] ],
     [ "cObject", "/home/andrea/omnetpp-4.6//doc/api/classcObject.html", [
@@ -22,9 +25,9 @@ var hierarchy =
                 [ "cModule", "/home/andrea/omnetpp-4.6//doc/api/classcModule.html", [
                   [ "cSimpleModule", "/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html", [
                     [ "App", "classApp.html", null ],
+                    [ "BaseCoord", "classBaseCoord.html", null ],
                     [ "L2Queue", "classL2Queue.html", null ],
-                    [ "Routing", "classRouting.html", null ],
-                    [ "TripCoordinator", "classTripCoordinator.html", null ]
+                    [ "Routing", "classRouting.html", null ]
                   ] ]
                 ] ]
               ] ]

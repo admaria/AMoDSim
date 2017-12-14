@@ -11,7 +11,6 @@ simple App like IApp
         bool hasVehicle;
         volatile double maxWaitingTime @unit(s) = default(2minute);
         volatile double sendIaTime @unit(s)= default(1minute); // time between generating packets
-        volatile int packetLength @unit(byte);  // length of one message
         @display("i=block/browser");
         
     gates:

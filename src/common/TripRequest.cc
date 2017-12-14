@@ -16,8 +16,8 @@ TripRequest::TripRequest(const TripRequest& other)
 void TripRequest::copy(const TripRequest& other)
 {
     this->id = other.id;
-    this->pickup = other.pickup;
-    this->dropoff = other.dropoff;
+    this->pickup = new StopPoint(*other.pickup);
+    this->dropoff = new StopPoint(*other.dropoff);
     this->distanceToPickup = other.distanceToPickup;
     this->vehicleID = other.vehicleID;
     this->nPassenger = other.nPassenger;

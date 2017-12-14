@@ -12,6 +12,8 @@ void Routing::initialize()
 {
     myAddress = getParentModule()->par("address");
     channelTime = getParentModule()->getParentModule()->par("channelTime");
+    channelLength = getParentModule()->getParentModule()->par("nodeDistance");
+
     //
     // Brute force approach -- every node does topology discovery on its own,
     // and finds routes to all other nodes independently, at the beginning
@@ -41,9 +43,10 @@ void Routing::initialize()
         int address = topo->getNode(i)->getModule()->par("address");
         rtable[address] = gateIndex;
         dtable[address] = timeDistanceToTarget(thisNode);
+        sdtable[address] = spaceDistanceToTarget(thisNode);
     }
 
-    //delete topo;
+    delete topo;
 }
 
 Define_Module(Routing);
@@ -70,7 +73,7 @@ void Routing::handleMessage(cMessage *msg)
 
     int outGateIndex = (*it).second;
     pk->setHopCount(pk->getHopCount()+1);
-    pk->setTraveledDistance(pk->getTraveledDistance()+ topo->getNodeFor(getParentModule())->getPath(0)->getWeight());
+    pk->setTraveledDistance(pk->getTraveledDistance() + channelLength);
 
     //send the vehicle to the next node
     send(pk, "out", outGateIndex);
@@ -87,6 +90,16 @@ double Routing::getDistanceToTarget(int dstAddress){
 }
 
 /**
+ * Return the space distance from current node to target one.
+ *
+ * @param dstAddress
+ * @return
+ */
+double Routing::getSpaceDistanceToTarget(int dstAddress){
+    return sdtable.find(dstAddress)->second;
+}
+
+/**
  * Evaluate time distance from current node to target one.
  * 
  * @param thisNode
@@ -94,7 +107,7 @@ double Routing::getDistanceToTarget(int dstAddress){
  */
 double Routing::timeDistanceToTarget(cTopology::Node *thisNode)
 {
-    double distToTarget = thisNode->getDistanceToTarget();
+    double distToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
     double weight = 0.0;
 
     for (int i=0; i<distToTarget; i++)
@@ -105,6 +118,27 @@ double Routing::timeDistanceToTarget(cTopology::Node *thisNode)
     }
 
     return weight*channelTime;
+}
+
+/**
+ * Evaluate space distance from current node to target one.
+ *
+ * @param thisNode
+ * @return
+ */
+double Routing::spaceDistanceToTarget(cTopology::Node *thisNode)
+{
+    double distToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
+    double weight = 0.0;
+
+    for (int i=0; i<distToTarget; i++)
+    {
+        cTopology::LinkOut *linkOut = thisNode->getPath(0);
+        weight += linkOut->getWeight();
+        thisNode = linkOut->getRemoteNode();
+    }
+
+    return weight*channelLength;
 }
 
 /**

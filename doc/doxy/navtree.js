@@ -12,7 +12,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ]
@@ -35,7 +35,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "APIChanges.html",
-"structGEOHASH__range.html#af3289c97957f461ea2690c1628f5044e"
+"functions_c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

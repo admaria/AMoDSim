@@ -9,7 +9,7 @@
 #include "Vehicle.h"
 #include "TripRequest.h"
 #include "Routing.h"
-#include "TripCoordinator.h"
+#include "BaseCoord.h"
 #include <sstream>
 
 
@@ -26,10 +26,9 @@ class App : public cSimpleModule,cListener
     std::string nodePath;
     bool hasVehicle;
     int destAddresses;
-    TripCoordinator *tcoord;
+    BaseCoord *tcoord;
     cPar *sendIATime;
     cPar *maxWaitingTime;
-    cPar *packetLengthBytes;
     Routing *r;
 
     typedef std::map<int, Vehicle*> Vehicles;
@@ -72,12 +71,11 @@ void App::initialize()
 {
     myAddress = par("address");
     destAddresses = par("destAddresses");
-    packetLengthBytes = &par("packetLength");
     sendIATime = &par("sendIaTime");  // volatile parameter
     maxWaitingTime = &par("maxWaitingTime");
     hasVehicle = par("hasVehicle");
     nodePath = getParentModule()->getFullPath();
-    tcoord = check_and_cast<TripCoordinator *>(getParentModule()->getParentModule()->getSubmodule("tcoord"));
+    tcoord = check_and_cast<BaseCoord *>(getParentModule()->getParentModule()->getSubmodule("tcoord"));
     x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("base_distance").doubleValue();
     y_coord = getParentModule()->par("y_distance").doubleValue() * getParentModule()->par("base_distance").doubleValue();
     r = check_and_cast<Routing *>(getParentModule()->getSubmodule("routing"));
@@ -85,11 +83,7 @@ void App::initialize()
     tripRequest = registerSignal("tripRequest");
     newTripAssigned = registerSignal("newTripAssigned");
 
-//    pkCounter = 0;
-//    WATCH(pkCounter);
-//    WATCH(myAddress);
-
-    EV << "I am node " << myAddress << ". x/y coord: " << x_coord << "/"<< y_coord << endl;
+    EV << "I am node " << myAddress << ". x/y coord(meters): " << x_coord << "/"<< y_coord << endl;
 
     //If the vehicle is in this node (at startup) subscribe it to "tripRequestSignal"
     if (hasVehicle)
@@ -106,7 +100,8 @@ void App::initialize()
         simulation.getSystemModule()->subscribe("newTripAssigned",this);
     }
 
-    scheduleAt(poisson(sendIATime->doubleValue()), generatePacket);
+    scheduleAt(intuniform(0, sendIATime->doubleValue()), generatePacket);
+    //scheduleAt(poisson(sendIATime->doubleValue()), generatePacket);
 
 }
 
@@ -141,7 +136,7 @@ void App::handleMessage(cMessage *msg)
         if (currentStopPoint != NULL && currentStopPoint->getLocation() != -1 && currentStopPoint->getIsPickup())
         {
             //This is a PICK-UP stop-point
-            int waitTimeMinutes = (simTime()-currentStopPoint->getTime()).dbl() /60;
+            double waitTimeMinutes = (simTime()-currentStopPoint->getTime()).dbl() /60;
             EV << "The vehicle is here! Pickup time: " << simTime() << "; Request time: " << currentStopPoint->getTime() << "; Waiting time: " << waitTimeMinutes << "minutes." << endl;
         }
 

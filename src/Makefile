@@ -35,7 +35,9 @@ OBJS = \
     $O/common/StopPoint.o \
     $O/common/Vehicle.o \
     $O/common/TripRequest.o \
-    $O/coordinator/TripCoordinator.o \
+    $O/coordinator/RadioTaxiCoord.o \
+    $O/coordinator/HeuristicCoord.o \
+    $O/coordinator/BaseCoord.o \
     $O/node/App.o \
     $O/node/L2Queue.o \
     $O/node/Routing.o \
@@ -147,19 +149,33 @@ $O/common/TripRequest.o: common/TripRequest.cc \
 $O/common/Vehicle.o: common/Vehicle.cc \
 	common/Packet_m.h \
 	common/Vehicle.h
-$O/coordinator/TripCoordinator.o: coordinator/TripCoordinator.cc \
+$O/coordinator/BaseCoord.o: coordinator/BaseCoord.cc \
 	common/Packet_m.h \
 	common/StopPoint.h \
 	common/TripRequest.h \
 	common/Vehicle.h \
-	coordinator/TripCoordinator.h \
+	coordinator/BaseCoord.h \
 	node/Routing.h
+$O/coordinator/HeuristicCoord.o: coordinator/HeuristicCoord.cc \
+	common/Packet_m.h \
+	common/StopPoint.h \
+	common/TripRequest.h \
+	common/Vehicle.h \
+	coordinator/BaseCoord.h \
+	coordinator/HeuristicCoord.h
+$O/coordinator/RadioTaxiCoord.o: coordinator/RadioTaxiCoord.cc \
+	common/Packet_m.h \
+	common/StopPoint.h \
+	common/TripRequest.h \
+	common/Vehicle.h \
+	coordinator/BaseCoord.h \
+	coordinator/RadioTaxiCoord.h
 $O/node/App.o: node/App.cc \
 	common/Packet_m.h \
 	common/StopPoint.h \
 	common/TripRequest.h \
 	common/Vehicle.h \
-	coordinator/TripCoordinator.h \
+	coordinator/BaseCoord.h \
 	node/Routing.h
 $O/node/L2Queue.o: node/L2Queue.cc
 $O/node/Routing.o: node/Routing.cc \

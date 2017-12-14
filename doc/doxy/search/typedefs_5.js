@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unservedrequests',['UnservedRequests',['../classTripCoordinator.html#a7ff6ebeb962b93fd6a8d60bbff86f54b',1,'TripCoordinator']]]
+  ['spacedistancetable',['SpaceDistanceTable',['../classRouting.html#abc751fadaf72058c45f645a2ede02e02',1,'Routing']]]
 ];

@@ -1,11 +1,9 @@
 var searchData=
 [
   ['nedfunction',['NEDFunction',['/home/andrea/omnetpp-4.6//doc/api/group__EnumsTypes.html#ga863e3ae302e9cdbe18b4d67d2d9bcdf1',1,]]],
-  ['netxsize',['netXsize',['../TripCoordinator_8cc.html#a709d28e451523887363bed756c5410b7',1,'TripCoordinator.cc']]],
-  ['netysize',['netYsize',['../TripCoordinator_8cc.html#a94e24f538245cd4262c955aaf27ef368',1,'TripCoordinator.cc']]],
   ['newparentmodule',['newParentModule',['/home/andrea/omnetpp-4.6//doc/api/classcPreModuleReparentNotification.html#adca093dfc679e0acf5c85f942a135160',1,'cPreModuleReparentNotification']]],
   ['newsize',['newSize',['/home/andrea/omnetpp-4.6//doc/api/classcPreGateVectorResizeNotification.html#a3947ac2e74d572edeeebc2334c2c334b',1,'cPreGateVectorResizeNotification']]],
-  ['newtripassigned',['newTripAssigned',['../classTripCoordinator.html#a5ac45475e320a9071187fc1bbe7e721e',1,'TripCoordinator::newTripAssigned()'],['../classApp.html#a6ed3b1c607fd8416451e4316414eb494',1,'App::newTripAssigned()']]],
+  ['newtripassigned',['newTripAssigned',['../classBaseCoord.html#abc6e3294f7e3d6b55e61e452d6e5599c',1,'BaseCoord::newTripAssigned()'],['../classApp.html#a6ed3b1c607fd8416451e4316414eb494',1,'App::newTripAssigned()']]],
   ['nextid',['nextID',['../classTripRequest.html#ac2e1bbdc295f2a1e72317912ef62e89c',1,'TripRequest::nextID()'],['../classVehicle.html#aab9619b0db39d6fc2c6ab84327cb4660',1,'Vehicle::nextID()']]],
   ['nodeid',['nodeID',['../classStopPoint.html#a9229ca52aecda099db8ca923579cb5af',1,'StopPoint']]],
   ['nodepath',['nodePath',['../classApp.html#abbae4594f8d854bce7608fc429d0831f',1,'App']]],

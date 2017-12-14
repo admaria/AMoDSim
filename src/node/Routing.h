@@ -14,6 +14,7 @@
 class Routing : public cSimpleModule{
 private:
     int myAddress;
+    int channelLength;
     double channelTime;
     cTopology *topo;
 
@@ -23,14 +24,19 @@ private:
     typedef std::map<int,double> DistanceTable; // destaddr -> time distance
     DistanceTable dtable;
 
+    typedef std::map<int,double> SpaceDistanceTable; // destaddr -> space distance (in meters)
+    SpaceDistanceTable sdtable;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
     virtual double timeDistanceToTarget(cTopology::Node *thisNode);
+    virtual double spaceDistanceToTarget(cTopology::Node *thisNode);
 
   public:
       virtual int getAddress() const;
       virtual double getDistanceToTarget(int dstAddr);
+      virtual double getSpaceDistanceToTarget(int dstAddr);
 };
 
 

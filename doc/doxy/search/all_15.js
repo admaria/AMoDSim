@@ -3,7 +3,7 @@ var searchData=
   ['watch_20macros',['WATCH macros',['/home/andrea/omnetpp-4.6//doc/api/group__MacrosWatch.html',1,'']]],
   ['wait',['wait',['/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ac049793c0ca1e6b73392d596e7f32e85',1,'cSimpleModule']]],
   ['waitandenqueue',['waitAndEnqueue',['/home/andrea/omnetpp-4.6//doc/api/classcSimpleModule.html#ab6b2100ef4e33b2de7fa941b1d610375',1,'cSimpleModule']]],
-  ['waitingtime',['waitingTime',['../classTripCoordinator.html#ab6889dae1430c9f1f413fbf0417de93b',1,'TripCoordinator']]],
+  ['waitingtime',['waitingTime',['../classBaseCoord.html#a14ac4a26e05f6daecb46c564c9ffdd07',1,'BaseCoord']]],
   ['watch',['WATCH',['/home/andrea/omnetpp-4.6//doc/api/group__MacrosWatch.html#ga0878b62c3a2dcb0388c967a4acb2f18a',1,]]],
   ['watch_5flist',['WATCH_LIST',['/home/andrea/omnetpp-4.6//doc/api/group__MacrosWatch.html#ga9e5f0695d9c87d115f5eeae31e2080f9',1,]]],
   ['watch_5fmap',['WATCH_MAP',['/home/andrea/omnetpp-4.6//doc/api/group__MacrosWatch.html#ga5bf6a9be5b3cb2838b9678a8d4fb9b30',1,]]],

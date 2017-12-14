@@ -318,8 +318,8 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    this-&gt;<span class="keywordtype">id</span> = other.<a class="code" href="classTripRequest.html#a8155da8ac4cab9bb7eb0c7e871feb2ca">id</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#a6507c85d70656f4570b3653f40ede175">pickup</a> = other.<a class="code" href="classTripRequest.html#a6507c85d70656f4570b3653f40ede175">pickup</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#a6bb627eca1e801551529dfac99414e04">dropoff</a> = other.<a class="code" href="classTripRequest.html#a6bb627eca1e801551529dfac99414e04">dropoff</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#a6507c85d70656f4570b3653f40ede175">pickup</a> = <span class="keyword">new</span> <a class="code" href="classStopPoint.html">StopPoint</a>(*other.<a class="code" href="classTripRequest.html#a6507c85d70656f4570b3653f40ede175">pickup</a>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#a6bb627eca1e801551529dfac99414e04">dropoff</a> = <span class="keyword">new</span> <a class="code" href="classStopPoint.html">StopPoint</a>(*other.<a class="code" href="classTripRequest.html#a6bb627eca1e801551529dfac99414e04">dropoff</a>);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#aa36e6e4122cf20f308718f3aac5b11c4">distanceToPickup</a> = other.<a class="code" href="classTripRequest.html#aa36e6e4122cf20f308718f3aac5b11c4">distanceToPickup</a>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#a1bb844defff2dfd7c0de06e564a9530c">vehicleID</a> = other.<a class="code" href="classTripRequest.html#a1bb844defff2dfd7c0de06e564a9530c">vehicleID</a>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    this-&gt;<a class="code" href="classTripRequest.html#aecece72ab47df58cfe96c9187442b756">nPassenger</a> = other.<a class="code" href="classTripRequest.html#aecece72ab47df58cfe96c9187442b756">nPassenger</a>;</div>
@@ -327,6 +327,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="ttc" id="classTripRequest_html_a1bb844defff2dfd7c0de06e564a9530c"><div class="ttname"><a href="classTripRequest.html#a1bb844defff2dfd7c0de06e564a9530c">TripRequest::vehicleID</a></div><div class="ttdeci">int vehicleID</div><div class="ttdef"><b>Definition:</b> TripRequest.h:20</div></div>
 <div class="ttc" id="classTripRequest_html_aecece72ab47df58cfe96c9187442b756"><div class="ttname"><a href="classTripRequest.html#aecece72ab47df58cfe96c9187442b756">TripRequest::nPassenger</a></div><div class="ttdeci">int nPassenger</div><div class="ttdef"><b>Definition:</b> TripRequest.h:21</div></div>
 <div class="ttc" id="classTripRequest_html_a8155da8ac4cab9bb7eb0c7e871feb2ca"><div class="ttname"><a href="classTripRequest.html#a8155da8ac4cab9bb7eb0c7e871feb2ca">TripRequest::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> TripRequest.h:15</div></div>
+<div class="ttc" id="classStopPoint_html"><div class="ttname"><a href="classStopPoint.html">StopPoint</a></div><div class="ttdef"><b>Definition:</b> StopPoint.h:6</div></div>
 <div class="ttc" id="classTripRequest_html_a6507c85d70656f4570b3653f40ede175"><div class="ttname"><a href="classTripRequest.html#a6507c85d70656f4570b3653f40ede175">TripRequest::pickup</a></div><div class="ttdeci">StopPoint * pickup</div><div class="ttdef"><b>Definition:</b> TripRequest.h:17</div></div>
 <div class="ttc" id="classTripRequest_html_aa36e6e4122cf20f308718f3aac5b11c4"><div class="ttname"><a href="classTripRequest.html#aa36e6e4122cf20f308718f3aac5b11c4">TripRequest::distanceToPickup</a></div><div class="ttdeci">int distanceToPickup</div><div class="ttdef"><b>Definition:</b> TripRequest.h:22</div></div>
 <div class="ttc" id="classTripRequest_html_a6bb627eca1e801551529dfac99414e04"><div class="ttname"><a href="classTripRequest.html#a6bb627eca1e801551529dfac99414e04">TripRequest::dropoff</a></div><div class="ttdeci">StopPoint * dropoff</div><div class="ttdef"><b>Definition:</b> TripRequest.h:18</div></div>
@@ -786,7 +787,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classTripRequest.html">TripRequest</a></li>
-    <li class="footer">Generated on Sat Dec 2 2017 11:15:23 for AMoD_Simulator by
+    <li class="footer">Generated on Thu Dec 14 2017 23:39:24 for AMoD_Simulator by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

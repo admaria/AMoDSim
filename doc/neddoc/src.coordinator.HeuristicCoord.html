@@ -1,0 +1,143 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <link rel="stylesheet" type="text/css" href="style.css" />
+   </head>
+   <body onload="if (top.frames['componentsframe'] == undefined) { s = window.location.toString(); window.location = 'index.html?p=' + s.substring(s.lastIndexOf('/')+1); }">
+<h2 class="comptitle">Simple Module <i>HeuristicCoord</i></h2>
+<b>Package:</b> src.coordinator<br/><b>File: <a href="src-coordinator-HeuristicCoord.ned.html">src/coordinator/HeuristicCoord.ned</a></b><br/><p><a href="../doxy/classHeuristicCoord.html" target="mainframe"><b>C++ definition</b></a></p>
+<p>(no description)</p><img src="src.coordinator.HeuristicCoord-type.png" ismap="yes" usemap="#type-diagram"/><map name="type-diagram">
+<area shape="rect" href="src.coordinator.HeuristicCoord.html" title="HeuristicCoord" alt="HeuristicCoord" coords="0,31,146,71">
+</map>
+<h3 class="subtitle">Usage diagram:</h3>
+<p>The following diagram shows usage relationships between types.
+Unresolved types are missing from the diagram.</p>
+<img src="src.coordinator.HeuristicCoord-usage.png" ismap="yes" usemap="#usage-diagram"/><map name="usage-diagram"><area shape="rect" id="node1" href="src.coordinator.HeuristicCoord.html" title="Simple Module HeuristicCoord" alt="" coords="5,6,115,31">
+</map>
+<h3 class="subtitle">Inheritance diagram:</h3>
+<p>The following diagram shows inheritance relationships for this type.
+Unresolved types are missing from the diagram.</p>
+<img src="src.coordinator.HeuristicCoord-inheritance.png" ismap="yes" usemap="#inheritance-diagram"/><map name="inheritance-diagram"><area shape="rect" id="node1" href="src.coordinator.HeuristicCoord.html" title="Simple Module HeuristicCoord" alt="" coords="5,81,115,106">
+<area shape="rect" id="node2" href="src.coordinator.BaseCoord.html" title="Simple Module BaseCoord" alt="" coords="17,6,103,31">
+</map>
+<h3 class="subtitle">Extends:</h3>
+<table class="typestable">
+   <tr>
+      <th class="name">Name</th>
+      <th class="type">Type</th>
+      <th class="description">Description</th>
+   </tr>
+<tr>
+   <td>
+<a href="src.coordinator.BaseCoord.html">BaseCoord</a>
+   </td>
+   <td>
+<i>simple&nbsp;module</i>
+   </td>
+   <td>
+<i>(no description)</i>
+   </td>
+</tr>
+</table>
+<h3 class="subtitle">Properties:</h3>
+<table class="propertiestable">
+   <tr>
+      <th class="name">Name</th>
+      <th class="value">Value</th>
+      <th class="description">Description</th>
+   </tr>
+<tr>
+   <td>display</td>
+   <td><i>i=block/cogwheel_s</i></td>
+   <td></td>
+</tr>
+<tr>
+   <td>class</td>
+   <td><i>HeuristicCoord</i></td>
+   <td></td>
+</tr>
+</table>
+<h3 class="subtitle">Signals:</h3>
+<table class="signalstable">
+   <tr>
+      <th class="name">Name</th>
+      <th class="type">Type</th>
+      <th class="unit">Unit</th>
+   </tr>
+<tr class="local">
+   <td>tripEfficiencyRatio</td>
+   <td><i>
+double   </i></td>
+   <td></td>
+</tr>
+<tr class="local">
+   <td>waitingTime</td>
+   <td><i>
+double   </i></td>
+   <td></td>
+</tr>
+<tr class="local">
+   <td>actualTripTime</td>
+   <td><i>
+double   </i></td>
+   <td></td>
+</tr>
+<tr class="local">
+   <td>tripDistance</td>
+   <td><i>
+double   </i></td>
+   <td></td>
+</tr>
+</table>
+<h3 class="subtitle">Statistics:</h3>
+<table class="statisticstable">
+   <tr>
+      <th class="name">Name</th>
+      <th class="title">Title</th>
+      <th class="source">Source</th>
+      <th class="record">Record</th>
+      <th class="unit">Unit</th>
+      <th class="interpolationmode">Interpolation Mode</th>
+   </tr>
+<tr class="local">
+   <td>tripEfficiencyRatio</td>
+   <td>Trip Efficiency Ratio</td>
+   <td></td>
+   <td>vector, mean, max</td>
+   <td></td>
+   <td>none</td>
+</tr>
+<tr class="local">
+   <td>waitingTime</td>
+   <td>Waiting time</td>
+   <td></td>
+   <td>vector, mean, max</td>
+   <td>minute</td>
+   <td>none</td>
+</tr>
+<tr class="local">
+   <td>actualTripTime</td>
+   <td>Actual Trip Time</td>
+   <td></td>
+   <td>vector, mean, max</td>
+   <td>minute</td>
+   <td>none</td>
+</tr>
+<tr class="local">
+   <td>tripDistance</td>
+   <td>Trip Distance</td>
+   <td></td>
+   <td>vector, mean, max</td>
+   <td>km</td>
+   <td>none</td>
+</tr>
+</table>
+<h3 class="subtitle">Source code:</h3>
+<pre class="src"><span style="color: #800000; font-weight: bold; ">simple</span><span style="color: #000000; "> </span><span style="color: #000000; ">HeuristicCoord</span><span style="color: #000000; "> </span><span style="color: #800000; font-weight: bold; ">extends</span><span style="color: #000000; "> </span><span style="color: #000000; ">BaseCoord</span><span style="color: #000000; ">
+{
+    </span><span style="color: #000000; font-weight: bold; ">@class</span><span style="color: #000000; ">(</span><span style="color: #000000; ">HeuristicCoord</span><span style="color: #000000; ">);
+}
+</span></pre>
+   <hr><p class="footer"><a href="http://creativecommons.org/licenses/by-sa/3.0" target="_top"><img src="by-sa.png"></a> This documentation is released under the <a href="http://creativecommons.org/licenses/by-sa/3.0" target="_top">Creative Commons license</a></p>
+   </body>
+</html>

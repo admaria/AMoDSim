@@ -3,9 +3,9 @@
 StopPoint::StopPoint() {
     this->requestID = -1;
     this->time = 0.0;
+    this->actualTime = 0.0;
     this->nodeID = "";
     this->passenger = 0;
-    this->actualTime = 0.0;
     this->location = -1;
     this->x_coord = -1;
     this->y_coord = -1;
@@ -20,8 +20,8 @@ StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, do
     this->nodeID = "";
     this->isPickup = isPickup;
     this->time = time;
-    this->passenger = 0;
     this->actualTime = 0.0;
+    this->passenger = 0;
     this->maxWaitingTime = maxWaitingTime;
     this->x_coord = -1; //TODO
     this->y_coord = -1; //TODO
@@ -36,12 +36,14 @@ void StopPoint::copy(const StopPoint& other)
 {
     this->requestID = other.requestID;
     this->location = other.location;
-    this->passenger = other.passenger;
     this->nodeID = other.nodeID;
     this->isPickup = other.isPickup;
     this->time = other.time;
     this->actualTime = other.actualTime;
+    this->passenger = other.passenger;
     this->maxWaitingTime = other.maxWaitingTime;
+    this->x_coord = other.x_coord;
+    this->y_coord = other.y_coord;
 }
 
 

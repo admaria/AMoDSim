@@ -15,7 +15,7 @@ var classStopPoint =
     [ "getTime", "classStopPoint.html#a8f65ac5eeed92d6f7dffbbb496f40f27", null ],
     [ "getXcoord", "classStopPoint.html#a1e1884be8a64f858a5ab587e7046e355", null ],
     [ "getYcoord", "classStopPoint.html#ab59771321e775c363a5f719616b992f8", null ],
-    [ "setActualTime", "classStopPoint.html#ae942a17cf2ec03b792e882c433ece3a0", null ],
+    [ "setActualTime", "classStopPoint.html#a459c071b513e0c9d35f18d317f51789a", null ],
     [ "setIsPickup", "classStopPoint.html#a2a9226adf9a0e49dac164b3a77b6bcf0", null ],
     [ "setLocation", "classStopPoint.html#ae8a338f92d5e511a87dd0e74e35cd89d", null ],
     [ "setMaxWaitingTime", "classStopPoint.html#a4cae83ec706778f889020b89723ded3d", null ],
