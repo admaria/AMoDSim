@@ -1,6 +1,6 @@
 import src.coordinator.ICoord;
 import src.node.Node;
-
+import ned.DatarateChannel;
 
 network AMoD
 {
@@ -18,6 +18,7 @@ network AMoD
         int alightingTime @unit(s) = default (0s); //Time needed for alighting passengers
         
         //------Channel Parameters------
+        //--Don't touch 
         double channelTime @unit(s) = (dropUnit(nodeDistance)/dropUnit(velocity))*1s; //time needed to travel a street
         
         //------Coordinator type--------

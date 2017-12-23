@@ -17,11 +17,11 @@ class StopPoint {
         bool isPickup;
         double time;
         double actualTime;
-        double maxWaitingTime;
+        double maxDelay;
 
     public:
         StopPoint();
-        StopPoint(int requestID, int location, bool isPickup, double time, double maxWaitingTime);
+        StopPoint(int requestID, int location, bool isPickup, double time, double maxDelay);
         StopPoint(const StopPoint& other);
         virtual ~StopPoint();
 
@@ -46,8 +46,8 @@ class StopPoint {
         virtual void setActualTime(double actualTime);
         virtual double getActualTime() const;
 
-        virtual void setMaxWaitingTime(double maxWaitingTime);
-        virtual double getMaxWaitingTime() const;
+        virtual void setMaxDelay(double maxDelay);
+        virtual double getMaxDelay() const;
 
         virtual void setXcoord(int x_coord);
         virtual int getXcoord() const;

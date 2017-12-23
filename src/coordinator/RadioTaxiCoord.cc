@@ -17,6 +17,7 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
       handleTripRequest(tr);
     }
+
 }
 
 
@@ -27,6 +28,7 @@ void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
     for (auto const &x : vehicles)
     {
         //Check if the vehicle has enough seats to serve the request
+        //TODO rename to numberOfPassengers
         if(x.first->getSeats() >= tr->getPickupSP()->getPassenger())
         {
             std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
@@ -89,7 +91,7 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         EV << "Time needed to vehicle: " << vehicleID << " to reach dropoff: " << dropoffSP->getLocation() << " from current time, is: " << (dropoffSP->getActualTime()-currentTime)/60 << " minutes." << endl;
     }
 
-    if(pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxWaitingTime()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
+    if(pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
     {
         for (auto const &x : old)
             newList.push_back(x);

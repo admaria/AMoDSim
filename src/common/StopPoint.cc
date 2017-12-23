@@ -10,10 +10,10 @@ StopPoint::StopPoint() {
     this->x_coord = -1;
     this->y_coord = -1;
     this->isPickup = false;
-    this->maxWaitingTime = 0;
+    this->maxDelay = 0;
 }
 
-StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, double maxWaitingTime)
+StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, double maxDelay)
 {
     this->requestID = requestID;
     this->location = location;
@@ -22,7 +22,7 @@ StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, do
     this->time = time;
     this->actualTime = 0.0;
     this->passenger = 0;
-    this->maxWaitingTime = maxWaitingTime;
+    this->maxDelay = maxDelay;
     this->x_coord = -1; //TODO
     this->y_coord = -1; //TODO
 }
@@ -41,7 +41,7 @@ void StopPoint::copy(const StopPoint& other)
     this->time = other.time;
     this->actualTime = other.actualTime;
     this->passenger = other.passenger;
-    this->maxWaitingTime = other.maxWaitingTime;
+    this->maxDelay = other.maxDelay;
     this->x_coord = other.x_coord;
     this->y_coord = other.y_coord;
 }
@@ -121,14 +121,14 @@ double StopPoint::getActualTime() const
     return actualTime;
 }
 
-void StopPoint::setMaxWaitingTime(double maxWaitingTime)
+void StopPoint::setMaxDelay(double maxDelay)
 {
-    this->maxWaitingTime = maxWaitingTime;
+    this->maxDelay = maxDelay;
 }
 
-double StopPoint::getMaxWaitingTime() const
+double StopPoint::getMaxDelay() const
 {
-    return maxWaitingTime;
+    return maxDelay;
 }
 
 void StopPoint::setXcoord(int x_coord)

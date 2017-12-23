@@ -54,6 +54,7 @@ Define_Module(Routing);
 void Routing::handleMessage(cMessage *msg)
 {
     Vehicle *pk = check_and_cast<Vehicle *>(msg);
+    //next stop point
     int destAddr = pk->getDestAddr();
 
     //If this node is the destination, forward the vehicle to the application level
@@ -107,10 +108,10 @@ double Routing::getSpaceDistanceToTarget(int dstAddress){
  */
 double Routing::timeDistanceToTarget(cTopology::Node *thisNode)
 {
-    double distToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
+    double hopsToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
     double weight = 0.0;
 
-    for (int i=0; i<distToTarget; i++)
+    for (int i=0; i<hopsToTarget; i++)
     {
         cTopology::LinkOut *linkOut = thisNode->getPath(0);
         weight += linkOut->getWeight();

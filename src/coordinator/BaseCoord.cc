@@ -33,8 +33,8 @@ void BaseCoord::initialize()
 int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest *tr)
 {
     TripRequest *propAccepted = new TripRequest(*tr);
-    double pickupDeadline = tr->getPickupSP()->getTime() + tr->getPickupSP()->getMaxWaitingTime();
-    double dropoffDeadline = tr->getDropoffSP()->getTime() + tr->getDropoffSP()->getMaxWaitingTime();
+    double pickupDeadline = tr->getPickupSP()->getTime() + tr->getPickupSP()->getMaxDelay();
+    double dropoffDeadline = tr->getDropoffSP()->getTime() + tr->getDropoffSP()->getMaxDelay();
     double pickupActualTime = -1.0;
     double dropoffActualTime = -1.0;
     int vehicleID = -1;
@@ -128,14 +128,14 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
     bool isFeasible = true;
 
     for (std::list<StopPoint*>::const_iterator it = lsp.begin(), end = lsp.end(); it != end; ++it) {
-        EV <<"Distance from " << sp->getNodeID() << " to " << (*it)->getLocation() << " is > " <<  ((*it)->getTime() + (*it)->getMaxWaitingTime() - currentTime) << endl;
-        if (getDistance(sp->getNodeID(), (*it)->getLocation()) > ((*it)->getTime() + (*it)->getMaxWaitingTime() - currentTime))
+        EV <<"Distance from " << sp->getNodeID() << " to " << (*it)->getLocation() << " is > " <<  ((*it)->getTime() + (*it)->getMaxDelay() - currentTime) << endl;
+        if (getDistance(sp->getNodeID(), (*it)->getLocation()) > ((*it)->getTime() + (*it)->getMaxDelay() - currentTime))
             beforeR.push_back((*it));
     }
 
     for (std::list<StopPoint*>::const_iterator it = lsp.begin(), end = lsp.end(); it != end; ++it) {
-        EV <<"Distance from " << (*it)->getNodeID() << " to " << sp->getLocation() << " is > " <<  (sp->getTime() + sp->getMaxWaitingTime() - currentTime) << endl;
-        if (getDistance((*it)->getNodeID(), sp->getLocation()) > (sp->getTime() + sp->getMaxWaitingTime() - currentTime))
+        EV <<"Distance from " << (*it)->getNodeID() << " to " << sp->getLocation() << " is > " <<  (sp->getTime() + sp->getMaxDelay() - currentTime) << endl;
+        if (getDistance((*it)->getNodeID(), sp->getLocation()) > (sp->getTime() + sp->getMaxDelay() - currentTime))
             afterR.push_back((*it));
     }
 
@@ -155,7 +155,7 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
                     break;
                 }
 
-                if (getDistance((*it)->getNodeID(), (*it2)->getLocation()) > ((*it2)->getTime() + (*it2)->getMaxWaitingTime() - currentTime))
+                if (getDistance((*it)->getNodeID(), (*it2)->getLocation()) > ((*it2)->getTime() + (*it2)->getMaxDelay() - currentTime))
                 {
                     EV << "The request is not feasible for the vehicle " << vehicleID << endl;
                     isFeasible = false;

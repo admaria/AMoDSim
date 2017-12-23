@@ -25,10 +25,11 @@ class App : public cSimpleModule,cListener
     int y_coord;
     std::string nodePath;
     bool hasVehicle;
+    bool isRequestGenerator;
     int destAddresses;
     BaseCoord *tcoord;
     cPar *sendIATime;
-    cPar *maxWaitingTime;
+    cPar *maxDelay;
     Routing *r;
 
     typedef std::map<int, Vehicle*> Vehicles;
@@ -72,8 +73,9 @@ void App::initialize()
     myAddress = par("address");
     destAddresses = par("destAddresses");
     sendIATime = &par("sendIaTime");  // volatile parameter
-    maxWaitingTime = &par("maxWaitingTime");
+    maxDelay = &par("maxDelay");
     hasVehicle = par("hasVehicle");
+    isRequestGenerator = par("isRequestGenerator");
     nodePath = getParentModule()->getFullPath();
     tcoord = check_and_cast<BaseCoord *>(getParentModule()->getParentModule()->getSubmodule("tcoord"));
     x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("base_distance").doubleValue();
@@ -100,8 +102,12 @@ void App::initialize()
         simulation.getSystemModule()->subscribe("newTripAssigned",this);
     }
 
-    scheduleAt(intuniform(0, sendIATime->doubleValue()), generatePacket);
-    //scheduleAt(poisson(sendIATime->doubleValue()), generatePacket);
+    //scheduleAt(sendIATime->doubleValue(), generatePacket);
+    if(isRequestGenerator)
+    {
+        EV << "I am node " << myAddress << ". I AM A REQUEST GENERATOR!" << endl;
+        scheduleAt(exponential(sendIATime->doubleValue()), generatePacket);
+    }
 
 }
 
@@ -120,7 +126,7 @@ void App::handleMessage(cMessage *msg)
         emit(tripRequest, tr);
 
         //Schedule the next request
-        simtime_t nextTime = simTime() + poisson(sendIATime->doubleValue());
+        simtime_t nextTime = simTime() + exponential(sendIATime->doubleValue());
         EV << "Next request from node " << myAddress << "scheduled at: " << nextTime.dbl() << endl;
         scheduleAt(nextTime, generatePacket);
     }
@@ -226,13 +232,13 @@ TripRequest* App::buildTripRequest()
     while (destAddress == myAddress)
         destAddress = intuniform(0, destAddresses-1);
 
-    StopPoint *pickupSP = new StopPoint(pk->getID(), myAddress, true, simTime().dbl(), maxWaitingTime->doubleValue());
+    StopPoint *pickupSP = new StopPoint(pk->getID(), myAddress, true, simTime().dbl(), maxDelay->doubleValue());
     pickupSP->setNodeID(nodePath);
     pickupSP->setXcoord(x_coord);
     pickupSP->setYcoord(y_coord);
     pickupSP->setPassenger(1);
 
-    StopPoint *dropoffSP = new StopPoint(pk->getID(), destAddress, false, simTime().dbl() + r->getDistanceToTarget(destAddress), maxWaitingTime->doubleValue());
+    StopPoint *dropoffSP = new StopPoint(pk->getID(), destAddress, false, simTime().dbl() + r->getDistanceToTarget(destAddress), maxDelay->doubleValue());
 
     //TODO to be improved
     std::stringstream ss;

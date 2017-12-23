@@ -9,7 +9,8 @@ simple App like IApp
         int address;  // local node address
         int destAddresses;  // destination addresses range
         bool hasVehicle;
-        volatile double maxWaitingTime @unit(s) = default(2minute);
+        bool isRequestGenerator;
+        volatile double maxDelay @unit(s) = default(2minute);
         volatile double sendIaTime @unit(s)= default(1minute); // time between generating packets
         @display("i=block/browser");
         

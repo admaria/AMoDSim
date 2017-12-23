@@ -60,15 +60,15 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         EV << " The vehicle " << vehicleID << " is empty. Trying to add new request..." << endl;
         double timeToPickup = getDistance(getLastVehicleLocation(vehicleID), newTRpickup->getLocation()) + simTime().dbl();
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxWaitingTime()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRdropoff->setActualTime(newTRpickup->getActualTime() + getDistance(newTRpickup->getNodeID(), newTRdropoff->getLocation()) + boardingTime);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
             EV << "NEW LIST SIZE: " << newList.size() << endl;
-            EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxWaitingTime()) << endl;
-            EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxWaitingTime()) << endl;
+            EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxDelay()) << endl;
+            EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()) << endl;
         }
         else
         {
@@ -84,7 +84,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         StopPoint *last = old.back();
         double timeToPickup = getDistance(last->getNodeID(), newTRpickup->getLocation()) + last->getActualTime() + alightingTime; //The last SP is a dropOff point.
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxWaitingTime()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRdropoff->setActualTime(newTRpickup->getActualTime() + getDistance(newTRpickup->getNodeID(), newTRdropoff->getLocation()) + boardingTime);
@@ -92,8 +92,8 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
             EV << "NEW LIST SIZE: " << newList.size() << endl;
-            EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxWaitingTime()) << endl;
-            EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxWaitingTime()) << endl;
+            EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxDelay()) << endl;
+            EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()) << endl;
         }
         else
         {
@@ -167,7 +167,7 @@ std::list<StopPoint*> HeuristicCoord::minCostOrdering(std::list<StopPoint*> spl,
 
     //Get the additional time-cost allowed by each stop point
     for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = spl.end(); it != end; ++it)
-        residualTimes.push_back((*it)->getMaxWaitingTime() + (*it)->getTime() - (*it)->getActualTime());
+        residualTimes.push_back((*it)->getMaxDelay() + (*it)->getTime() - (*it)->getActualTime());
 
     for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = spl.end(); it != end; ++it) {
         it2 = it;
@@ -183,14 +183,14 @@ std::list<StopPoint*> HeuristicCoord::minCostOrdering(std::list<StopPoint*> spl,
         else
         {
             residualTimes.clear();
-            minResidual = newSP->getTime()+newSP->getMaxWaitingTime() - (*it)->getActualTime();
+            minResidual = newSP->getTime()+newSP->getMaxDelay() - (*it)->getActualTime();
             EV << " Min residual in last position is:  " << minResidual << endl;
         }
 
         //Distance from prev SP to new SP
         dt = getDistance((*it)->getNodeID(), newSP->getLocation());//TODO Add boarding/alig time
         EV << " Distance from " << (*it)->getNodeID() << " to " <<  newSP->getLocation() << " is " << dt << endl;
-        if((*it)->getActualTime() + dt > (newSP->getTime()+newSP->getMaxWaitingTime()))
+        if((*it)->getActualTime() + dt > (newSP->getTime()+newSP->getMaxDelay()))
         {
             EV << "Stop search: from here will be unreachable within its deadline!" << endl;
             break;
@@ -243,7 +243,7 @@ std::list<StopPoint*> HeuristicCoord::minCostOrdering(std::list<StopPoint*> spl,
         else
             newSP->setActualTime(newListBack->getActualTime()+distanceTo+alightingTime);
 
-        EV << " New SP Max time: " << newSP->getTime() + newSP->getMaxWaitingTime() << ". Actual Time: " << newSP->getActualTime() << endl;
+        EV << " New SP Max time: " << newSP->getTime() + newSP->getMaxDelay() << ". Actual Time: " << newSP->getActualTime() << endl;
         orderedList.push_back(newSP);
 
         //After new SP
@@ -251,7 +251,7 @@ std::list<StopPoint*> HeuristicCoord::minCostOrdering(std::list<StopPoint*> spl,
             StopPoint* tmp = new StopPoint(**it);
             double prevActualTime = tmp->getActualTime();
             tmp->setActualTime(tmp->getActualTime() + cost);
-            EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxWaitingTime() << endl;
+            EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << endl;
             orderedList.push_back(tmp);
         }
     }
