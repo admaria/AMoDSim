@@ -9,14 +9,16 @@
 #define ROUTING_H_
 
 #include <map>
+#include "BaseCoord.h"
 #include <omnetpp.h>
+#include "NetworkManager.h"
 
 class Routing : public cSimpleModule{
 private:
     int myAddress;
-    int channelLength;
-    double channelTime;
-    cTopology *topo;
+
+    NetworkManager* netmanager;
+    std::map<int,int> indexTable;
 
     typedef std::map<int,int> RoutingTable; // destaddr -> gateindex
     RoutingTable rtable;
@@ -27,16 +29,15 @@ private:
     typedef std::map<int,double> SpaceDistanceTable; // destaddr -> space distance (in meters)
     SpaceDistanceTable sdtable;
 
+    typedef std::map<int,double> ChannelLength; // gateIndex -> channel length
+    ChannelLength cltable;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
-    virtual double timeDistanceToTarget(cTopology::Node *thisNode);
-    virtual double spaceDistanceToTarget(cTopology::Node *thisNode);
 
   public:
       virtual int getAddress() const;
-      virtual double getDistanceToTarget(int dstAddr);
-      virtual double getSpaceDistanceToTarget(int dstAddr);
 };
 
 

@@ -28,8 +28,7 @@ void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
     for (auto const &x : vehicles)
     {
         //Check if the vehicle has enough seats to serve the request
-        //TODO rename to numberOfPassengers
-        if(x.first->getSeats() >= tr->getPickupSP()->getPassenger())
+        if(x.first->getSeats() >= tr->getPickupSP()->getNumberOfPassengers())
         {
             std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
             if(!tmp.empty())
@@ -65,8 +64,10 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
     if(rPerVehicle.find(vehicleID) == rPerVehicle.end() || old.empty())
     {
         EV << "The vehicle " << vehicleID << " has not other stop points!" << endl;
-        double dst_to_pickup = getDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
-        double dst_to_dropoff = getDistance(pickupSP->getNodeID(), dropoffSP->getLocation()) + boardingTime;
+        double dst_to_pickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
+        //getSpaceDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
+        double dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
+        //getSpaceDistance(pickupSP->getNodeID(), dropoffSP->getLocation());
         if (dst_to_pickup != -1)
         {
            pickupSP->setActualTime(dst_to_pickup + currentTime);
@@ -81,8 +82,10 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         EV << "The vehicle " << vehicleID << " has other stop points!" << endl;
         //Get last stop point for the vehicle
         StopPoint *sp = old.back();
-        double dst_to_pickup = getDistance(sp->getNodeID(), pickupSP->getLocation()) + (sp->getActualTime() - currentTime) + alightingTime; //The last stop point is a dropOff point.
-        double dst_to_dropoff = getDistance(pickupSP->getNodeID(), dropoffSP->getLocation()) + boardingTime;
+        double dst_to_pickup = netmanager->getTimeDistance(sp->getLocation(), pickupSP->getLocation()) + (sp->getActualTime() - currentTime) + alightingTime; //The last stop point is a dropOff point.
+        //getSpaceDistance(sp->getNodeID(), pickupSP->getLocation());
+        double dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
+        //getSpaceDistance(pickupSP->getNodeID(), dropoffSP->getLocation());
 
         pickupSP->setActualTime(dst_to_pickup + currentTime);
         dropoffSP->setActualTime(pickupSP->getActualTime() + dst_to_dropoff);

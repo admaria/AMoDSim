@@ -6,12 +6,9 @@ package src.node;
 simple App like IApp
 {
     parameters:
-        int address;  // local node address
-        int destAddresses;  // destination addresses range
-        bool hasVehicle;
-        bool isRequestGenerator;
-        volatile double maxDelay @unit(s) = default(2minute);
-        volatile double sendIaTime @unit(s)= default(1minute); // time between generating packets
+        int address;  			//local node address
+        int numberOfVehicles = default(0);	//vehicles in local node at simulation start
+        volatile int seatsPerVehicle = default(1);
         @display("i=block/browser");
         
     gates:

@@ -9,12 +9,21 @@ module Node
         int address;
         int x_distance @unit(m);
         int y_distance @unit(m);
-        int base_distance @unit(m);
+        int xBase_distance @unit(m);
+        int yBase_distance @unit(m);
+        bool isRequestGenerator = default(false);
         string appType;
         @display("i=misc/node_vs,gold");
     gates:
         inout port[];
+    
     submodules:
+        trsubmitter: TripRequestSubmitter if isRequestGenerator {
+        	parameters:
+                address = address;
+                @display("p=180,60");
+        }
+        
         app: <appType> like IApp {
             parameters:
                 address = address;

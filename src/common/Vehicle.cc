@@ -5,7 +5,7 @@ int Vehicle::nextID = 0;
 Vehicle::Vehicle() {
     id = ++nextID;
     setName((std::to_string(id)).c_str());
-    traveledDistance = 0;
+    traveledDistance = 0.0;
     seats = 1;
 }
 
@@ -27,12 +27,12 @@ void Vehicle::setSeats(int seats)
     this->seats = seats;
 }
 
-int Vehicle::getTraveledDistance() const
+double Vehicle::getTraveledDistance() const
 {
     return traveledDistance;
 }
 
-void Vehicle::setTraveledDistance(int distance)
+void Vehicle::setTraveledDistance(double distance)
 {
     this->traveledDistance = distance;
 }

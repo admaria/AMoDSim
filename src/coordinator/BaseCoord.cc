@@ -15,6 +15,7 @@ void BaseCoord::initialize()
     totrequests = 0;
     alightingTime = getParentModule()->par("alightingTime").doubleValue();
     boardingTime = getParentModule()->par("boardingTime").doubleValue();
+    netmanager = check_and_cast<NetworkManager *>(getParentModule()->getSubmodule("netmanager"));
     //netXsize = (getParentModule()->par("width").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
     //netYsize = (getParentModule()->par("height").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
 
@@ -128,14 +129,14 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
     bool isFeasible = true;
 
     for (std::list<StopPoint*>::const_iterator it = lsp.begin(), end = lsp.end(); it != end; ++it) {
-        EV <<"Distance from " << sp->getNodeID() << " to " << (*it)->getLocation() << " is > " <<  ((*it)->getTime() + (*it)->getMaxDelay() - currentTime) << endl;
-        if (getDistance(sp->getNodeID(), (*it)->getLocation()) > ((*it)->getTime() + (*it)->getMaxDelay() - currentTime))
+        EV <<"Distance from " << sp->getLocation() << " to " << (*it)->getLocation() << " is > " <<  ((*it)->getTime() + (*it)->getMaxDelay() - currentTime) << endl;
+        if (netmanager->getTimeDistance(sp->getLocation(), (*it)->getLocation()) > ((*it)->getTime() + (*it)->getMaxDelay() - currentTime))
             beforeR.push_back((*it));
     }
 
     for (std::list<StopPoint*>::const_iterator it = lsp.begin(), end = lsp.end(); it != end; ++it) {
-        EV <<"Distance from " << (*it)->getNodeID() << " to " << sp->getLocation() << " is > " <<  (sp->getTime() + sp->getMaxDelay() - currentTime) << endl;
-        if (getDistance((*it)->getNodeID(), sp->getLocation()) > (sp->getTime() + sp->getMaxDelay() - currentTime))
+        EV <<"Distance from " << (*it)->getLocation() << " to " << sp->getLocation() << " is > " <<  (sp->getTime() + sp->getMaxDelay() - currentTime) << endl;
+        if (netmanager->getTimeDistance((*it)->getLocation(), sp->getLocation()) > (sp->getTime() + sp->getMaxDelay() - currentTime))
             afterR.push_back((*it));
     }
 
@@ -150,12 +151,12 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
             {
                 if((*it)->getLocation() == (*it2)->getLocation())
                 {
-                    EV << "The same node is in before and after list! Node is: " << (*it)->getNodeID() << endl;
+                    EV << "The same node is in before and after list! Node is: " << (*it)->getLocation() << endl;
                     isFeasible = false;
                     break;
                 }
 
-                if (getDistance((*it)->getNodeID(), (*it2)->getLocation()) > ((*it2)->getTime() + (*it2)->getMaxDelay() - currentTime))
+                if (netmanager->getTimeDistance((*it)->getLocation(), (*it2)->getLocation()) > ((*it2)->getTime() + (*it2)->getMaxDelay() - currentTime))
                 {
                     EV << "The request is not feasible for the vehicle " << vehicleID << endl;
                     isFeasible = false;
@@ -169,46 +170,6 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
     }
 
     return isFeasible;
-}
-
-/**
- * Get the time-distance from the sourceNode to the target Address.
- *
- * @param sourceNode The source node fullPath (e.g. AMoD.n[0])
- * @param targetAddress The destination address
- *
- * @return Time needed to reach the target address starting from the source node
- */
-double BaseCoord::getDistance(std::string sourceNode, int targetAddress)
-{
-    cModule *sourceModule = getModuleByPath(sourceNode.c_str());
-    if (sourceModule != NULL)
-    {
-        Routing *r = check_and_cast<Routing *>(sourceModule->getSubmodule("routing"));
-        return r->getDistanceToTarget(targetAddress);
-    }
-    return -1;
-}
-
-
-
-/**
- * Get the space-distance from the sourceNode to the target Address.
- *
- * @param sourceNode The source node fullPath (e.g. AMoD.n[0])
- * @param targetAddress The destination address
- *
- * @return The space distance (in meters) from source node to the target one.
- */
-double BaseCoord::getSpaceDistance(std::string sourceNode, int targetAddress)
-{
-    cModule *sourceModule = getModuleByPath(sourceNode.c_str());
-    if (sourceModule != NULL)
-    {
-        Routing *r = check_and_cast<Routing *>(sourceModule->getSubmodule("routing"));
-        return r->getSpaceDistanceToTarget(targetAddress);
-    }
-    return -1;
 }
 
 
@@ -257,8 +218,8 @@ StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
         else
         {
             double att = (simTime().dbl() - servedPickup[sp->getRequestID()]->getActualTime())/60; //ActualTripTime
-            double ter = (getDistance(servedPickup[sp->getRequestID()]->getNodeID(), sp->getLocation()) / 60) / att; //Trip Efficiency Ratio
-            double trip_distance = getSpaceDistance(servedPickup[sp->getRequestID()]->getNodeID(), sp->getLocation()) / 1000;
+            double ter = (netmanager->getTimeDistance(servedPickup[sp->getRequestID()]->getLocation(), sp->getLocation()) / 60) / att; //Trip Efficiency Ratio
+            double trip_distance = netmanager->getSpaceDistance(servedPickup[sp->getRequestID()]->getLocation(), sp->getLocation()) / 1000;
             emit(actualTripTime, att);
             emit(tripEfficiencyRatio, ter);
             emit(tripDistance, trip_distance);
@@ -285,52 +246,70 @@ void BaseCoord::finish()
     }
 
     //emit statistics related to trips not yet completed
-    for(auto const& x : rPerVehicle)
-    {
-        for (std::list<StopPoint*>::const_iterator it = x.second.begin(), end = x.second.end(); it != end; ++it)
-        {
-            if((*it)->getIsPickup())
-            {
-                servedPickup[(*it)->getRequestID()] = (*it);
-                emit(waitingTime, ((*it)->getActualTime() - (*it)->getTime())/60);
-            }
-            else
-            {
-                double att = ((*it)->getActualTime() - servedPickup[(*it)->getRequestID()]->getActualTime())/60; //ActualTripTime
-                double ter = (getDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 60) / att; //Trip Efficiency Ratio
-                double trip_distance = getSpaceDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 1000;
-                emit(actualTripTime, att);
-                emit(tripEfficiencyRatio, ter);
-                emit(tripDistance, trip_distance);
-            }
-        }
-    }
+//    for(auto const& x : rPerVehicle)
+//    {
+//        for (std::list<StopPoint*>::const_iterator it = x.second.begin(), end = x.second.end(); it != end; ++it)
+//        {
+//            EV << "SOME TRIP NOT COMPLETED!" << endl;
+//            if((*it)->getIsPickup())
+//            {
+//                servedPickup[(*it)->getRequestID()] = (*it);
+//                emit(waitingTime, ((*it)->getActualTime() - (*it)->getTime())/60);
+//            }
+//            else
+//            {
+//                double att = ((*it)->getActualTime() - servedPickup[(*it)->getRequestID()]->getActualTime())/60; //ActualTripTime
+//                double ter = (getDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 60) / att; //Trip Efficiency Ratio
+//                double trip_distance = getSpaceDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 1000;
+//                emit(actualTripTime, att);
+//                emit(tripEfficiencyRatio, ter);
+//                emit(tripDistance, trip_distance);
+//            }
+//        }
+//    }
 }
 
 /**
- * Register the vehicle v in the node nodeID.
+ * Register the vehicle v in a node.
  *
  * @param v
- * @param nodeID The full path of the node (e.g. AMoD.n[0])
+ * @param address The node address
  */
-void BaseCoord::registerVehicle(Vehicle *v, std::string nodeID)
+void BaseCoord::registerVehicle(Vehicle *v, int address)
 {
-    vehicles[v] = nodeID;
-    EV << "Registered vehicle " << v->getID() << " in node: " << nodeID << endl;
+    vehicles[v] = address;
+    EV << "Registered vehicle " << v->getID() << " in node: " << address << endl;
 }
 
 /**
  * Get the last location where the vehicle was registered.
  *
  * @param vehicleID
- * @return the full path of the node (e.g. AMoD.n[0])
+ * @return the location address
  */
-std::string BaseCoord::getLastVehicleLocation(int vehicleID)
+int BaseCoord::getLastVehicleLocation(int vehicleID)
 {
     for(auto const& x : vehicles)
     {
         if(x.first->getID() == vehicleID)
             return x.second;
     }
-    return "";
+    return -1;
 }
+
+/**
+ * Get vehicle from its ID.
+ *
+ * @param vehicleID
+ * @return pointer to the vehicle
+ */
+Vehicle* BaseCoord::getVehicleByID(int vehicleID)
+{
+    for(auto const& x : vehicles)
+    {
+        if(x.first->getID() == vehicleID)
+            return x.first;
+    }
+    return NULL;
+}
+

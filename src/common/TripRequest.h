@@ -18,7 +18,6 @@ protected:
     StopPoint *dropoff;
 
     int vehicleID;
-    int nPassenger;
     int distanceToPickup;
 
 public:
@@ -36,8 +35,6 @@ public:
     virtual int getID() const;
     virtual int getVehicleID() const;
     virtual void setVehicleID(int vehicleID);
-    virtual int getNPassenger() const;
-    virtual void setNPassenger(int nPassenger);
     virtual int getDistanceToPickup() const;
     virtual void setDistanceToPickup(int distanceToPickup);
 };

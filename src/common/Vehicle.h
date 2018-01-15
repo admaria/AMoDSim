@@ -14,8 +14,8 @@ class Vehicle: public Packet {
         Vehicle();
         virtual ~Vehicle();
         virtual int getID() const;
-        virtual int getTraveledDistance() const;
-        virtual void setTraveledDistance(int distance);
+        virtual double getTraveledDistance() const;
+        virtual void setTraveledDistance(double distance);
         virtual int getSeats() const;
         virtual void setSeats(int seats);
 };

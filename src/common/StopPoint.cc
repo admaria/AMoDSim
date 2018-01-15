@@ -4,8 +4,7 @@ StopPoint::StopPoint() {
     this->requestID = -1;
     this->time = 0.0;
     this->actualTime = 0.0;
-    this->nodeID = "";
-    this->passenger = 0;
+    this->numberOfPassengers = 1;
     this->location = -1;
     this->x_coord = -1;
     this->y_coord = -1;
@@ -17,11 +16,10 @@ StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, do
 {
     this->requestID = requestID;
     this->location = location;
-    this->nodeID = "";
     this->isPickup = isPickup;
     this->time = time;
     this->actualTime = 0.0;
-    this->passenger = 0;
+    this->numberOfPassengers = 1;
     this->maxDelay = maxDelay;
     this->x_coord = -1; //TODO
     this->y_coord = -1; //TODO
@@ -36,11 +34,10 @@ void StopPoint::copy(const StopPoint& other)
 {
     this->requestID = other.requestID;
     this->location = other.location;
-    this->nodeID = other.nodeID;
     this->isPickup = other.isPickup;
     this->time = other.time;
     this->actualTime = other.actualTime;
-    this->passenger = other.passenger;
+    this->numberOfPassengers = other.numberOfPassengers;
     this->maxDelay = other.maxDelay;
     this->x_coord = other.x_coord;
     this->y_coord = other.y_coord;
@@ -61,14 +58,14 @@ int StopPoint::getRequestID() const
     return requestID;
 }
 
-void StopPoint::setPassenger(int passenger)
+void StopPoint::setNumberOfPassengers(int numberOfPassengers)
 {
-    this->passenger = passenger;
+    this->numberOfPassengers = numberOfPassengers;
 }
 
-int StopPoint::getPassenger() const
+int StopPoint::getNumberOfPassengers() const
 {
-    return passenger;
+    return numberOfPassengers;
 }
 
 void StopPoint::setLocation(int location)
@@ -79,16 +76,6 @@ void StopPoint::setLocation(int location)
 int StopPoint::getLocation() const
 {
     return location;
-}
-
-void StopPoint::setNodeID(std::string nodeID)
-{
-    this->nodeID = nodeID;
-}
-
-std::string StopPoint::getNodeID() const
-{
-    return nodeID;
 }
 
 void StopPoint::setIsPickup(bool isPickup)

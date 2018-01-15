@@ -4,6 +4,7 @@
 #include <omnetpp.h>
 #include "TripRequest.h"
 #include "Vehicle.h"
+#include "NetworkManager.h"
 #include <list>
 
 class BaseCoord : public cSimpleModule, cListener{
@@ -12,7 +13,9 @@ class BaseCoord : public cSimpleModule, cListener{
         int totrequests;
         int boardingTime;
         int alightingTime;
+        NetworkManager* netmanager;
 
+        //Trip related signals
         simsignal_t tripRequest;
         simsignal_t newTripAssigned;
 
@@ -22,8 +25,8 @@ class BaseCoord : public cSimpleModule, cListener{
         simsignal_t tripEfficiencyRatio;
         simsignal_t tripDistance;
 
-        std::map<Vehicle*, std::string> vehicles; //Vehicle -> nodeID
-        std::map<int, StopPoint*> servedPickup; //Details related to served pickup: needed to extract per-trip metrics
+        std::map<Vehicle*, int> vehicles; //Vehicle -> node address
+        std::map<int, StopPoint*> servedPickup;   //Details related to served pickup: needed to extract per-trip metrics
 
         typedef std::map<int,std::list<StopPoint*>> RequestsPerVehicle; //vehicleID/list of requests
         RequestsPerVehicle rPerVehicle;
@@ -41,15 +44,14 @@ class BaseCoord : public cSimpleModule, cListener{
         virtual std::list<StopPoint*> eval_requestAssignment(int vehicleID, TripRequest* newTR) = 0; //Sort the stop-points related to the specified vehicle including the new request's pickup and dropoff point, if feasible.
         virtual int minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
 
-        virtual double getDistance(std::string sourceNode, int targetAddress);
-        virtual double getSpaceDistance(std::string sourceNode, int targetAddress);
         virtual StopPoint* getRequestPickup(std::list<StopPoint*> spList, int requestID);
 
     public:
         virtual StopPoint* getNextStopPoint(int vehicleID);
         virtual StopPoint* getCurrentStopPoint(int vehicleID);
-        virtual void registerVehicle (Vehicle *v, std::string nodeID);
-        virtual std::string getLastVehicleLocation(int vehicleID);
+        virtual void registerVehicle (Vehicle *v, int address);
+        virtual int getLastVehicleLocation(int vehicleID);
+        virtual Vehicle* getVehicleByID(int vehicleID);
 
 };
 

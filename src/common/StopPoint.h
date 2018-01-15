@@ -12,8 +12,7 @@ class StopPoint {
         int location;
         int x_coord;
         int y_coord;
-        std::string nodeID;
-        int passenger;
+        int numberOfPassengers;
         bool isPickup;
         double time;
         double actualTime;
@@ -28,14 +27,11 @@ class StopPoint {
         virtual void setRequestID(int requestID);
         virtual int getRequestID() const;
 
-        virtual void setPassenger(int passenger);
-        virtual int getPassenger() const;
+        virtual void setNumberOfPassengers(int passenger);
+        virtual int getNumberOfPassengers() const;
 
         virtual void setLocation(int location);
         virtual int getLocation() const;
-
-        virtual void setNodeID(std::string nodeID);
-        virtual std::string getNodeID() const;
 
         virtual void setIsPickup(bool isPickup);
         virtual bool getIsPickup() const;

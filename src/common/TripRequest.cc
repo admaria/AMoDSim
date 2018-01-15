@@ -20,7 +20,6 @@ void TripRequest::copy(const TripRequest& other)
     this->dropoff = new StopPoint(*other.dropoff);
     this->distanceToPickup = other.distanceToPickup;
     this->vehicleID = other.vehicleID;
-    this->nPassenger = other.nPassenger;
 }
 
 
@@ -63,15 +62,6 @@ void TripRequest::setVehicleID(int vehicleID)
     this->vehicleID = vehicleID;
 }
 
-int TripRequest::getNPassenger() const
-{
-    return nPassenger;
-}
-
-void TripRequest::setNPassenger(int nPassenger)
-{
-    this->nPassenger = nPassenger;
-}
 
 int TripRequest::getDistanceToPickup() const
 {
