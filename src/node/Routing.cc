@@ -15,7 +15,7 @@ using namespace std;
 void Routing::initialize()
 {
     myAddress = getParentModule()->par("address");
-    netmanager = check_and_cast<NetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
+    netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
 }
 
 Define_Module(Routing);

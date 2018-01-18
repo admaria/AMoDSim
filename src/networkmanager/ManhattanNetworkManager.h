@@ -1,0 +1,29 @@
+#ifndef __AMOD_SIMULATOR_MANHATTANNETWORKMANAGER_H_
+#define __AMOD_SIMULATOR_MANHATTANNETWORKMANAGER_H_
+
+#include <omnetpp.h>
+#include <AbstractNetworkManager.h>
+
+class ManhattanNetworkManager : public AbstractNetworkManager
+{
+private:
+    int rows;
+    int columns;
+
+    double xChannelLength;
+    double yChannelLength;
+    double xTravelTime;
+    double yTravelTime;
+
+protected:
+    virtual void initialize() override;
+    virtual void handleMessage(cMessage *msg) override;
+
+  public:
+    virtual double getTimeDistance(int srcAddr, int dstAddr) override;
+    virtual double getSpaceDistance(int srcAddr, int dstAddr) override;
+    virtual double getChannelLength(int nodeAddr, int gateIndex) override;
+    virtual int getOutputGate(int srcAddr, int destAddr) override;
+};
+
+#endif

@@ -4,7 +4,7 @@
 #include <omnetpp.h>
 #include "TripRequest.h"
 #include "Vehicle.h"
-#include "NetworkManager.h"
+#include "AbstractNetworkManager.h"
 #include <list>
 
 class BaseCoord : public cSimpleModule, cListener{
@@ -13,7 +13,7 @@ class BaseCoord : public cSimpleModule, cListener{
         int totrequests;
         int boardingTime;
         int alightingTime;
-        NetworkManager* netmanager;
+        AbstractNetworkManager* netmanager;
 
         //Trip related signals
         simsignal_t tripRequest;

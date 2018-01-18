@@ -1,6 +1,6 @@
 import src.coordinator.ICoord;
 import src.node.Node;
-import src.networkmanager.NetworkManager;
+import src.networkmanager.INetworkManager;
 import ned.DatarateChannel;
 
 network AMoD
@@ -27,6 +27,9 @@ network AMoD
         //------Coordinator type--------
         string coordType = default ("RadioTaxiCoord");
         
+        //------NetworkManager type--------
+        string netmanagerType = default ("AdaptiveNetworkManager");
+        
         @display("bgb=$w,$h");
         
     types:
@@ -45,7 +48,7 @@ network AMoD
         }
 
     submodules:
-        netmanager: NetworkManager{
+        netmanager: <netmanagerType> like INetworkManager{
         	@display("p=800,50");
         }
                 
@@ -56,8 +59,10 @@ network AMoD
         n[height*width]: Node {
             parameters:
                 address = index;
+                x=index % width;
+                y=index / height;
                 x_distance = replaceUnit((index % width),"meter"); //meters from origin (x axes)
-                y_distance = replaceUnit((index / width), "meter");//meters from origin (y axes)
+                y_distance = replaceUnit((index / height), "meter");//meters from origin (y axes)
                 xBase_distance = xNodeDistance;
                 yBase_distance = yNodeDistance;
                 @display("p=,,m,$width,$xNodeDistance,$yNodeDistance");

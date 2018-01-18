@@ -1,6 +1,4 @@
 #include <BaseCoord.h>
-#include "Routing.h"
-
 
 void BaseCoord::initialize()
 {
@@ -15,7 +13,7 @@ void BaseCoord::initialize()
     totrequests = 0;
     alightingTime = getParentModule()->par("alightingTime").doubleValue();
     boardingTime = getParentModule()->par("boardingTime").doubleValue();
-    netmanager = check_and_cast<NetworkManager *>(getParentModule()->getSubmodule("netmanager"));
+    netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getSubmodule("netmanager"));
     //netXsize = (getParentModule()->par("width").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
     //netYsize = (getParentModule()->par("height").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
 

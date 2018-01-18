@@ -1,7 +1,7 @@
 
 #include <omnetpp.h>
 #include "TripRequest.h"
-#include "NetworkManager.h"
+#include "AbstractNetworkManager.h"
 
 class TripRequestSubmitter : public cSimpleModule
 {
@@ -16,7 +16,7 @@ class TripRequestSubmitter : public cSimpleModule
 
         cPar *sendIATime;
         cPar *maxDelay;
-        NetworkManager *netmanager;
+        AbstractNetworkManager *netmanager;
 
         cMessage *generatePacket;
         long pkCounter;
@@ -57,12 +57,13 @@ void TripRequestSubmitter::initialize()
 
     x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("xBase_distance").doubleValue();
     y_coord = getParentModule()->par("y_distance").doubleValue() * getParentModule()->par("yBase_distance").doubleValue();
-    netmanager = check_and_cast<NetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
+    netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
 
     generatePacket = new cMessage("nextPacket");
     tripRequest = registerSignal("tripRequest");
 
-    scheduleAt(sendIATime->doubleValue(), generatePacket);
+    if(sendIATime->doubleValue() < maxSubmissionTime)
+        scheduleAt(sendIATime->doubleValue(), generatePacket);
 }
 
 

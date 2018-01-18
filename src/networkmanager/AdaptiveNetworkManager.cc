@@ -1,9 +1,9 @@
 
-#include "NetworkManager.h"
+#include "AdaptiveNetworkManager.h"
 
-Define_Module(NetworkManager);
+Define_Module(AdaptiveNetworkManager);
 
-void NetworkManager::initialize()
+void AdaptiveNetworkManager::initialize()
 {
     bool onlineRouting = par("onlineRouting").boolValue();
     topo = new cTopology("topo");
@@ -50,7 +50,7 @@ void NetworkManager::initialize()
  * @param thisNode
  * @return
  */
-double NetworkManager::timeDistanceToTarget(cTopology::Node *thisNode)
+double AdaptiveNetworkManager::timeDistanceToTarget(cTopology::Node *thisNode)
 {
     double hopsToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
     double timeDistance = 0.0;
@@ -74,7 +74,7 @@ double NetworkManager::timeDistanceToTarget(cTopology::Node *thisNode)
  * @param thisNode
  * @return
  */
-double NetworkManager::spaceDistanceToTarget(cTopology::Node *thisNode)
+double AdaptiveNetworkManager::spaceDistanceToTarget(cTopology::Node *thisNode)
 {
     double distToTarget = thisNode->getDistanceToTarget(); //get the hops to reach the target
     double spaceDistance = 0.0;
@@ -98,7 +98,7 @@ double NetworkManager::spaceDistanceToTarget(cTopology::Node *thisNode)
  * @param dstAddress
  * @return
  */
-double NetworkManager::getSpaceDistance(int srcAddr, int dstAddr)
+double AdaptiveNetworkManager::getSpaceDistance(int srcAddr, int dstAddr)
 {
     if(sdtable.find(srcAddr) == sdtable.end() || (sdtable[srcAddr].find(dstAddr) == sdtable[srcAddr].end()))
         updateTables(dstAddr);
@@ -111,7 +111,7 @@ double NetworkManager::getSpaceDistance(int srcAddr, int dstAddr)
  * @param dstAddress
  * @return
  */
-double NetworkManager::getTimeDistance(int srcAddr, int dstAddr)
+double AdaptiveNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
 {
     if(dtable.find(srcAddr) == dtable.end() || (dtable[srcAddr].find(dstAddr) == dtable[srcAddr].end()))
         updateTables(dstAddr);
@@ -124,7 +124,7 @@ double NetworkManager::getTimeDistance(int srcAddr, int dstAddr)
  * @param dstAddress
  * @return
  */
-int NetworkManager::getOutputGate(int srcAddr, int dstAddr)
+int AdaptiveNetworkManager::getOutputGate(int srcAddr, int dstAddr)
 {
     if(rtable.find(srcAddr) == rtable.end() || (rtable[srcAddr].find(dstAddr) == rtable[srcAddr].end()))
         updateTables(dstAddr);
@@ -138,7 +138,7 @@ int NetworkManager::getOutputGate(int srcAddr, int dstAddr)
  * @param gateIndex
  * @return
  */
-double NetworkManager::getChannelLength(int nodeAddr, int gateIndex)
+double AdaptiveNetworkManager::getChannelLength(int nodeAddr, int gateIndex)
 {
     return cltable[nodeAddr].find(gateIndex)->second;
 }
@@ -148,7 +148,7 @@ double NetworkManager::getChannelLength(int nodeAddr, int gateIndex)
  *
  * @param target address
  */
-void NetworkManager::updateTables(int destAddress)
+void AdaptiveNetworkManager::updateTables(int destAddress)
 {
 
     cTopology::Node* thisNode = NULL;
@@ -174,7 +174,7 @@ void NetworkManager::updateTables(int destAddress)
 }
 
 
-void NetworkManager::handleMessage(cMessage *msg)
+void AdaptiveNetworkManager::handleMessage(cMessage *msg)
 {
     // TODO - Generated method body
 }

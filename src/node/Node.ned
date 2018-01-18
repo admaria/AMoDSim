@@ -7,12 +7,15 @@ module Node
 {
     parameters:
         int address;
+        int x;
+        int y;
         int x_distance @unit(m);
         int y_distance @unit(m);
         int xBase_distance @unit(m);
         int yBase_distance @unit(m);
         bool isRequestGenerator = default(false);
         string appType;
+        string routingType = default("Routing");
         @display("i=misc/node_vs,gold");
     gates:
         inout port[];
@@ -29,7 +32,7 @@ module Node
                 address = address;
                 @display("p=140,60");
         }
-        routing: Routing {
+        routing: <routingType> like IRouting{
             parameters:
                 @display("p=140,130");
             gates:

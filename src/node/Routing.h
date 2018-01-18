@@ -11,13 +11,13 @@
 #include <map>
 #include "BaseCoord.h"
 #include <omnetpp.h>
-#include "NetworkManager.h"
+#include "AbstractNetworkManager.h"
 
 class Routing : public cSimpleModule{
 private:
     int myAddress;
 
-    NetworkManager* netmanager;
+    AbstractNetworkManager* netmanager;
     std::map<int,int> indexTable;
 
     typedef std::map<int,int> RoutingTable; // destaddr -> gateindex

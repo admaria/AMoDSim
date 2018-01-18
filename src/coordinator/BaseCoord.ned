@@ -9,9 +9,9 @@ simple BaseCoord like ICoord
         @signal[actualTripTime](type="double");
         @signal[tripEfficiencyRatio](type="double");
         @signal[tripDistance](type="double");
-        @statistic[waitingTime](title="Waiting time";unit=minute;record=vector,mean,max;interpolationmode=none);
-        @statistic[actualTripTime](title="Actual Trip Time";unit=minute;record=vector,mean,max;interpolationmode=none);
-        @statistic[tripEfficiencyRatio](title="Trip Efficiency Ratio";record=vector,mean,max;interpolationmode=none);
-        @statistic[tripDistance](title="Trip Distance";unit=km;record=vector,mean,max;interpolationmode=none);
+        @statistic[waitingTime](title="Waiting time";unit=minute;record=vector,stats;interpolationmode=none);
+        @statistic[actualTripTime](title="Actual Trip Time";unit=minute;record=vector,stats;interpolationmode=none);
+        @statistic[tripEfficiencyRatio](title="Trip Efficiency Ratio";record=vector,stats;interpolationmode=none);
+        @statistic[tripDistance](title="Trip Distance";unit=km;record=vector,stats;interpolationmode=none);
         
 }

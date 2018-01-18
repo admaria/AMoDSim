@@ -1,9 +1,6 @@
 package src.node;
 
-//
-// Models a router.
-//
-simple Routing like IRouting
+simple ManhattanRouting like IRouting
 {
     gates:
         input in[];
@@ -11,5 +8,3 @@ simple Routing like IRouting
         input localIn;
         output localOut;
 }
-
-

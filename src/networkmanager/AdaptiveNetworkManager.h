@@ -3,8 +3,9 @@
 #define __AMOD_SIMULATOR_NETWORKMANAGER_H_
 
 #include <omnetpp.h>
+#include <AbstractNetworkManager.h>
 
-class NetworkManager : public cSimpleModule
+class AdaptiveNetworkManager : public AbstractNetworkManager
 {
 private:
     cTopology* topo;
@@ -15,8 +16,8 @@ private:
     std::map<int, std::map<int,double>> cltable; //Channel length table
 
   protected:
-    virtual void initialize();
-    virtual void handleMessage(cMessage *msg);
+    virtual void initialize() override;
+    virtual void handleMessage(cMessage *msg) override;
 
     virtual double timeDistanceToTarget(cTopology::Node *thisNode);
     virtual double spaceDistanceToTarget(cTopology::Node *thisNode);
@@ -24,10 +25,10 @@ private:
     virtual void updateTables(int destAddress);
 
   public:
-    virtual double getTimeDistance(int srcAddr, int dstAddr);
-    virtual double getSpaceDistance(int srcAddr, int dstAddr);
-    virtual double getChannelLength(int nodeAddr, int gateIndex);
-    virtual int getOutputGate(int srcAddr, int destAddr);
+    virtual double getTimeDistance(int srcAddr, int dstAddr) override;
+    virtual double getSpaceDistance(int srcAddr, int dstAddr) override;
+    virtual double getChannelLength(int nodeAddr, int gateIndex) override;
+    virtual int getOutputGate(int srcAddr, int destAddr) override;
 };
 
 #endif
