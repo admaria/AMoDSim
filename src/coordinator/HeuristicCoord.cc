@@ -10,9 +10,16 @@ void HeuristicCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
     {
       TripRequest *tr = check_and_cast<TripRequest *>(obj);
       EV << "New TRIP request from: " << source->getFullPath() << endl;
-      totrequests++;
 
-      handleTripRequest(tr);
+      if(isRequestValid(*tr))
+      {
+          totrequests++;
+          handleTripRequest(tr);
+      }
+      else
+      {
+          EV << "The request " << tr->getID() << " is not valid!" << endl;
+      }
     }
 }
 
@@ -26,7 +33,6 @@ void HeuristicCoord::handleTripRequest(TripRequest *tr)
         if(x.first->getSeats() >= tr->getPickupSP()->getNumberOfPassengers())
         {
             std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
-            EV << " Assignment proposal by vehicle " << x.first->getID() << " has size: " << tmp.size() << endl;
             if(!tmp.empty())
                 vehicleProposals[x.first->getID()] = tmp;
         }
@@ -52,15 +58,14 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
 {
     std::list<StopPoint*> old = rPerVehicle[vehicleID];
     std::list<StopPoint*> newList;
-    TripRequest *newTR = new TripRequest(*tr);
-    StopPoint* newTRpickup = newTR->getPickupSP();
-    StopPoint* newTRdropoff = newTR->getDropoffSP();
+    StopPoint* newTRpickup = new StopPoint(*tr->getPickupSP());
+    StopPoint* newTRdropoff = new StopPoint(*tr->getDropoffSP());
     newTRdropoff->setNumberOfPassengers(-newTRpickup->getNumberOfPassengers());
 
     //The vehicle is empty
-    if(old.empty())
+    if(rPerVehicle.find(vehicleID) == rPerVehicle.end() || old.empty())
     {
-        EV << " The vehicle " << vehicleID << " is empty. Trying to add new request..." << endl;
+        EV << "The vehicle " << vehicleID << " has not other stop points!" << endl;
         double timeToPickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), newTRpickup->getLocation()) + simTime().dbl();
 
         if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
@@ -74,7 +79,11 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
             EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()) << endl;
         }
         else
+        {
             EV << " The vehicle " << vehicleID << " can not serve the Request " << tr->getID() << endl;
+            delete newTRpickup;
+            delete newTRdropoff;
+        }
     }
 
     //The vehicle has 1 stop point
@@ -82,7 +91,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
     {
         EV << " The vehicle " << vehicleID << " has only 1 SP. Trying to push new request back..." << endl;
 
-        StopPoint *last = old.back();
+        StopPoint *last = new StopPoint(*old.back());
         double timeToPickup = netmanager->getTimeDistance(last->getLocation(), newTRpickup->getLocation()) + last->getActualTime() + alightingTime; //The last SP is a dropOff point.
 
         if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
@@ -99,6 +108,9 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         else
         {
             EV << " The vehicle " << vehicleID << " can not serve the Request " << tr->getID() << endl;
+            delete newTRpickup;
+            delete newTRdropoff;
+            delete last;
         }
     }
 
@@ -109,6 +121,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
 
         //Get all the possible sorting within the Pickup
         std::list<StopPointOrderingProposal*> proposalsWithPickup = addStopPointToTrip(vehicleID, old, newTRpickup);
+        delete newTRpickup;
 
         std::list<StopPointOrderingProposal*> proposalsWithDropoff;
         StopPointOrderingProposal* toReturn = new StopPointOrderingProposal();
@@ -116,6 +129,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         if(!proposalsWithPickup.empty())
         {
             int cost = -1;
+            EV << "STARTING DROPOFF EVALUATION..." << endl;
             for(std::list<StopPointOrderingProposal*>::const_iterator it2 = proposalsWithPickup.begin(), end2 = proposalsWithPickup.end(); it2 != end2; ++it2)
             {
                 //Get all the possible sorting within the Dropoff
@@ -127,46 +141,25 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
                     if(cost == -1 || (*it3)->getAdditionalTime() < cost)
                     {
                         cost = (*it3)->getAdditionalTime();
+                        delete toReturn;
+
                         toReturn = (*it3);
                     }
+                    else
+                        delete *it3;
                 }
+                delete *it2;
             }
+            delete newTRdropoff;
             newList = toReturn->getSpList();
         }
 
-
-
-
-
-
-//        std::list<StopPoint*> orderedListWithDropoff;
-//
-//        if(!orderedListWithPickup.empty())
-//        {
-//            std::list<StopPoint*> tmp;
-//            for (std::list<StopPoint*>::const_iterator it = orderedListWithPickup.begin(), end = orderedListWithPickup.end(); it != end; ++it)
-//            {
-//                if((*it)->getRequestID() != newTR->getID());
-//                else
-//                {
-//                    std::copy(it, end, std::back_insert_iterator<std::list<StopPoint*> >(tmp));
-//                    break;
-//                }
-//            }
-//            orderedListWithDropoff = minCostOrdering(vehicleID, tmp, newTRdropoff);
-//            if(!orderedListWithDropoff.empty())
-//            {
-//                orderedListWithDropoff.pop_front();
-//                for (std::list<StopPoint*>::const_iterator it = orderedListWithPickup.begin(), end = orderedListWithPickup.end(); it != end; ++it)
-//                {
-//                    newList.push_back(*it);
-//                    if((*it)->getRequestID() == newTR->getID())
-//                        break;
-//                }
-//                for (std::list<StopPoint*>::const_iterator it = orderedListWithDropoff.begin(), end = orderedListWithDropoff.end(); it != end; ++it)
-//                    newList.push_back(*it);
-//            }
-//        }
+        else
+        {
+            EV << " The vehicle " << vehicleID << " can not serve the Request " << tr->getID() << endl;
+            delete newTRdropoff;
+            delete toReturn;
+        }
     }
     return newList;
 }
@@ -247,14 +240,17 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
             if(it2 != (std::prev(spl.end())))
             {
                 it2++;
-                if((*it)->getLocation() == (*it2)->getLocation()) //Two stop point with the same location.
+                if((*it)->getLocation() == (*it2)->getLocation() && (!(*it2)->getIsPickup())) //Two stop point with the same location.
                 {
                     EV << "Two Stop point with location " << (*it)->getLocation() << endl;
                     continue;
                 }
 
                 if(!newSP->getIsPickup() && (*it2)->getNumberOfPassengers() > vehicleSeats)
+                {
+                    EV << "The new DropOFF MUST be put before location " << (*it2)->getLocation() << " because it has " << (*it2)->getNumberOfPassengers() << " passengers!" << endl;
                     constrainedPosition = true;
+                }
 
                 df = netmanager->getTimeDistance(newSP->getLocation(), (*it2)->getLocation()) + delay_BA;
                 EV << " Distance from " << newSP->getLocation()  << " to " << (*it2)->getLocation() << " is " << df << endl;
@@ -279,8 +275,8 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
 
                 /*Before new Stop point*/
                 for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = std::next(it3); it != end; ++it) {
-                    EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << endl;
-                    orderedList.push_back(*it);
+                    EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << ". PASSENGERS: " << (*it)->getNumberOfPassengers() << endl;
+                    orderedList.push_back(new StopPoint(**it));
                 }
 
                 StopPoint *newListBack = orderedList.back();
@@ -300,7 +296,7 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
                     double prevActualTime = tmp->getActualTime();
                     tmp->setActualTime(tmp->getActualTime() + cost);
                     tmp->setNumberOfPassengers(tmp->getNumberOfPassengers()+newSP->getNumberOfPassengers());
-                    EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << endl;
+                    EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << ". PASSENGERS: " << tmp->getNumberOfPassengers()<< endl;
                     orderedList.push_back(tmp);
                 }
 
@@ -313,6 +309,9 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
                 EV << "Additional Time not allowed!" << endl;
 
         }
+        else
+            EV << "Too many passengers after SP in location " << (*it)->getLocation() << " and ReqiestID " << (*it)->getRequestID() << endl;
+
         if(constrainedPosition)
             break;
     }

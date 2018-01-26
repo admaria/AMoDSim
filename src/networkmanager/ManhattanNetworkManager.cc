@@ -7,6 +7,12 @@ void ManhattanNetworkManager::initialize()
     rows = getParentModule()->par("width");
     columns = getParentModule()->par("height");
 
+    numberOfVehicles = par("numberOfVehicles");
+    numberOfNodes = par("numberOfNodes");
+
+    for(int i=0; i<numberOfVehicles; i++)
+        vehiclesPerNode[intuniform(0, numberOfNodes-1, 3)]+=1;
+
     xChannelLength = getParentModule()->par("xNodeDistance");
     yChannelLength = getParentModule()->par("yNodeDistance");
 
@@ -57,6 +63,38 @@ double ManhattanNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
     time_distance += abs(ySource - yDest) * yTravelTime;
 
     return time_distance;
+}
+
+/**
+ * Return the vehicles started from nodeAddr.
+ *
+ * @param nodeAddr
+ * @return
+ */
+int ManhattanNetworkManager::getVehiclesPerNode(int nodeAddr)
+{
+    int nVehicles = 0;
+    std::map<int,int>::iterator it;
+
+    it = vehiclesPerNode.find(nodeAddr);
+    if (it != vehiclesPerNode.end())
+       nVehicles = it->second;
+
+    return nVehicles;
+}
+
+
+/**
+ * Check if the specified address is valid.
+ *
+ * @param dstAddress
+ * @return
+ */
+bool ManhattanNetworkManager::isValidAddress(int nodeAddr)
+{
+    if(nodeAddr >= 0 && nodeAddr < numberOfNodes)
+        return true;
+    return false;
 }
 
 /**

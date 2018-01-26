@@ -96,17 +96,19 @@ void TripRequestSubmitter::handleMessage(cMessage *msg)
 TripRequest* TripRequestSubmitter::buildTripRequest()
 {
     TripRequest *request = new TripRequest();
+    double simtime = simTime().dbl();
+
     // Generate a random destination address for the request
-    int destAddress = intuniform(0, destAddresses-1);
+    int destAddress = myAddress;
     while (destAddress == myAddress)
         destAddress = intuniform(0, destAddresses-1);
 
-    StopPoint *pickupSP = new StopPoint(request->getID(), myAddress, true, simTime().dbl(), maxDelay->doubleValue());
+    StopPoint *pickupSP = new StopPoint(request->getID(), myAddress, true, simtime, maxDelay->doubleValue());
     pickupSP->setXcoord(x_coord);
     pickupSP->setYcoord(y_coord);
     pickupSP->setNumberOfPassengers(par("passengersPerRequest"));
 
-    StopPoint *dropoffSP = new StopPoint(request->getID(), destAddress, false, simTime().dbl() + netmanager->getTimeDistance(myAddress, destAddress), maxDelay->doubleValue());
+    StopPoint *dropoffSP = new StopPoint(request->getID(), destAddress, false, simtime + netmanager->getTimeDistance(myAddress, destAddress), maxDelay->doubleValue());
 
     request->setPickupSP(pickupSP);
     request->setDropoffSP(dropoffSP);

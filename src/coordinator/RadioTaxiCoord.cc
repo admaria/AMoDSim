@@ -11,11 +11,18 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
     if(signalID == tripRequest)
     {
-      TripRequest *tr = check_and_cast<TripRequest *>(obj);
-      EV << "New TRIP request from: " << source->getFullPath() << endl;
-      totrequests++;
+        TripRequest *tr = check_and_cast<TripRequest *>(obj);
+        EV << "New TRIP request from: " << source->getFullPath() << endl;
 
-      handleTripRequest(tr);
+        if(isRequestValid(*tr))
+        {
+            totrequests++;
+            handleTripRequest(tr);
+        }
+        else
+        {
+            EV << "The request " << tr->getID() << " is not valid!" << endl;
+        }
     }
 
 }
@@ -53,27 +60,28 @@ void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
  */
 std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, TripRequest* tr)
 {
-    TripRequest *treq = new TripRequest(*tr);
-    StopPoint *pickupSP = treq->getPickupSP();
-    StopPoint *dropoffSP = treq->getDropoffSP();
+    StopPoint *pickupSP = new StopPoint(*tr->getPickupSP());
+    StopPoint *dropoffSP = new StopPoint(*tr->getDropoffSP());
 
+    double dst_to_pickup = -1;
+    double dst_to_dropoff = -1;
     std::list<StopPoint*> old = rPerVehicle[vehicleID];
     std::list<StopPoint*> newList;
 
-    //The vehicle has not other stop point
+    //-----The Vehicle is empty-----
     if(rPerVehicle.find(vehicleID) == rPerVehicle.end() || old.empty())
     {
         EV << "The vehicle " << vehicleID << " has not other stop points!" << endl;
-        double dst_to_pickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
-        //getSpaceDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
-        double dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
-        //getSpaceDistance(pickupSP->getNodeID(), dropoffSP->getLocation());
-        if (dst_to_pickup != -1)
+        dst_to_pickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
+        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
+
+        if (dst_to_pickup >= 0 && dst_to_dropoff >= 0)
         {
-           pickupSP->setActualTime(dst_to_pickup + currentTime);
-           dropoffSP->setActualTime(pickupSP->getActualTime() + dst_to_dropoff);
-           EV << "Time needed to vehicle: " << vehicleID << " to reach pickup: " << pickupSP->getLocation() << " is: " << (pickupSP->getActualTime()-currentTime)/60 << " minutes." << endl;
-           EV << "Time needed to vehicle: " << vehicleID << " to reach dropoff: " << dropoffSP->getLocation() << " is: " << (dropoffSP->getActualTime()-currentTime)/60 << " minutes." << endl;
+            pickupSP->setActualTime(dst_to_pickup + currentTime);
+            dropoffSP->setActualTime(pickupSP->getActualTime() + dst_to_dropoff);
+
+            EV << "Time needed to vehicle: " << vehicleID << " to reach pickup: " << pickupSP->getLocation() << " is: " << (pickupSP->getActualTime()-currentTime)/60 << " minutes." << endl;
+            EV << "Time needed to vehicle: " << vehicleID << " to reach dropoff: " << dropoffSP->getLocation() << " is: " << (dropoffSP->getActualTime()-currentTime)/60 << " minutes." << endl;
         }
     }
 
@@ -82,25 +90,30 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         EV << "The vehicle " << vehicleID << " has other stop points!" << endl;
         //Get last stop point for the vehicle
         StopPoint *sp = old.back();
-        double dst_to_pickup = netmanager->getTimeDistance(sp->getLocation(), pickupSP->getLocation()) + (sp->getActualTime() - currentTime) + alightingTime; //The last stop point is a dropOff point.
-        //getSpaceDistance(sp->getNodeID(), pickupSP->getLocation());
-        double dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
-        //getSpaceDistance(pickupSP->getNodeID(), dropoffSP->getLocation());
+        dst_to_pickup = netmanager->getTimeDistance(sp->getLocation(), pickupSP->getLocation()) + (sp->getActualTime() - currentTime) + alightingTime; //The last stop point is a dropOff point.
+        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
 
-        pickupSP->setActualTime(dst_to_pickup + currentTime);
-        dropoffSP->setActualTime(pickupSP->getActualTime() + dst_to_dropoff);
+        if (dst_to_pickup >= 0 && dst_to_dropoff >= 0)
+        {
+            pickupSP->setActualTime(dst_to_pickup + currentTime);
+            dropoffSP->setActualTime(pickupSP->getActualTime() + dst_to_dropoff);
 
-        EV << "Time needed to vehicle: " << vehicleID << " to reach pickup: " << pickupSP->getLocation() << " from current time, is: " << (pickupSP->getActualTime()-currentTime)/60  << " minutes." << endl;
-        EV << "Time needed to vehicle: " << vehicleID << " to reach dropoff: " << dropoffSP->getLocation() << " from current time, is: " << (dropoffSP->getActualTime()-currentTime)/60 << " minutes." << endl;
+            EV << "Time needed to vehicle: " << vehicleID << " to reach pickup: " << pickupSP->getLocation() << " from current time, is: " << (pickupSP->getActualTime()-currentTime)/60  << " minutes." << endl;
+            EV << "Time needed to vehicle: " << vehicleID << " to reach dropoff: " << dropoffSP->getLocation() << " from current time, is: " << (dropoffSP->getActualTime()-currentTime)/60 << " minutes." << endl;
+        }
     }
 
-    if(pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
+    if(dst_to_pickup != -1 && pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
     {
         for (auto const &x : old)
-            newList.push_back(x);
+            newList.push_back(new StopPoint(*x));
 
         newList.push_back(pickupSP);
         newList.push_back(dropoffSP);
+    }
+    else{
+        delete pickupSP;
+        delete dropoffSP;
     }
 
     return newList;

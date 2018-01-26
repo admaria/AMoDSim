@@ -49,6 +49,8 @@ network AMoD
 
     submodules:
         netmanager: <netmanagerType> like INetworkManager{
+            parameters:
+                numberOfNodes = height * width;
         	@display("p=800,50");
         }
                 
@@ -69,6 +71,7 @@ network AMoD
             gates:
                 port[5];
         }
+        
         
     connections allowunconnected:
         for i=0..height-1, for j=0..width-1 {

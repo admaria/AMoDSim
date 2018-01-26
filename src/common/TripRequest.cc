@@ -6,6 +6,10 @@ int TripRequest::nextID = 0;
 
 TripRequest::TripRequest() {
     id = ++nextID;
+    pickup = nullptr;
+    dropoff = nullptr;
+    distanceToPickup = -1;
+    vehicleID = -1;
 }
 
 TripRequest::TripRequest(const TripRequest& other)
@@ -16,14 +20,16 @@ TripRequest::TripRequest(const TripRequest& other)
 void TripRequest::copy(const TripRequest& other)
 {
     this->id = other.id;
-    this->pickup = new StopPoint(*other.pickup);
-    this->dropoff = new StopPoint(*other.dropoff);
+    this->pickup = other.pickup ? new StopPoint(*other.pickup) : nullptr;
+    this->dropoff = other.dropoff ? new StopPoint(*other.dropoff) : nullptr;
     this->distanceToPickup = other.distanceToPickup;
     this->vehicleID = other.vehicleID;
 }
 
 
 TripRequest::~TripRequest() {
+    delete this->pickup;
+    delete this->dropoff;
 }
 
 

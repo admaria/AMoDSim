@@ -8,6 +8,9 @@ StopPointOrderingProposal::StopPointOrderingProposal() {
 }
 
 StopPointOrderingProposal::~StopPointOrderingProposal() {
+    for(auto &it:spList) delete it;
+
+    spList.clear();
 }
 
 

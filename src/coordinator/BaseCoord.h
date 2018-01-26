@@ -45,6 +45,8 @@ class BaseCoord : public cSimpleModule, cListener{
         virtual int minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
 
         virtual StopPoint* getRequestPickup(std::list<StopPoint*> spList, int requestID);
+        virtual StopPoint* getRequestDropOff(std::list<StopPoint*> spList, int requestID);
+        virtual void cleanStopPointList(std::list<StopPoint*> spList);
 
     public:
         virtual StopPoint* getNextStopPoint(int vehicleID);
@@ -52,6 +54,7 @@ class BaseCoord : public cSimpleModule, cListener{
         virtual void registerVehicle (Vehicle *v, int address);
         virtual int getLastVehicleLocation(int vehicleID);
         virtual Vehicle* getVehicleByID(int vehicleID);
+        virtual bool isRequestValid(const TripRequest tr);
 
 };
 

@@ -6,6 +6,12 @@ Define_Module(AdaptiveNetworkManager);
 void AdaptiveNetworkManager::initialize()
 {
     bool onlineRouting = par("onlineRouting").boolValue();
+    numberOfVehicles = par("numberOfVehicles");
+    numberOfNodes = par("numberOfNodes");
+
+    for(int i=0; i<numberOfVehicles; i++)
+        vehiclesPerNode[intuniform(0, numberOfNodes-1, 3)]+=1;
+
     topo = new cTopology("topo");
 
     std::vector<std::string> nedTypes;
@@ -15,33 +21,36 @@ void AdaptiveNetworkManager::initialize()
     for (int i=0; i<topo->getNumNodes(); i++)
     {
         int address = topo->getNode(i)->getModule()->par("address");
+        indexTable[address]=i;
         if(onlineRouting)
-            indexTable[address]=i;
+            break;
 
-        else
+        cTopology::Node* thisNode = NULL;
+        int thisAddress;
+        topo->calculateUnweightedSingleShortestPathsTo(topo->getNode(i));
+
+        for(int j=0; j<topo->getNumNodes(); j++)
         {
-            cTopology::Node* thisNode = NULL;
-            int thisAddress;
-            topo->calculateUnweightedSingleShortestPathsTo(topo->getNode(i));
+            if(i==j) continue;
+            thisNode = topo->getNode(j);
+            thisAddress = thisNode->getModule()->par("address");
+            if (thisNode->getNumPaths()==0) continue; // not connected
 
-            for(int j=0; j<topo->getNumNodes(); j++)
-            {
-                if(i==j) continue;
-                thisNode = topo->getNode(j);
-                thisAddress = thisNode->getModule()->par("address");
-                if (thisNode->getNumPaths()==0) continue; // not connected
+            cGate *parentModuleGate = thisNode->getPath(0)->getLocalGate();
+            int gateIndex = parentModuleGate->getIndex();
 
-                cGate *parentModuleGate = thisNode->getPath(0)->getLocalGate();
-                int gateIndex = parentModuleGate->getIndex();
+            rtable[thisAddress].insert(std::make_pair(address, gateIndex));
+            dtable[thisAddress].insert(std::make_pair(address, timeDistanceToTarget(thisNode)));
+            sdtable[thisAddress].insert(std::make_pair(address, spaceDistanceToTarget(thisNode)));
+            cltable[thisAddress].insert(std::make_pair(gateIndex, parentModuleGate->getChannel()->par("length").doubleValue()));
 
-                rtable[thisAddress].insert(std::make_pair(address, gateIndex));
-                dtable[thisAddress].insert(std::make_pair(address, timeDistanceToTarget(thisNode)));
-                sdtable[thisAddress].insert(std::make_pair(address, spaceDistanceToTarget(thisNode)));
-                cltable[thisAddress].insert(std::make_pair(gateIndex, parentModuleGate->getChannel()->par("length").doubleValue()));
-
-            }
         }
     }
+}
+
+AdaptiveNetworkManager::~AdaptiveNetworkManager()
+{
+    delete topo;
 }
 
 /**
@@ -173,6 +182,36 @@ void AdaptiveNetworkManager::updateTables(int destAddress)
     }
 }
 
+/**
+ * Return the vehicles started from nodeAddr.
+ *
+ * @param nodeAddr
+ * @return
+ */
+int AdaptiveNetworkManager::getVehiclesPerNode(int nodeAddr)
+{
+    int nVehicles = 0;
+    std::map<int,int>::iterator it;
+
+    it = vehiclesPerNode.find(nodeAddr);
+    if (it != vehiclesPerNode.end())
+       nVehicles = it->second;
+
+    return nVehicles;
+}
+
+/**
+ * Check if the specified address is valid.
+ *
+ * @param dstAddress
+ * @return
+ */
+bool AdaptiveNetworkManager::isValidAddress(int nodeAddr)
+{
+    if(indexTable.find(nodeAddr) != indexTable.end())
+        return true;
+    return false;
+}
 
 void AdaptiveNetworkManager::handleMessage(cMessage *msg)
 {

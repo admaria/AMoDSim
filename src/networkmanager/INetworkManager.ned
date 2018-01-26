@@ -3,6 +3,7 @@ package src.networkmanager;
 moduleinterface INetworkManager
 {
     parameters:
-		@display("i=block/network2_l");
-    
+        int numberOfVehicles;
+        int numberOfNodes;
+		@display("i=block/network2_l");    
 }

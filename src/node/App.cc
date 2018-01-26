@@ -9,6 +9,7 @@
 #include "Vehicle.h"
 #include "TripRequest.h"
 #include "BaseCoord.h"
+#include "AbstractNetworkManager.h"
 #include <sstream>
 
 
@@ -25,6 +26,7 @@ class App : public cSimpleModule,cListener
     int numberOfVehicles;
     int seatsPerVehicle;
     BaseCoord *tcoord;
+    AbstractNetworkManager *netmanager;
 
     // signals
     simsignal_t newTripAssigned;
@@ -36,7 +38,7 @@ class App : public cSimpleModule,cListener
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
-    virtual void receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj);
+    virtual void receiveSignal(cComponent *source, simsignal_t signalID, double vehicleID);
 };
 
 Define_Module(App);
@@ -55,10 +57,12 @@ App::~App()
 void App::initialize()
 {
     myAddress = par("address");
-    numberOfVehicles = par("numberOfVehicles");
     seatsPerVehicle = par("seatsPerVehicle");
 
     tcoord = check_and_cast<BaseCoord *>(getParentModule()->getParentModule()->getSubmodule("tcoord"));
+    netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
+    numberOfVehicles = netmanager->getVehiclesPerNode(myAddress);
+
     x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("xBase_distance").doubleValue();
     y_coord = getParentModule()->par("y_distance").doubleValue() * getParentModule()->par("yBase_distance").doubleValue();
 
@@ -72,7 +76,7 @@ void App::initialize()
         for(int i=0; i<numberOfVehicles; i++)
         {
             Vehicle *v = new Vehicle();
-            v->setSeats(par("seatsPerVehicle"));
+            v->setSeats(seatsPerVehicle);
             EV << "I am node " << myAddress << ". I HAVE THE VEHICLE " << v->getID() << ". It has " << v->getSeats() << " seats." << endl;
             tcoord->registerVehicle(v, myAddress);
         }
@@ -89,16 +93,23 @@ void App::initialize()
 
 void App::handleMessage(cMessage *msg)
 {
-    //A vehicle is here
-    Vehicle *vehicle = check_and_cast<Vehicle *>(msg);
-    EV << "received VEHICLE " << vehicle->getID() << " after " << vehicle->getHopCount() << " hops." << endl;
+    Vehicle *vehicle = NULL;
 
+    try{
+        //A vehicle is here
+        vehicle = check_and_cast<Vehicle *>(msg);
+    }catch (cRuntimeError e) {
+        EV << "Can not handle received message! Ignoring..." << endl;
+        return ;
+    }
+
+    EV << "received VEHICLE " << vehicle->getID() << " after " << vehicle->getHopCount() << " hops." << endl;
     StopPoint *currentStopPoint = tcoord->getCurrentStopPoint(vehicle->getID());
 
     if (currentStopPoint != NULL && currentStopPoint->getLocation() != -1 && currentStopPoint->getIsPickup())
     {
         //This is a PICK-UP stop-point
-        double waitTimeMinutes = (simTime()-currentStopPoint->getTime()).dbl() /60;
+        double waitTimeMinutes = (simTime().dbl() - currentStopPoint->getTime()) / 60;
         EV << "The vehicle is here! Pickup time: " << simTime() << "; Request time: " << currentStopPoint->getTime() << "; Waiting time: " << waitTimeMinutes << "minutes." << endl;
     }
 
@@ -137,7 +148,7 @@ void App::handleMessage(cMessage *msg)
  * @param signalID
  * @param obj
  */
-void App::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj){
+void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicleID){
 
 
   /**
@@ -145,25 +156,35 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj){
    */
   if(signalID == newTripAssigned)
   {
-      TripRequest *tr = check_and_cast<TripRequest *>(obj);
+//      TripRequest *tr;
+//      try{
+//          tr = check_and_cast<TripRequest *>(obj);
+//      }catch(cRuntimeError e) {
+//          EV << "Can not handle received signal! Ignoring..." << endl;
+//          delete tr;
+//          return ;
+//      }
 
-      if(tcoord->getLastVehicleLocation(tr->getVehicleID()) == myAddress)
+      if(tcoord->getLastVehicleLocation(vehicleID) == myAddress)
       {
           //The vehicle that should serve the request is in this node
-          Vehicle *veic = tcoord->getVehicleByID(tr->getVehicleID());
+          Vehicle *veic = tcoord->getVehicleByID(vehicleID);
 
           if (veic != NULL)
           {
-              EV << "The proposal of vehicle: " << tr->getVehicleID() << " has been accepted for requestID:  " << tr->getID() << endl;
+              StopPoint* sp =tcoord->getCurrentStopPoint(vehicleID);
+              EV << "The proposal of vehicle: " << veic->getID() << " has been accepted for requestID:  " << sp->getRequestID() << endl;
               veic->setSrcAddr(myAddress);
-              if(myAddress != tr->getPickupSP()->getLocation())
-                  veic->setDestAddr(tr->getPickupSP()->getLocation());
-              else
-                 veic->setDestAddr(tr->getDropoffSP()->getLocation());
+              //if(myAddress != sp->getLocation())
+                  veic->setDestAddr(sp->getLocation());
+              //else
+                // veic->setDestAddr(tr->getDropoffSP()->getLocation());
 
               EV << "Sending Vehicle from: " << veic->getSrcAddr() << "to " << veic->getDestAddr() << endl;
               Enter_Method("send",veic,"out");
               send(veic, "out");
+
+              //delete tr;
 
               if (ev.isGUI())
                 getParentModule()->getDisplayString().setTagArg("i",1,"gold");
