@@ -156,14 +156,6 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicle
    */
   if(signalID == newTripAssigned)
   {
-//      TripRequest *tr;
-//      try{
-//          tr = check_and_cast<TripRequest *>(obj);
-//      }catch(cRuntimeError e) {
-//          EV << "Can not handle received signal! Ignoring..." << endl;
-//          delete tr;
-//          return ;
-//      }
 
       if(tcoord->getLastVehicleLocation(vehicleID) == myAddress)
       {
@@ -172,19 +164,14 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicle
 
           if (veic != NULL)
           {
-              StopPoint* sp =tcoord->getCurrentStopPoint(vehicleID);
+              StopPoint* sp =tcoord->getNewAssignedStopPoint(veic->getID());
               EV << "The proposal of vehicle: " << veic->getID() << " has been accepted for requestID:  " << sp->getRequestID() << endl;
               veic->setSrcAddr(myAddress);
-              //if(myAddress != sp->getLocation())
-                  veic->setDestAddr(sp->getLocation());
-              //else
-                // veic->setDestAddr(tr->getDropoffSP()->getLocation());
+              veic->setDestAddr(sp->getLocation());
 
               EV << "Sending Vehicle from: " << veic->getSrcAddr() << "to " << veic->getDestAddr() << endl;
               Enter_Method("send",veic,"out");
               send(veic, "out");
-
-              //delete tr;
 
               if (ev.isGUI())
                 getParentModule()->getDisplayString().setTagArg("i",1,"gold");

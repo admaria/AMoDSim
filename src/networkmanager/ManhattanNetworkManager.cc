@@ -4,20 +4,21 @@ Define_Module(ManhattanNetworkManager);
 
 void ManhattanNetworkManager::initialize()
 {
-    rows = getParentModule()->par("width");
-    columns = getParentModule()->par("height");
+    cModule* parentModule = getParentModule();
+    rows = parentModule->par("width");
+    columns = parentModule->par("height");
 
     numberOfVehicles = par("numberOfVehicles");
     numberOfNodes = par("numberOfNodes");
 
     for(int i=0; i<numberOfVehicles; i++)
-        vehiclesPerNode[intuniform(0, numberOfNodes-1, 3)]+=1;
+        vehiclesPerNode[intuniform(0, numberOfNodes-1, 4)]+=1;
 
-    xChannelLength = getParentModule()->par("xNodeDistance");
-    yChannelLength = getParentModule()->par("yNodeDistance");
+    xChannelLength = parentModule->par("xNodeDistance");
+    yChannelLength = parentModule->par("yNodeDistance");
 
-    xTravelTime = getParentModule()->par("xTravelTime");
-    yTravelTime = getParentModule()->par("yTravelTime");
+    xTravelTime = parentModule->par("xTravelTime");
+    yTravelTime = parentModule->par("yTravelTime");
 }
 
 /**
@@ -34,8 +35,8 @@ double ManhattanNetworkManager::getSpaceDistance(int srcAddr, int dstAddr)
     int xSource = srcAddr % rows;
     int xDest = dstAddr % rows;
 
-    int ySource = srcAddr / columns;
-    int yDest = dstAddr / columns;
+    int ySource = srcAddr / rows;
+    int yDest = dstAddr / rows;
 
     space_distance += abs(xSource - xDest) * xChannelLength;
     space_distance += abs(ySource - yDest) * yChannelLength;
@@ -56,11 +57,12 @@ double ManhattanNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
     int xSource = srcAddr % rows;
     int xDest = dstAddr % rows;
 
-    int ySource = srcAddr / columns;
-    int yDest = dstAddr / columns;
+    int ySource = srcAddr / rows;
+    int yDest = dstAddr / rows;
 
-    time_distance += abs(xSource - xDest) * xTravelTime;
-    time_distance += abs(ySource - yDest) * yTravelTime;
+    time_distance = abs(xSource - xDest) * xTravelTime;
+    double yTime = abs(ySource - yDest) * yTravelTime;
+    time_distance += yTime;
 
     return time_distance;
 }

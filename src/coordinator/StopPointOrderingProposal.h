@@ -4,7 +4,7 @@
 #include <list>
 #include "StopPoint.h"
 
-class StopPointOrderingProposal {
+class StopPointOrderingProposal : public cObject{
 private:
     int proposalID;
     int vehicleID;

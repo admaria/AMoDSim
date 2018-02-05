@@ -10,7 +10,7 @@ void AdaptiveNetworkManager::initialize()
     numberOfNodes = par("numberOfNodes");
 
     for(int i=0; i<numberOfVehicles; i++)
-        vehiclesPerNode[intuniform(0, numberOfNodes-1, 3)]+=1;
+        vehiclesPerNode[intuniform(0, numberOfNodes-1, 4)]+=1;
 
     topo = new cTopology("topo");
 

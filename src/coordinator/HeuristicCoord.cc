@@ -13,6 +13,7 @@ void HeuristicCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
       if(isRequestValid(*tr))
       {
+          pendingRequests.insert(std::make_pair(tr->getID(), new TripRequest(*tr)));
           totrequests++;
           handleTripRequest(tr);
       }
@@ -71,8 +72,9 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
         {
             newTRpickup->setActualTime(timeToPickup);
+            newTRpickup->setActualNumberOfPassengers(newTRpickup->getNumberOfPassengers());
             newTRdropoff->setActualTime(newTRpickup->getActualTime() + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + boardingTime);
-            newTRdropoff->setNumberOfPassengers(0);
+            newTRdropoff->setActualNumberOfPassengers(0);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
             EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxDelay()) << endl;
@@ -98,7 +100,8 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRdropoff->setActualTime(newTRpickup->getActualTime() + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + boardingTime);
-            newTRdropoff->setNumberOfPassengers(0);
+            newTRpickup->setActualNumberOfPassengers(newTRpickup->getNumberOfPassengers());
+            newTRdropoff->setActualNumberOfPassengers(0);
             newList.push_back(last);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
@@ -202,9 +205,9 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
     for (it; it!=spl.end(); ++it) {
         it2 = it;
 
-        if((*it)->getNumberOfPassengers() + newSP->getNumberOfPassengers() <= vehicleSeats)
+        if((*it)->getActualNumberOfPassengers() + newSP->getNumberOfPassengers() <= vehicleSeats)
         {
-            passengers = (*it)->getNumberOfPassengers();
+            passengers = (*it)->getActualNumberOfPassengers();
 
             //Get the min residual-time from "it" to last SP
             if(residualTimes.size() > 1)
@@ -246,9 +249,9 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
                     continue;
                 }
 
-                if(!newSP->getIsPickup() && (*it2)->getNumberOfPassengers() > vehicleSeats)
+                if(!newSP->getIsPickup() && (*it2)->getActualNumberOfPassengers() > vehicleSeats)
                 {
-                    EV << "The new DropOFF MUST be put before location " << (*it2)->getLocation() << " because it has " << (*it2)->getNumberOfPassengers() << " passengers!" << endl;
+                    EV << "The new DropOFF MUST be put before location " << (*it2)->getLocation() << " because it has " << (*it2)->getActualNumberOfPassengers() << " passengers!" << endl;
                     constrainedPosition = true;
                 }
 
@@ -275,7 +278,7 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
 
                 /*Before new Stop point*/
                 for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = std::next(it3); it != end; ++it) {
-                    EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << ". PASSENGERS: " << (*it)->getNumberOfPassengers() << endl;
+                    EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << ". PASSENGERS: " << (*it)->getActualNumberOfPassengers() << endl;
                     orderedList.push_back(new StopPoint(**it));
                 }
 
@@ -286,8 +289,8 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
                 else
                     newSPcopy->setActualTime(newListBack->getActualTime()+distanceTo+alightingTime);
 
-                newSPcopy->setNumberOfPassengers(passengers + newSP->getNumberOfPassengers());
-                EV << " New SP Max time: " << newSPcopy->getTime() + newSPcopy->getMaxDelay() << ". Actual Time: " << newSPcopy->getActualTime() << " PASSENGERS: " << newSPcopy->getNumberOfPassengers() << endl;
+                newSPcopy->setActualNumberOfPassengers(passengers + newSP->getNumberOfPassengers());
+                EV << " New SP Max time: " << newSPcopy->getTime() + newSPcopy->getMaxDelay() << ". Actual Time: " << newSPcopy->getActualTime() << " PASSENGERS: " << newSPcopy->getActualNumberOfPassengers() << endl;
                 orderedList.push_back(newSPcopy);
 
                 //After new SP
@@ -295,8 +298,8 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
                     StopPoint* tmp = new StopPoint(**it);
                     double prevActualTime = tmp->getActualTime();
                     tmp->setActualTime(tmp->getActualTime() + cost);
-                    tmp->setNumberOfPassengers(tmp->getNumberOfPassengers()+newSP->getNumberOfPassengers());
-                    EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << ". PASSENGERS: " << tmp->getNumberOfPassengers()<< endl;
+                    tmp->setActualNumberOfPassengers(tmp->getActualNumberOfPassengers()+newSP->getNumberOfPassengers());
+                    EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << ". PASSENGERS: " << tmp->getActualNumberOfPassengers()<< endl;
                     orderedList.push_back(tmp);
                 }
 

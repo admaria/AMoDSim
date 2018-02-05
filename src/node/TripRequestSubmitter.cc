@@ -62,8 +62,9 @@ void TripRequestSubmitter::initialize()
     generatePacket = new cMessage("nextPacket");
     tripRequest = registerSignal("tripRequest");
 
-    if(sendIATime->doubleValue() < maxSubmissionTime)
+    if (maxSubmissionTime < 0 || sendIATime->doubleValue() < maxSubmissionTime)
         scheduleAt(sendIATime->doubleValue(), generatePacket);
+
 }
 
 
@@ -72,8 +73,10 @@ void TripRequestSubmitter::handleMessage(cMessage *msg)
     //EMIT a TRIP REQUEST
     if (msg == generatePacket)
     {
+        TripRequest *tr = nullptr;
+
         if (ev.isGUI()) getParentModule()->bubble("TRIP REQUEST");
-        TripRequest *tr = buildTripRequest();
+        tr = buildTripRequest();
 
         EV << "Requiring a new trip from/to: " << tr->getPickupSP()->getLocation() << "/" << tr->getDropoffSP()->getLocation() << ". I am node: " << myAddress << endl;
         EV << "Requested pickupTime: " << tr->getPickupSP()->getTime() << ". DropOFF required time: " << tr->getDropoffSP()->getTime() << ". Passengers: " << tr->getPickupSP()->getNumberOfPassengers() << endl;
@@ -82,7 +85,7 @@ void TripRequestSubmitter::handleMessage(cMessage *msg)
 
         //Schedule the next request
         simtime_t nextTime = simTime() + sendIATime->doubleValue();
-        if(nextTime.dbl() < maxSubmissionTime)
+        if (maxSubmissionTime < 0 || nextTime.dbl() < maxSubmissionTime)
         {
             EV << "Next request from node " << myAddress << "scheduled at: " << nextTime.dbl() << endl;
             scheduleAt(nextTime, generatePacket);
@@ -101,7 +104,7 @@ TripRequest* TripRequestSubmitter::buildTripRequest()
     // Generate a random destination address for the request
     int destAddress = myAddress;
     while (destAddress == myAddress)
-        destAddress = intuniform(0, destAddresses-1);
+        destAddress = intuniform(0, destAddresses-1, 3);
 
     StopPoint *pickupSP = new StopPoint(request->getID(), myAddress, true, simtime, maxDelay->doubleValue());
     pickupSP->setXcoord(x_coord);

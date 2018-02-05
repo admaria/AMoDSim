@@ -9,6 +9,7 @@ class Vehicle: public Packet {
         int id;
         int seats;
         int traveledDistance;
+        int state;
 
     public:
         Vehicle();
@@ -18,6 +19,8 @@ class Vehicle: public Packet {
         virtual void setTraveledDistance(double distance);
         virtual int getSeats() const;
         virtual void setSeats(int seats);
+        virtual void setState(int state);
+        virtual int getState() const;
 };
 
 #endif /* VEHICLE_H_ */

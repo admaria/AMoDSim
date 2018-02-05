@@ -5,6 +5,7 @@ StopPoint::StopPoint() {
     this->time = 0.0;
     this->actualTime = 0.0;
     this->numberOfPassengers = 1;
+    this->actualNumberOfPassengers = 0;
     this->location = -1;
     this->x_coord = -1;
     this->y_coord = -1;
@@ -15,14 +16,15 @@ StopPoint::StopPoint() {
 StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, double maxDelay)
 {
     this->requestID = requestID;
-    this->location = location;
-    this->isPickup = isPickup;
     this->time = time;
     this->actualTime = 0.0;
     this->numberOfPassengers = 1;
-    this->maxDelay = maxDelay;
+    this->actualNumberOfPassengers = 0;
+    this->location = location;
     this->x_coord = -1; //TODO
     this->y_coord = -1; //TODO
+    this->isPickup = isPickup;
+    this->maxDelay = maxDelay;
 }
 
 StopPoint::StopPoint(const StopPoint& other)
@@ -33,14 +35,15 @@ StopPoint::StopPoint(const StopPoint& other)
 void StopPoint::copy(const StopPoint& other)
 {
     this->requestID = other.requestID;
-    this->location = other.location;
-    this->isPickup = other.isPickup;
     this->time = other.time;
     this->actualTime = other.actualTime;
     this->numberOfPassengers = other.numberOfPassengers;
-    this->maxDelay = other.maxDelay;
+    this->actualNumberOfPassengers = other.actualNumberOfPassengers;
+    this->location = other.location;
     this->x_coord = other.x_coord;
     this->y_coord = other.y_coord;
+    this->isPickup = other.isPickup;
+    this->maxDelay = other.maxDelay;
 }
 
 
@@ -66,6 +69,16 @@ void StopPoint::setNumberOfPassengers(int numberOfPassengers)
 int StopPoint::getNumberOfPassengers() const
 {
     return numberOfPassengers;
+}
+
+void StopPoint::setActualNumberOfPassengers(int numberOfPassengers)
+{
+    this->actualNumberOfPassengers = numberOfPassengers;
+}
+
+int StopPoint::getActualNumberOfPassengers() const
+{
+    return actualNumberOfPassengers;
 }
 
 void StopPoint::setLocation(int location)

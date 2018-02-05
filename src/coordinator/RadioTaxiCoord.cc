@@ -16,6 +16,7 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
         if(isRequestValid(*tr))
         {
+            pendingRequests.insert(std::make_pair(tr->getID(),  new TripRequest(*tr)));
             totrequests++;
             handleTripRequest(tr);
         }
@@ -62,6 +63,7 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
 {
     StopPoint *pickupSP = new StopPoint(*tr->getPickupSP());
     StopPoint *dropoffSP = new StopPoint(*tr->getDropoffSP());
+    dropoffSP->setNumberOfPassengers(-pickupSP->getNumberOfPassengers());
 
     double dst_to_pickup = -1;
     double dst_to_dropoff = -1;
@@ -108,6 +110,8 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         for (auto const &x : old)
             newList.push_back(new StopPoint(*x));
 
+        pickupSP->setActualNumberOfPassengers(pickupSP->getNumberOfPassengers());
+        dropoffSP->setActualNumberOfPassengers(0);
         newList.push_back(pickupSP);
         newList.push_back(dropoffSP);
     }

@@ -62,7 +62,7 @@ network AMoD
             parameters:
                 address = index;
                 x=index % width;
-                y=index / height;
+                y=index / width;
                 x_distance = replaceUnit((index % width),"meter"); //meters from origin (x axes)
                 y_distance = replaceUnit((index / height), "meter");//meters from origin (y axes)
                 xBase_distance = xNodeDistance;

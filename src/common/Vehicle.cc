@@ -7,6 +7,7 @@ Vehicle::Vehicle() {
     setName((std::to_string(id)).c_str());
     traveledDistance = 0.0;
     seats = 1;
+    state = -1; //IDLE
 }
 
 Vehicle::~Vehicle() {
@@ -37,4 +38,12 @@ void Vehicle::setTraveledDistance(double distance)
     this->traveledDistance = distance;
 }
 
+int Vehicle::getState() const
+{
+    return state;
+}
 
+void Vehicle::setState(int state)
+{
+    this->state = state;
+}

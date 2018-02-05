@@ -3,7 +3,7 @@
 
 #include <omnetpp.h>
 
-class StopPoint {
+class StopPoint : public cObject{
     private:
     void copy(const StopPoint& other);
 
@@ -13,6 +13,7 @@ class StopPoint {
         int x_coord;
         int y_coord;
         int numberOfPassengers;
+        int actualNumberOfPassengers;
         bool isPickup;
         double time;
         double actualTime;
@@ -27,8 +28,11 @@ class StopPoint {
         virtual void setRequestID(int requestID);
         virtual int getRequestID() const;
 
-        virtual void setNumberOfPassengers(int passenger);
+        virtual void setNumberOfPassengers(int passengers);
         virtual int getNumberOfPassengers() const;
+
+        virtual void setActualNumberOfPassengers(int passengers);
+        virtual int getActualNumberOfPassengers() const;
 
         virtual void setLocation(int location);
         virtual int getLocation() const;

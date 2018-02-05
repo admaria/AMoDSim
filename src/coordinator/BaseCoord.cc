@@ -1,14 +1,21 @@
 #include <BaseCoord.h>
+#include <sstream>
 
 void BaseCoord::initialize()
 {
-    //Register signals
+    /* ---- REGISTER SIGNALS ---- */
     tripRequest = registerSignal("tripRequest");
     newTripAssigned = registerSignal("newTripAssigned");
+
+    traveledDistance = registerSignal("traveledDistance");
     waitingTime = registerSignal("waitingTime");
     actualTripTime = registerSignal("actualTripTime");
-    tripEfficiencyRatio = registerSignal("tripEfficiencyRatio");
+    stretch = registerSignal("stretch");
     tripDistance = registerSignal("tripDistance");
+    passengersOnBoard = registerSignal("passengersOnBoard");
+    toDropoffRequests = registerSignal("toDropoffRequests");
+    toPickupRequests = registerSignal("toPickupRequests");
+    requestsAssignedPerVehicle = registerSignal("requestsAssignedPerVehicle");
 
     totrequests = 0;
     alightingTime = getParentModule()->par("alightingTime").doubleValue();
@@ -18,7 +25,6 @@ void BaseCoord::initialize()
     //netYsize = (getParentModule()->par("height").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
 
     simulation.getSystemModule()->subscribe("tripRequest",this);
-
 }
 
 /**
@@ -38,6 +44,11 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
     int vehicleID = -1;
     StopPoint *sp = NULL;
     StopPoint *dsp = NULL;
+
+    //The request has been evaluated
+    TripRequest *preq = pendingRequests[tr->getID()];
+    pendingRequests.erase(tr->getID());
+    delete preq;
 
     for(auto const &x : vehicleProposal)
     {
@@ -71,11 +82,15 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
              << "/Requested Pickup Deadline: " << pickupDeadline << " .Actual DROPOFF time: "
              << dropoffActualTime << "/Requested DropOFF Deadline: " << dropoffDeadline << endl;
 
+          rAssignedPerVehicle[vehicleID]++;
+
           bool toEmit = false;
           if(rPerVehicle[vehicleID].empty())
           {
               //The node which handle the selected vehicle should be notified
               toEmit = true;
+
+              updateStateElapsedTime(vehicleID, -1); //update IDLE elapsed time
           }
           else
           {
@@ -83,23 +98,47 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
               cleanStopPointList(rPerVehicle[vehicleID]);
           }
 
+          //The vehicle is not already in the pickup location
           if(pickupActualTime > simTime().dbl())
           {
-              //The vehicle is not already in the pickup location
+              if(toEmit)
+                  (statePerVehicle[vehicleID][0])->setStartingTime(simTime().dbl());
+
               rPerVehicle[vehicleID] = vehicleProposal[vehicleID];
           }
 
           else
           {
-              //The vehicle is already in the pickup node
-              servedPickup[tr->getID()] = new StopPoint(*tr->getPickupSP());
-              emit(waitingTime, 0.0);
-              vehicleProposal[vehicleID].remove(sp);
+              StopPoint* pUp = getRequestPickup(vehicleProposal[vehicleID], tr->getID());
 
+              EV << "The vehicle is already in the pickup location. Passengers on boarding: " << pUp->getActualNumberOfPassengers() << endl;
+              if(toEmit)
+                  (statePerVehicle[vehicleID][pUp->getActualNumberOfPassengers()])->setStartingTime(simTime().dbl());
+
+              //The vehicle is already in the pickup node
+              pUp->setActualTime(simTime().dbl());
+              servedPickup[tr->getID()] = new StopPoint(*pUp);
+              emit(waitingTime, 0.0);
+                  waitingTimeVector.push_back(0.0);
+              vehicleProposal[vehicleID].remove(pUp);
+
+              delete pUp;
               rPerVehicle[vehicleID] = vehicleProposal[vehicleID];
           }
           if(toEmit)
               emit(newTripAssigned, (double)vehicleID);
+
+          std::ostringstream s;
+          s << "FINAL LIST ACCEPTED: ";
+
+          std::list<StopPoint*> l = rPerVehicle[vehicleID];
+          for (std::list<StopPoint*>::const_iterator it=l.begin(); it != l.end(); ++it)
+          {
+              s << (*it)->getLocation();
+              s << " ";
+          }
+          EV << s.str() << endl;
+
       }
       else
       {
@@ -113,6 +152,164 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
       return vehicleID;
 }
 
+
+/**
+ * Emit statistical signal before end the simulation
+ */
+void BaseCoord::finish()
+{
+    /*--- Total Requests Statistic ---*/
+    char totalRequestSignal[32];
+    sprintf(totalRequestSignal, "Total Requests");
+    recordScalar(totalRequestSignal, totrequests);
+
+    /*--- Unserved Requests Statistic ---*/
+    char unservedRequestSignal[32];
+    sprintf(unservedRequestSignal, "Unserved Requests");
+    recordScalar(unservedRequestSignal, uRequests.size());
+
+    /*--- Pending Requests Statistic ---*/
+    char pendingRequestSignal[32];
+    sprintf(pendingRequestSignal, "Pending Requests");
+    recordScalar(pendingRequestSignal, pendingRequests.size());
+
+    /*Define vectors for additional statistics (Percentiles) */
+    std::vector<double> traveledDistanceVector;
+    std::vector<double> requestsAssignedPerVehicleVector;
+    std::vector<double> passengersOnBoardVector;
+    std::vector<double> toDropoffRequestsVector;
+    std::vector<double> toPickupRequestsVector;
+    std::map<int, std::vector<double>> statsPerVehiclesVectors;
+
+    /* Register the Travel-Time related signals */
+    int maxSeats = getMaxVehiclesSeats();
+    std::map<int, simsignal_t> travelStats;
+    for(int i=-1; i<=maxSeats; i++)
+    {
+        char sigName[32];
+        sprintf(sigName, "travel%d-time", i);
+        simsignal_t travsignal = registerSignal(sigName);
+        travelStats[i] = travsignal;
+
+        char statisticName[32];
+        sprintf(statisticName, "travel%d-time", i);
+        cProperty *statisticTemplate =
+            getProperties()->get("statisticTemplate", "travelTime");
+
+        ev.addResultRecorders(this, travsignal, statisticName, statisticTemplate);
+    }
+
+
+    /*--- Per Vehicle related Statistics ---*/
+    for(std::map<Vehicle*, int>::iterator itr = vehicles.begin(); itr != vehicles.end(); itr++)
+    {
+        double tmp = (itr->first->getTraveledDistance())/1000;
+        emit(traveledDistance, tmp);
+            traveledDistanceVector.push_back(tmp);
+
+        tmp=rAssignedPerVehicle[itr->first->getID()];
+        emit(requestsAssignedPerVehicle, tmp);
+            requestsAssignedPerVehicleVector.push_back(tmp);
+
+        std::map<int, std::list<StopPoint*>>::const_iterator it = rPerVehicle.find(itr->first->getID());
+        if(it == rPerVehicle.end() || it->second.empty())
+        {
+            emit(passengersOnBoard, 0.0);
+                passengersOnBoardVector.push_back(0.0);
+            emit(toDropoffRequests, 0.0);
+                toDropoffRequestsVector.push_back(0.0);
+            emit(toPickupRequests, 0.0);
+                toPickupRequestsVector.push_back(0.0);
+        }
+        else
+        {
+            StopPoint* nextSP = it->second.front();
+            tmp=(double)nextSP->getActualNumberOfPassengers() - nextSP->getNumberOfPassengers();
+            emit(passengersOnBoard, tmp);
+                passengersOnBoardVector.push_back(tmp);
+
+            int pickedupRequests = countOnBoardRequests(itr->first->getID());
+            emit(toDropoffRequests, (double)pickedupRequests);
+                toDropoffRequestsVector.push_back((double)pickedupRequests);
+            emit(toPickupRequests, (double)((it->second.size() - pickedupRequests)/2));
+                toPickupRequestsVector.push_back((double)((it->second.size() - pickedupRequests)/2));
+        }
+
+        for(auto const& x : statePerVehicle[itr->first->getID()])
+        {
+            tmp= x.second->getElapsedTime() / 60;
+            emit(travelStats[x.first], tmp);
+            statsPerVehiclesVectors[x.first].push_back(tmp);
+        }
+
+        vehicles.erase(itr);
+    }
+
+    /* -- Collect Percentile Statistic -- */
+    collectPercentileStats("traveledDistance", traveledDistanceVector);
+    collectPercentileStats("requestsPerVehicle", requestsAssignedPerVehicleVector);
+    collectPercentileStats("passengersOnBoard", passengersOnBoardVector);
+    collectPercentileStats("toDropoffRequests", toDropoffRequestsVector);
+    collectPercentileStats("toPickupRequests", toPickupRequestsVector);
+    collectPercentileStats("waitingTime", waitingTimeVector);
+    collectPercentileStats("actualTripTime", actualTripTimeVector);
+    collectPercentileStats("stretch",stretchVector);
+    collectPercentileStats("tripDistance", tripDistanceVector);
+
+    for(auto const& x : statsPerVehiclesVectors)
+    {
+        char statisticName[32];
+        sprintf(statisticName, "travel%d-time", x.first);
+        if (!x.second.empty())
+            collectPercentileStats(statisticName, x.second);
+    }
+
+
+    /*------------------------------- CLEAN ENVIRONMENT -------------------------------*/
+
+    for(std::map<int, TripRequest*>::iterator itr = pendingRequests.begin(); itr != pendingRequests.end(); itr++)
+        delete itr->second;
+
+    for(std::map<int, TripRequest*>::iterator itr = uRequests.begin(); itr != uRequests.end(); itr++)
+        delete itr->second;
+
+    for(std::map<int, std::list<StopPoint*>>::iterator itr = rPerVehicle.begin(); itr != rPerVehicle.end(); itr++)
+        cleanStopPointList(itr->second);
+
+    for(std::map<int, StopPoint*>::iterator itr = servedPickup.begin(); itr != servedPickup.end(); itr++)
+        delete itr->second;
+
+    for(std::map<int, std::map<int, VehicleState*>>::iterator itr = statePerVehicle.begin(); itr != statePerVehicle.end(); itr++)
+        for(std::map<int, VehicleState*>::iterator itr2 = itr->second.begin(); itr2 != itr->second.end(); itr2++)
+            delete itr2->second;
+
+
+    /*------------------------------- END CLEAN ENVIRONMENT ----------------------------*/
+}
+
+/**
+ * Get the number of picked-up requests not yet dropped-off.
+ *
+ * @param vehicleID
+ *
+ * @return number of picked-up requests.
+ */
+int BaseCoord::countOnBoardRequests(int vehicleID)
+{
+    std::list<StopPoint*> requests = rPerVehicle[vehicleID];
+    int onBoard = 0;
+    std::set<int> pickupSP;
+
+    for (std::list<StopPoint*>::const_iterator it=requests.begin(); it != requests.end(); ++it)
+    {
+        if((*it)->getIsPickup())
+            pickupSP.insert((*it)->getRequestID());
+        else
+            if(pickupSP.find((*it)->getRequestID()) == pickupSP.end())
+                onBoard++;
+    }
+    return onBoard;
+}
 
 /**
  * Get the pointer to the pickup SP related to the requestID.
@@ -133,6 +330,7 @@ StopPoint* BaseCoord::getRequestPickup(std::list<StopPoint*> spList, int request
     return nullptr;
 }
 
+
 /**
  * Get the pointer to the dropoff SP related to the requestID.
  *
@@ -150,6 +348,262 @@ StopPoint* BaseCoord::getRequestDropOff(std::list<StopPoint*> spList, int reques
     }
 
     return nullptr;
+}
+
+
+/**
+ * Get the next stop point for the specified vehicle.
+ *
+ * @param vehicleID
+ * @return
+ */
+StopPoint* BaseCoord::getNextStopPoint(int vehicleID)
+{
+    if ((rPerVehicle.find(vehicleID) != rPerVehicle.end()) && !(rPerVehicle[vehicleID].empty()))
+    {
+        StopPoint *front = rPerVehicle[vehicleID].front();
+        int currentPassengers = front->getActualNumberOfPassengers();
+        rPerVehicle[vehicleID].pop_front();
+
+        if (!rPerVehicle[vehicleID].empty())
+        {
+            VehicleState *currState = statePerVehicle[vehicleID][currentPassengers];
+            currState->setStartingTime(simTime().dbl());
+
+            StopPoint *r = rPerVehicle[vehicleID].front();
+            delete front;
+            return r;
+        }
+        delete front;
+    }
+
+    VehicleState *idleState = statePerVehicle[vehicleID][-1];
+    idleState->setStartingTime(simTime().dbl());
+
+    return NULL;
+}
+
+
+/**
+ * Get the current stop point for the specified vehicle.
+ * Call the function when the vehicle reach a stop-point location.
+ *
+ * @param vehicleID
+ * @return The pointer to the current stop point
+ */
+StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
+{
+    if ((rPerVehicle.find(vehicleID) != rPerVehicle.end()) && !(rPerVehicle[vehicleID].empty()))
+    {
+        StopPoint *r = rPerVehicle[vehicleID].front();
+        updateStateElapsedTime(vehicleID, r->getActualNumberOfPassengers() - r->getNumberOfPassengers());
+
+        if(r->getIsPickup())
+        {
+            StopPoint *sPickup = new StopPoint(*r);
+            servedPickup[r->getRequestID()] = sPickup;
+            double tmp = (simTime().dbl()-r->getTime())/60;
+            emit(waitingTime, tmp);
+                waitingTimeVector.push_back(tmp);
+        }
+        else
+        {
+            double att = (simTime().dbl() - servedPickup[r->getRequestID()]->getActualTime()); //ActualTripTime
+            double str = (netmanager->getTimeDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation())) / att; //Trip Efficiency Ratio
+
+            double trip_distance = netmanager->getSpaceDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation()) / 1000;
+            emit(actualTripTime, (att/60));
+                actualTripTimeVector.push_back((att/60));
+            emit(stretch, str);
+                stretchVector.push_back(str);
+            emit(tripDistance, trip_distance);
+                tripDistanceVector.push_back(trip_distance);
+        }
+        return r;
+    }
+    return NULL;
+}
+
+/**
+ * Get the pointer to the first stop point assigned to the vehicle.
+ * Call this function when receive a "newTripAssigned" signal.
+ *
+ * @param vehicleID
+ * @return The pointer to the first stop point
+ */
+StopPoint* BaseCoord::getNewAssignedStopPoint(int vehicleID)
+{
+    return rPerVehicle[vehicleID].front();
+}
+
+/**
+ * Update the elapsed time of the specified TravelState.
+ *
+ * @param vehicleID
+ * @param stateID
+ */
+void BaseCoord::updateStateElapsedTime(int vehicleID, int stateID)
+{
+    VehicleState *prevState = statePerVehicle[vehicleID][stateID];
+    prevState->setElapsedTime(prevState->getElapsedTime() + (simTime().dbl() - prevState->getStartingTime()));
+
+    EV << "Elapsed Time for state "<< stateID << " is: " << prevState->getElapsedTime() << endl;
+}
+
+/**
+ * Register the vehicle v in a node.
+ *
+ * @param v
+ * @param address The node address
+ */
+void BaseCoord::registerVehicle(Vehicle *v, int address)
+{
+    if(statePerVehicle.find(v->getID()) == statePerVehicle.end())
+    {
+        double currTime = simTime().dbl();
+
+        for(int i=-1; i<=v->getSeats(); i++)
+            statePerVehicle[v->getID()].insert(std::make_pair(i, new VehicleState(i,currTime)));
+    }
+    vehicles[v] = address;
+    EV << "Registered vehicle " << v->getID() << " in node: " << address << endl;
+}
+
+
+/**
+ * Get the last location where the vehicle was registered.
+ *
+ * @param vehicleID
+ * @return the location address
+ */
+int BaseCoord::getLastVehicleLocation(int vehicleID)
+{
+    for(auto const& x : vehicles)
+    {
+        if(x.first->getID() == vehicleID)
+            return x.second;
+    }
+    return -1;
+}
+
+
+/**
+ * Get vehicle from its ID.
+ *
+ * @param vehicleID
+ * @return pointer to the vehicle
+ */
+Vehicle* BaseCoord::getVehicleByID(int vehicleID)
+{
+    for(auto const& x : vehicles)
+    {
+        if(x.first->getID() == vehicleID)
+            return x.first;
+    }
+    return nullptr;
+}
+
+
+/**
+ * Delete unused dynamically allocated memory.
+ *
+ * @param spList The list of stop point
+ */
+void BaseCoord::cleanStopPointList(std::list<StopPoint*> spList)
+{
+    for(auto &it:spList) delete it;
+    spList.clear();
+}
+
+
+/**
+ * Check if a Trip Request is valid.
+ *
+ * @param tr The trip Request.
+ * @return true if the request is valid.
+ */
+bool BaseCoord::isRequestValid(const TripRequest tr)
+{
+    bool valid = false;
+
+    if(tr.getPickupSP() && tr.getDropoffSP() &&
+            netmanager->isValidAddress(tr.getPickupSP()->getLocation()) && netmanager->isValidAddress(tr.getDropoffSP()->getLocation()))
+                valid = true;
+    return valid;
+
+}
+
+/**
+ * Get from all available vehicles, the max number of seats.
+ *
+ * @return The max seats
+ */
+int BaseCoord::getMaxVehiclesSeats()
+{
+    int vSeats = 0;
+
+    for(auto &it:vehicles)
+    {
+        if(it.first->getSeats() > vSeats)
+            vSeats = it.first->getSeats();
+    }
+    return vSeats;
+}
+
+/**
+ * Collect Median and 95th percentile related to the provided vector.
+ *
+ * @param sigName The signal name
+ * @param values
+ */
+void BaseCoord::collectPercentileStats(std::string sigName, std::vector<double> values)
+{
+    int size=values.size();
+    if(size==0)
+    {
+        recordScalar((sigName+": Median").c_str(), 0.0);
+        recordScalar((sigName+": 95Percentile").c_str(), 0.0);
+        return;
+    }
+
+    if(size == 1)
+    {
+        recordScalar((sigName+": Median").c_str(), values[0]);
+        recordScalar((sigName+": 95Percentile").c_str(), values[0]);
+        return;
+    }
+
+    std::sort(values.begin(), values.end());
+    double median;
+    double percentile95;
+
+    if (size % 2 == 0)
+          median= (values[size / 2 - 1] + values[size / 2]) / 2;
+    else
+        median = values[size / 2];
+
+    recordScalar((sigName+": Median").c_str(), median);
+
+
+    /*95th percentile Evaluation*/
+    double index = 0.95*size;
+    double intpart;
+    double decpart;
+
+    decpart = modf(index, &intpart);
+    if(decpart == 0.0)
+        percentile95 = (values[intpart-1]+values[intpart]) / 2;
+
+    else{
+        if( decpart > 0.4)
+            index=intpart;
+        else
+            index=intpart-1;
+        percentile95 = values[index];
+    }
+
+    recordScalar((sigName+": 95Percentile").c_str(), percentile95);
+
 }
 
 /**
@@ -214,181 +668,4 @@ bool BaseCoord::eval_feasibility (int vehicleID, StopPoint* sp)
     return isFeasible;
 }
 
-
-/**
- * Get the next stop point for the specified vehicle.
- *
- * @param vehicleID
- *
- * @return
- */
-StopPoint* BaseCoord::getNextStopPoint(int vehicleID)
-{
-    if ((rPerVehicle.find(vehicleID) != rPerVehicle.end()) && !(rPerVehicle[vehicleID].empty()))
-    {
-        rPerVehicle[vehicleID].pop_front();
-        if (!rPerVehicle[vehicleID].empty())
-        {
-            StopPoint *r = rPerVehicle[vehicleID].front();
-            return r;
-        }
-    }
-    return NULL;
-}
-
-/**
- * Get the current stop point for the specified vehicle.
- *
- * @param vehicleID
- * @return
- */
-StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
-{
-    if ((rPerVehicle.find(vehicleID) != rPerVehicle.end()) && !(rPerVehicle[vehicleID].empty()))
-    {
-        StopPoint *r = rPerVehicle[vehicleID].front();
-
-        if(r->getIsPickup())
-        {
-            servedPickup[r->getRequestID()] = r;
-            emit(waitingTime, (simTime()-r->getTime())/60);
-        }
-        else
-        {
-            double att = (simTime().dbl() - servedPickup[r->getRequestID()]->getActualTime())/60; //ActualTripTime
-            double ter = (netmanager->getTimeDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation()) / 60) / att; //Trip Efficiency Ratio
-            double trip_distance = netmanager->getSpaceDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation()) / 1000;
-            emit(actualTripTime, att);
-            emit(tripEfficiencyRatio, ter);
-            emit(tripDistance, trip_distance);
-        }
-        return r;
-    }
-    return NULL;
-}
-
-
-/**
- * Emit statistical signal before end the simulation
- */
-void BaseCoord::finish()
-{
-    char uRequestSignal[32];
-    sprintf(uRequestSignal, "Unserved Requests up to %d", totrequests);
-    recordScalar(uRequestSignal, uRequests.size());
-
-    for(std::map<Vehicle*, int>::iterator itr = vehicles.begin(); itr != vehicles.end(); itr++)
-    {
-        char distanceSignal[32];
-        sprintf(distanceSignal, "vehicle%d-traveledDistance(km)", itr->first->getID());
-        recordScalar(distanceSignal, (itr->first->getTraveledDistance())/1000);
-        delete itr->first;
-    }
-
-
-    for(std::map<int, TripRequest*>::iterator itr = uRequests.begin(); itr != uRequests.end(); itr++)
-            delete itr->second;
-
-    for(std::map<int, std::list<StopPoint*>>::iterator itr = rPerVehicle.begin(); itr != rPerVehicle.end(); itr++)
-            cleanStopPointList(itr->second);
-
-    for(std::map<int, StopPoint*>::iterator itr = servedPickup.begin(); itr != servedPickup.end(); itr++)
-             delete itr->second;
-
-    //emit statistics related to trips not yet completed
-//    for(auto const& x : rPerVehicle)
-//    {
-//        for (std::list<StopPoint*>::const_iterator it = x.second.begin(), end = x.second.end(); it != end; ++it)
-//        {
-//            EV << "SOME TRIP NOT COMPLETED!" << endl;
-//            if((*it)->getIsPickup())
-//            {
-//                servedPickup[(*it)->getRequestID()] = (*it);
-//                emit(waitingTime, ((*it)->getActualTime() - (*it)->getTime())/60);
-//            }
-//            else
-//            {
-//                double att = ((*it)->getActualTime() - servedPickup[(*it)->getRequestID()]->getActualTime())/60; //ActualTripTime
-//                double ter = (getDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 60) / att; //Trip Efficiency Ratio
-//                double trip_distance = getSpaceDistance(servedPickup[(*it)->getRequestID()]->getNodeID(), (*it)->getLocation()) / 1000;
-//                emit(actualTripTime, att);
-//                emit(tripEfficiencyRatio, ter);
-//                emit(tripDistance, trip_distance);
-//            }
-//        }
-//    }
-}
-
-/**
- * Register the vehicle v in a node.
- *
- * @param v
- * @param address The node address
- */
-void BaseCoord::registerVehicle(Vehicle *v, int address)
-{
-    vehicles[v] = address;
-    EV << "Registered vehicle " << v->getID() << " in node: " << address << endl;
-}
-
-/**
- * Get the last location where the vehicle was registered.
- *
- * @param vehicleID
- * @return the location address
- */
-int BaseCoord::getLastVehicleLocation(int vehicleID)
-{
-    for(auto const& x : vehicles)
-    {
-        if(x.first->getID() == vehicleID)
-            return x.second;
-    }
-    return -1;
-}
-
-/**
- * Get vehicle from its ID.
- *
- * @param vehicleID
- * @return pointer to the vehicle
- */
-Vehicle* BaseCoord::getVehicleByID(int vehicleID)
-{
-    for(auto const& x : vehicles)
-    {
-        if(x.first->getID() == vehicleID)
-            return x.first;
-    }
-    return nullptr;
-}
-
-/**
- * Delete unused dynamically allocated memory.
- *
- * @param spList The list of stop point
- */
-void BaseCoord::cleanStopPointList(std::list<StopPoint*> spList)
-{
-    for(auto &it:spList) delete it;
-
-    spList.clear();
-}
-
-/**
- * Check if a Trip Request is valid.
- *
- * @param tr The trip Request.
- * @return true if the request is valid.
- */
-bool BaseCoord::isRequestValid(const TripRequest tr)
-{
-    bool valid = false;
-
-    if(tr.getPickupSP() && tr.getDropoffSP() &&
-            netmanager->isValidAddress(tr.getPickupSP()->getLocation()) && netmanager->isValidAddress(tr.getDropoffSP()->getLocation()))
-                valid = true;
-    return valid;
-
-}
 

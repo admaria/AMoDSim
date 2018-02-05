@@ -35,7 +35,7 @@ void ManhattanRouting::handleMessage(cMessage *msg)
     int distance;
     int outGateIndex;
     int destX = pk->getDestAddr() % rows;
-    int destY = pk->getDestAddr() / columns;
+    int destY = pk->getDestAddr() / rows;
 
     if(myX < destX)
     {
