@@ -12,7 +12,12 @@
 class BaseCoord : public cSimpleModule, cListener{
 
     protected:
-        int totrequests;
+        double totrequests;
+        double totalAssignedRequests;
+        double totalPickedupRequests;
+        double totalDroppedoffRequest;
+        double freeVehicles;
+
         int boardingTime;
         int alightingTime;
         AbstractNetworkManager* netmanager;
@@ -35,6 +40,12 @@ class BaseCoord : public cSimpleModule, cListener{
         simsignal_t toDropoffRequests;
         simsignal_t toPickupRequests;
         simsignal_t requestsAssignedPerVehicle;
+
+        simsignal_t totalRequestsPerTime;
+        simsignal_t assignedRequestsPerTime;
+        simsignal_t pickedupRequestsPerTime;
+        simsignal_t droppedoffRequestsPerTime;
+        simsignal_t freeVehiclesPerTime;
 
         std::map<Vehicle*, int> vehicles; //Vehicle -> node address
         std::map<int, StopPoint*> servedPickup;   //Details related to served pickup: needed to extract per-trip metrics

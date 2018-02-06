@@ -18,6 +18,7 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
         {
             pendingRequests.insert(std::make_pair(tr->getID(),  new TripRequest(*tr)));
             totrequests++;
+            emit(totalRequestsPerTime, totrequests);
             handleTripRequest(tr);
         }
         else

@@ -17,10 +17,23 @@ void BaseCoord::initialize()
     toPickupRequests = registerSignal("toPickupRequests");
     requestsAssignedPerVehicle = registerSignal("requestsAssignedPerVehicle");
 
-    totrequests = 0;
+    totalRequestsPerTime = registerSignal("totalRequestsPerTime");
+    assignedRequestsPerTime = registerSignal("assignedRequestsPerTime");
+    pickedupRequestsPerTime = registerSignal("pickedupRequestsPerTime");
+    droppedoffRequestsPerTime = registerSignal("droppedoffRequestsPerTime");
+    freeVehiclesPerTime = registerSignal("freeVehiclesPerTime");
+
+    totrequests = 0.0;
+    totalAssignedRequests = 0.0;
+    totalPickedupRequests = 0.0;
+    totalDroppedoffRequest = 0.0;
+
     alightingTime = getParentModule()->par("alightingTime").doubleValue();
     boardingTime = getParentModule()->par("boardingTime").doubleValue();
     netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getSubmodule("netmanager"));
+    freeVehicles = netmanager->getNumberOfVehicles();
+    emit(freeVehiclesPerTime, freeVehicles);
+
     //netXsize = (getParentModule()->par("width").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
     //netYsize = (getParentModule()->par("height").doubleValue() - 1) * (getParentModule()->par("nodeDistance").doubleValue());
 
@@ -83,12 +96,16 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
              << dropoffActualTime << "/Requested DropOFF Deadline: " << dropoffDeadline << endl;
 
           rAssignedPerVehicle[vehicleID]++;
+          totalAssignedRequests++;
+          emit(assignedRequestsPerTime, totalAssignedRequests);
 
           bool toEmit = false;
           if(rPerVehicle[vehicleID].empty())
           {
               //The node which handle the selected vehicle should be notified
               toEmit = true;
+              freeVehicles--;
+              emit(freeVehiclesPerTime, freeVehicles);
 
               updateStateElapsedTime(vehicleID, -1); //update IDLE elapsed time
           }
@@ -118,6 +135,8 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
               //The vehicle is already in the pickup node
               pUp->setActualTime(simTime().dbl());
               servedPickup[tr->getID()] = new StopPoint(*pUp);
+              totalPickedupRequests++;
+              emit(pickedupRequestsPerTime, totalPickedupRequests);
               emit(waitingTime, 0.0);
                   waitingTimeVector.push_back(0.0);
               vehicleProposal[vehicleID].remove(pUp);
@@ -379,6 +398,8 @@ StopPoint* BaseCoord::getNextStopPoint(int vehicleID)
 
     VehicleState *idleState = statePerVehicle[vehicleID][-1];
     idleState->setStartingTime(simTime().dbl());
+    freeVehicles++;
+    emit(freeVehiclesPerTime, freeVehicles);
 
     return NULL;
 }
@@ -403,6 +424,9 @@ StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
             StopPoint *sPickup = new StopPoint(*r);
             servedPickup[r->getRequestID()] = sPickup;
             double tmp = (simTime().dbl()-r->getTime())/60;
+
+            totalPickedupRequests++;
+            emit(pickedupRequestsPerTime, totalPickedupRequests);
             emit(waitingTime, tmp);
                 waitingTimeVector.push_back(tmp);
         }
@@ -410,6 +434,8 @@ StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
         {
             double att = (simTime().dbl() - servedPickup[r->getRequestID()]->getActualTime()); //ActualTripTime
             double str = (netmanager->getTimeDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation())) / att; //Trip Efficiency Ratio
+            totalDroppedoffRequest++;
+            emit(droppedoffRequestsPerTime, totalDroppedoffRequest);
 
             double trip_distance = netmanager->getSpaceDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation()) / 1000;
             emit(actualTripTime, (att/60));
@@ -467,6 +493,7 @@ void BaseCoord::registerVehicle(Vehicle *v, int address)
     }
     vehicles[v] = address;
     EV << "Registered vehicle " << v->getID() << " in node: " << address << endl;
+
 }
 
 

@@ -36,7 +36,19 @@ simple BaseCoord like ICoord
         
         @signal[travel*-time](type="double"); 
 		@statisticTemplate[travelTime](title="Travel Time Per State (minute)";unit=minute;record=vector,stats;interpolationmode=none);
+		
+		@signal[totalRequestsPerTime](type="double");
+		@statistic[totalRequestsPerTime](title="Total Requests Per Time";source="totalRequestsPerTime";record=vector;interpolationmode=none);
+		
+		@signal[assignedRequestsPerTime](type="double");
+		@statistic[assignedRequestsPerTime](title="Assigned Requests Per Time";source="assignedRequestsPerTime";record=vector;interpolationmode=none);
+		       
+        @signal[pickedupRequestsPerTime](type="double");
+		@statistic[pickedupRequestsPerTime](title="Picked-up Requests Per Time";source="pickedupRequestsPerTime";record=vector;interpolationmode=none);
         
-        
-        
+        @signal[droppedoffRequestsPerTime](type="double");
+		@statistic[droppedoffRequestsPerTime](title="Dropped-off Requests Per Time";source="droppedoffRequestsPerTime";record=vector;interpolationmode=none);
+		
+		@signal[freeVehiclesPerTime](type="double");
+		@statistic[freeVehiclesPerTime](title="Free Vehicles Per Time";source="freeVehiclesPerTime";record=vector;interpolationmode=none);
 }

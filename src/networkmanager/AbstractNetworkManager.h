@@ -26,6 +26,7 @@ protected:
     virtual int getOutputGate(int srcAddr, int destAddr)=0;          //Get the index of the gate where send the packet to reach the destAddr
     virtual int getVehiclesPerNode(int nodeAddr)=0;                  //Get the number of vehicles located in the node at simulation start
     virtual bool isValidAddress(int nodeAddr)=0;                     //Check if the specified address is valid
+    virtual int getNumberOfVehicles(){return numberOfVehicles;}
 };
 
 
