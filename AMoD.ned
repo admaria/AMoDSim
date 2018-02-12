@@ -63,10 +63,6 @@ network AMoD
                 address = index;
                 x=index % width;
                 y=index / width;
-                x_distance = replaceUnit((index % width),"meter"); //meters from origin (x axes)
-                y_distance = replaceUnit((index / height), "meter");//meters from origin (y axes)
-                xBase_distance = xNodeDistance;
-                yBase_distance = yNodeDistance;
                 @display("p=,,m,$width,$xNodeDistance,$yNodeDistance");
             gates:
                 port[5];

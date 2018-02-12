@@ -9,10 +9,6 @@ module Node
         int address;
         int x;
         int y;
-        int x_distance @unit(m);
-        int y_distance @unit(m);
-        int xBase_distance @unit(m);
-        int yBase_distance @unit(m);
         bool isRequestGenerator = default(false);
         string appType;
         string routingType = default("Routing");

@@ -1,3 +1,17 @@
+/*
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
 
 #include <omnetpp.h>
 #include "TripRequest.h"
@@ -55,8 +69,8 @@ void TripRequestSubmitter::initialize()
     maxDelay = &par("maxDelay");
     maxSubmissionTime = par("maxSubmissionTime");
 
-    x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("xBase_distance").doubleValue();
-    y_coord = getParentModule()->par("y_distance").doubleValue() * getParentModule()->par("yBase_distance").doubleValue();
+    x_coord = getParentModule()->par("x");
+    y_coord = getParentModule()->par("y");
     netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
 
     generatePacket = new cMessage("nextPacket");

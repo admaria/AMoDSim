@@ -1,9 +1,17 @@
 /*
- * AbstractNetworkManager.h
- *
- *  Created on: Jan 18, 2018
- *      Author: andrea
- */
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
 
 #ifndef ABSTRACTNETWORKMANAGER_H_
 #define ABSTRACTNETWORKMANAGER_H_

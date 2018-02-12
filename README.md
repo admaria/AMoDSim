@@ -12,6 +12,4 @@
 
 ==============================================
 
-Omnet v4.6
-
-Add a reference to inet (suggested version inet-3.3.0) before build the project.
+Requirements: Omnet v4.6

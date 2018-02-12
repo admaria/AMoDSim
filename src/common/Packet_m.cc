@@ -1,6 +1,17 @@
-//
-// Generated file, do not edit! Created by nedtool 4.6 from common/Packet.msg.
-//
+/*
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
 
 // Disable warnings about unused variables, empty switch stmts, etc:
 #ifdef _MSC_VER

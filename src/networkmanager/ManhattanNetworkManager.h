@@ -1,3 +1,18 @@
+/*
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
+
 #ifndef __AMOD_SIMULATOR_MANHATTANNETWORKMANAGER_H_
 #define __AMOD_SIMULATOR_MANHATTANNETWORKMANAGER_H_
 

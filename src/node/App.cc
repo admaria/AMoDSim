@@ -1,3 +1,18 @@
+/*
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
+
 #ifdef _MSC_VER
 #pragma warning(disable:4786)
 #endif
@@ -21,8 +36,6 @@ class App : public cSimpleModule,cListener
   private:
     // configuration
     int myAddress;
-    int x_coord;
-    int y_coord;
     int numberOfVehicles;
     int seatsPerVehicle;
     BaseCoord *tcoord;
@@ -63,12 +76,9 @@ void App::initialize()
     netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
     numberOfVehicles = netmanager->getVehiclesPerNode(myAddress);
 
-    x_coord = getParentModule()->par("x_distance").doubleValue() * getParentModule()->par("xBase_distance").doubleValue();
-    y_coord = getParentModule()->par("y_distance").doubleValue() * getParentModule()->par("yBase_distance").doubleValue();
-
     newTripAssigned = registerSignal("newTripAssigned");
 
-    EV << "I am node " << myAddress << ". x/y coord(meters): " << x_coord << "/"<< y_coord << endl;
+    EV << "I am node " << myAddress << endl;
 
     //If the vehicle is in this node (at startup) subscribe it to "tripRequestSignal"
     if (numberOfVehicles > 0)

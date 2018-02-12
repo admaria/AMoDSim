@@ -1,6 +1,17 @@
-//
-// Generated file, do not edit! Created by nedtool 4.6 from common/Packet.msg.
-//
+/*
+############################################
+##              __  __       _____        ##
+##        /\   |  \/  |     |  __ \       ##
+##       /  \  | \  / | ___ | |  | |      ##
+##      / /\ \ | |\/| |/ _ \| |  | |      ##
+##     / ____ \| |  | | (_) | |__| |      ##
+##    /_/    \_\_|  |_|\___/|_____/       ##
+##                                        ##
+## Author:                                ##
+##    Andrea Di Maria                     ##
+##    <andrea.dimaria90@gmail.com>        ##
+############################################
+*/
 
 #ifndef _PACKET_M_H_
 #define _PACKET_M_H_
@@ -14,21 +25,6 @@
 #endif
 
 
-
-/**
- * Class generated from <tt>common/Packet.msg:15</tt> by nedtool.
- * <pre>
- * //
- * // Represents a packet in the network.
- * //
- * packet Packet
- * {
- *     int srcAddr;
- *     int destAddr;
- *     int hopCount;
- * }
- * </pre>
- */
 class Packet : public ::cPacket
 {
   protected:
