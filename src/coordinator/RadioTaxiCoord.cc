@@ -18,6 +18,7 @@
 Define_Module(RadioTaxiCoord);
 
 double currentTime = 0.0;
+double currentTimeCost = -1.0;
 
 void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj)
 {
@@ -55,10 +56,18 @@ void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
         {
             std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
             if(!tmp.empty())
+            {
+                if(!vehicleProposals.empty())
+                {
+                    cleanStopPointList(vehicleProposals.begin()->second);
+                    vehicleProposals.clear();
+                }
                 vehicleProposals[x.first->getID()] = tmp;
+            }
         }
     }
 
+    currentTimeCost = -1.0;
     //Assign the request to the vehicle which minimize the waiting time
     minWaitingTimeAssignment(vehicleProposals, tr);
 
@@ -122,13 +131,21 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
 
     if(dst_to_pickup != -1 && pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
     {
-        for (auto const &x : old)
-            newList.push_back(new StopPoint(*x));
+        if(currentTimeCost == -1.0 || dst_to_pickup < currentTimeCost)
+        {
+            currentTimeCost = dst_to_pickup;
+            for (auto const &x : old)
+                newList.push_back(new StopPoint(*x));
 
-        pickupSP->setActualNumberOfPassengers(pickupSP->getNumberOfPassengers());
-        dropoffSP->setActualNumberOfPassengers(0);
-        newList.push_back(pickupSP);
-        newList.push_back(dropoffSP);
+            pickupSP->setActualNumberOfPassengers(pickupSP->getNumberOfPassengers());
+            dropoffSP->setActualNumberOfPassengers(0);
+            newList.push_back(pickupSP);
+            newList.push_back(dropoffSP);
+        }
+        else{
+                delete pickupSP;
+                delete dropoffSP;
+        }
     }
     else{
         delete pickupSP;

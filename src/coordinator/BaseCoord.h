@@ -77,32 +77,32 @@ class BaseCoord : public cSimpleModule, cListener{
         PendingRequests pendingRequests;
 
 
-        virtual void initialize();
-        virtual void finish();
+        void initialize();
+        void finish();
 
         virtual void receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj) = 0;
         virtual void handleTripRequest(TripRequest *tr) = 0;
-        virtual bool eval_feasibility(int vehicleID, StopPoint *sp); //Evaluate if the new stop-point is feasible by a vehicle
+        bool eval_feasibility(int vehicleID, StopPoint *sp); //Evaluate if the new stop-point is feasible by a vehicle
         virtual std::list<StopPoint*> eval_requestAssignment(int vehicleID, TripRequest* newTR) = 0; //Sort the stop-points related to the specified vehicle including the new request's pickup and dropoff point, if feasible.
-        virtual int minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
+        int minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
 
-        virtual StopPoint* getRequestPickup(std::list<StopPoint*> spList, int requestID);
-        virtual StopPoint* getRequestDropOff(std::list<StopPoint*> spList, int requestID);
-        virtual void cleanStopPointList(std::list<StopPoint*> spList);
+        StopPoint* getRequestPickup(std::list<StopPoint*> spList, int requestID);
+        StopPoint* getRequestDropOff(std::list<StopPoint*> spList, int requestID);
+        void cleanStopPointList(std::list<StopPoint*> spList);
 
         virtual void updateStateElapsedTime(int vehicleID, int stateID);
         virtual int getMaxVehiclesSeats();
         virtual void collectPercentileStats(std::string sigName, std::vector<double> values);
 
     public:
-        virtual StopPoint* getNextStopPoint(int vehicleID);
-        virtual StopPoint* getCurrentStopPoint(int vehicleID);
-        virtual void registerVehicle (Vehicle *v, int address);
-        virtual int getLastVehicleLocation(int vehicleID);
-        virtual Vehicle* getVehicleByID(int vehicleID);
-        virtual bool isRequestValid(const TripRequest tr);
-        virtual int countOnBoardRequests(int vehicleID);
-        virtual StopPoint* getNewAssignedStopPoint(int vehicleID);
+        StopPoint* getNextStopPoint(int vehicleID);
+        StopPoint* getCurrentStopPoint(int vehicleID);
+        void registerVehicle (Vehicle *v, int address);
+        int getLastVehicleLocation(int vehicleID);
+        Vehicle* getVehicleByID(int vehicleID);
+        bool isRequestValid(const TripRequest tr);
+        int countOnBoardRequests(int vehicleID);
+        StopPoint* getNewAssignedStopPoint(int vehicleID);
 };
 
 #endif /* BASECOORD_H_ */

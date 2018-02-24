@@ -18,6 +18,8 @@
 
 Define_Module(HeuristicCoord);
 
+double curTimeCost = -1.0;
+
 void HeuristicCoord::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj)
 {
     if(signalID == tripRequest)
@@ -51,10 +53,18 @@ void HeuristicCoord::handleTripRequest(TripRequest *tr)
         {
             std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
             if(!tmp.empty())
+            {
+                if(!vehicleProposals.empty())
+                {
+                    cleanStopPointList(vehicleProposals.begin()->second);
+                    vehicleProposals.clear();
+                }
                 vehicleProposals[x.first->getID()] = tmp;
+            }
         }
     }
 
+    curTimeCost = -1.0;
     //Assign the request to the vehicle which minimize the waiting time
     minWaitingTimeAssignment(vehicleProposals, tr);
 
@@ -85,7 +95,8 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         EV << "The vehicle " << vehicleID << " has not other stop points!" << endl;
         double timeToPickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), newTRpickup->getLocation()) + simTime().dbl();
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()) &&
+                (curTimeCost == -1 || timeToPickup < curTimeCost))
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRpickup->setActualNumberOfPassengers(newTRpickup->getNumberOfPassengers());
@@ -93,6 +104,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
             newTRdropoff->setActualNumberOfPassengers(0);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
+            curTimeCost = timeToPickup;
             EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxDelay()) << endl;
             EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()) << endl;
         }
@@ -112,7 +124,8 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
         StopPoint *last = new StopPoint(*old.back());
         double timeToPickup = netmanager->getTimeDistance(last->getLocation(), newTRpickup->getLocation()) + last->getActualTime() + alightingTime; //The last SP is a dropOff point.
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()) &&
+                (curTimeCost == -1 || timeToPickup < curTimeCost))
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRdropoff->setActualTime(newTRpickup->getActualTime() + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + boardingTime);
@@ -121,6 +134,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
             newList.push_back(last);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
+            curTimeCost = timeToPickup;
             EV << "New Pickup can be reached at " << newTRpickup->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRpickup->getTime() + newTRpickup->getMaxDelay()) << endl;
             EV << "New Dropoff can be reached at " << newTRdropoff->getActualTime() << " by the vehicle " << vehicleID << ". Max allowed time is: " << (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()) << endl;
         }
@@ -160,6 +174,7 @@ std::list<StopPoint*> HeuristicCoord::eval_requestAssignment(int vehicleID, Trip
                     if(cost == -1 || (*it3)->getAdditionalTime() < cost)
                     {
                         cost = (*it3)->getAdditionalTime();
+                        curTimeCost = (*it2)->getAdditionalTime();
                         delete toReturn;
 
                         toReturn = (*it3);
@@ -284,45 +299,54 @@ std::list<StopPointOrderingProposal*> HeuristicCoord::addStopPointToTrip(int veh
             //The additional cost does not violate any deadline
             if(c < minResidual)
             {
-                distanceTo = dt;
-                distanceFrom = df;
-                cost = c;
-                it3 = it;
-                std::list<StopPoint*> orderedList;
-                StopPointOrderingProposal* proposal = new StopPointOrderingProposal();
-                StopPoint* newSPcopy = new StopPoint(*newSP);
+                if((*it)->getIsPickup() || (cost == -1 || c<cost))
+                {
+                    distanceTo = dt;
+                    distanceFrom = df;
+                    cost = c;
+                    it3 = it;
+                    std::list<StopPoint*> orderedList;
+                    StopPointOrderingProposal* proposal = new StopPointOrderingProposal();
+                    StopPoint* newSPcopy = new StopPoint(*newSP);
 
-                /*Before new Stop point*/
-                for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = std::next(it3); it != end; ++it) {
-                    EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << ". PASSENGERS: " << (*it)->getActualNumberOfPassengers() << endl;
-                    orderedList.push_back(new StopPoint(**it));
+                    /*Before new Stop point*/
+                    for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = std::next(it3); it != end; ++it) {
+                        EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << ". PASSENGERS: " << (*it)->getActualNumberOfPassengers() << endl;
+                        orderedList.push_back(new StopPoint(**it));
+                    }
+
+                    StopPoint *newListBack = orderedList.back();
+                    EV << " Adding new SP after " << newListBack->getLocation() << endl;
+                    if(newListBack->getIsPickup())
+                        newSPcopy->setActualTime(newListBack->getActualTime()+distanceTo+boardingTime);
+                    else
+                        newSPcopy->setActualTime(newListBack->getActualTime()+distanceTo+alightingTime);
+
+                    newSPcopy->setActualNumberOfPassengers(passengers + newSP->getNumberOfPassengers());
+                    EV << " New SP Max time: " << newSPcopy->getTime() + newSPcopy->getMaxDelay() << ". Actual Time: " << newSPcopy->getActualTime() << " PASSENGERS: " << newSPcopy->getActualNumberOfPassengers() << endl;
+                    orderedList.push_back(newSPcopy);
+
+                    //After new SP
+                    for (std::list<StopPoint*>::const_iterator it = std::next(it3), end = spl.end(); it != end; ++it) {
+                        StopPoint* tmp = new StopPoint(**it);
+                        double prevActualTime = tmp->getActualTime();
+                        tmp->setActualTime(tmp->getActualTime() + cost);
+                        tmp->setActualNumberOfPassengers(tmp->getActualNumberOfPassengers()+newSP->getNumberOfPassengers());
+                        EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << ". PASSENGERS: " << tmp->getActualNumberOfPassengers()<< endl;
+                        orderedList.push_back(tmp);
+                    }
+
+                    proposal->setVehicleID(vehicleID);
+                    proposal->setAdditionalTime(cost);
+                    proposal->setSpList(orderedList);
+                    if(!(*it)->getIsPickup() && !mylist.empty())
+                    {
+                        StopPointOrderingProposal* toDelete = mylist.front();
+                        mylist.pop_front();
+                        delete toDelete;
+                    }
+                    mylist.push_back(proposal);
                 }
-
-                StopPoint *newListBack = orderedList.back();
-                EV << " Adding new SP after " << newListBack->getLocation() << endl;
-                if(newListBack->getIsPickup())
-                    newSPcopy->setActualTime(newListBack->getActualTime()+distanceTo+boardingTime);
-                else
-                    newSPcopy->setActualTime(newListBack->getActualTime()+distanceTo+alightingTime);
-
-                newSPcopy->setActualNumberOfPassengers(passengers + newSP->getNumberOfPassengers());
-                EV << " New SP Max time: " << newSPcopy->getTime() + newSPcopy->getMaxDelay() << ". Actual Time: " << newSPcopy->getActualTime() << " PASSENGERS: " << newSPcopy->getActualNumberOfPassengers() << endl;
-                orderedList.push_back(newSPcopy);
-
-                //After new SP
-                for (std::list<StopPoint*>::const_iterator it = std::next(it3), end = spl.end(); it != end; ++it) {
-                    StopPoint* tmp = new StopPoint(**it);
-                    double prevActualTime = tmp->getActualTime();
-                    tmp->setActualTime(tmp->getActualTime() + cost);
-                    tmp->setActualNumberOfPassengers(tmp->getActualNumberOfPassengers()+newSP->getNumberOfPassengers());
-                    EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << ". PASSENGERS: " << tmp->getActualNumberOfPassengers()<< endl;
-                    orderedList.push_back(tmp);
-                }
-
-                proposal->setVehicleID(vehicleID);
-                proposal->setAdditionalTime(cost);
-                proposal->setSpList(orderedList);
-                mylist.push_back(proposal);
             }
             else
                 EV << "Additional Time not allowed!" << endl;
@@ -367,139 +391,6 @@ std::list<double> HeuristicCoord::getResidualTime(std::list<StopPoint*> spl, int
     }
     return residuals;
 }
-
-
-
-
-
-/**
- * Sort a list of stop point within a new stop point.
- * This sorting minimize the cost.
- *
- * @param spl The list of stop point without the new stop-point.
- * @param newSP The new stop-point which should be added in the list
- * @return The sorted list of stop-point
- */
-//std::list<StopPoint*> HeuristicCoord::minCostOrdering(int vehicleID, std::list<StopPoint*> spl, StopPoint* newSP)
-//{
-//    int passengers = 0; //TODO Manage passengers.
-//    int delay_BA = 0; // boarding/alighting delay.
-//    int vehicleSeats = getVehicleByID(vehicleID).getSeats();
-//    double cost = -1.0;
-//    double actualTime = 0.0;
-//    double minResidual = 0.0;
-//    double distanceTo, distanceFrom, dt, df = 0.0;
-//
-//    std::list<double> residualTimes;
-//    std::list<StopPoint*> orderedList;
-//    std::list<StopPoint*>::const_iterator it2, it3 = spl.end();
-//
-//    if(newSP->getIsPickup())
-//        delay_BA = boardingTime;
-//    else
-//        delay_BA = alightingTime;
-//
-//    //Get the additional time-cost allowed by each stop point
-//    for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = spl.end(); it != end; ++it)
-//        residualTimes.push_back((*it)->getMaxDelay() + (*it)->getTime() - (*it)->getActualTime());
-//
-//    for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = spl.end(); it != end; ++it) {
-//        it2 = it;
-//
-//        if((*it)->getNumberOfPassengers() + newSP->getNumberOfPassengers() > vehicleSeats)
-//        {
-//            EV << " The vehicle does not have enough seats " << (*it)->getNodeID() << " is " <<  minResidual << endl;
-//        }
-//        //Get the min residual-time from "it" to last SP
-//        if(residualTimes.size() > 1)
-//        {
-//            residualTimes.pop_front();
-//            minResidual = *(std::min_element(std::begin(residualTimes), std::end(residualTimes)));
-//            EV << " Min residual from " << (*it)->getNodeID() << " is " <<  minResidual << endl;
-//        }
-//        //Arrived in last position
-//        else
-//        {
-//            residualTimes.clear();
-//            minResidual = newSP->getTime()+newSP->getMaxDelay() - (*it)->getActualTime();
-//            EV << " Min residual in last position is:  " << minResidual << endl;
-//        }
-//
-//        //Distance from prev SP to new SP
-//        dt = getDistance((*it)->getNodeID(), newSP->getLocation());//TODO Add boarding/alig time
-//        EV << " Distance from " << (*it)->getNodeID() << " to " <<  newSP->getLocation() << " is " << dt << endl;
-//        if((*it)->getActualTime() + dt > (newSP->getTime()+newSP->getMaxDelay()))
-//        {
-//            EV << "Stop search: from here will be unreachable within its deadline!" << endl;
-//            break;
-//        }
-//
-//        //Distance from new SP to next SP
-//        if(it2 != (std::prev(end)))
-//        {
-//            it2++;
-//            df = getDistance(newSP->getNodeID(), (*it2)->getLocation()) + delay_BA;
-//            EV << " Distance from " << newSP->getLocation()  << " to " << (*it2)->getLocation() << " is " << df << endl;
-//            actualTime = (*it2)->getActualTime() - (*it)->getActualTime();
-//        }
-//        else
-//            df = actualTime = 0.0;
-//
-//        double c = abs(df + dt - actualTime);
-//        EV << " The cost is " << c << ". The minResidual is: " << minResidual << endl;
-//
-//        if(c < minResidual)
-//        {
-//            EV << " The cost is minor than residual. Is minor than previous cost?" << cost << endl;
-//            if (cost == -1 || c < cost)
-//            {
-//                distanceTo = dt;
-//                distanceFrom = df;
-//                cost = c;
-//                it3 = it;
-//            }
-//        }
-//        else
-//            EV << "Additional Time not allowed!" << endl;
-//
-//    }
-//
-//    if(it3 == spl.end())
-//        EV << "The vehicle can not serve the new SP " << newSP->getLocation() << endl;
-//
-//    else{
-//        /*Before new Stop point*/
-//        for (std::list<StopPoint*>::const_iterator it = spl.begin(), end = std::next(it3); it != end; ++it) {
-//            EV << " Before new SP pushing SP " << (*it)->getLocation() << ". Actual Time: " << (*it)->getActualTime() << endl;
-//            orderedList.push_back(*it);
-//        }
-//
-//        StopPoint *newListBack = orderedList.back();
-//        EV << " Adding new SP after " << newListBack->getLocation() << endl;
-//        if(newListBack->getIsPickup())
-//            newSP->setActualTime(newListBack->getActualTime()+distanceTo+boardingTime);
-//        else
-//            newSP->setActualTime(newListBack->getActualTime()+distanceTo+alightingTime);
-//
-//        EV << " New SP Max time: " << newSP->getTime() + newSP->getMaxDelay() << ". Actual Time: " << newSP->getActualTime() << endl;
-//        orderedList.push_back(newSP);
-//
-//        //After new SP
-//        for (std::list<StopPoint*>::const_iterator it = std::next(it3), end = spl.end(); it != end; ++it) {
-//            StopPoint* tmp = new StopPoint(**it);
-//            double prevActualTime = tmp->getActualTime();
-//            tmp->setActualTime(tmp->getActualTime() + cost);
-//            EV << " After new SP pushing " << tmp->getLocation() << ". Previous actualTime: " << prevActualTime << ". Current actualTime: " <<tmp->getActualTime() << " max time: " << tmp->getTime() + tmp->getMaxDelay() << endl;
-//            orderedList.push_back(tmp);
-//        }
-//    }
-//    return orderedList;
-//}
-
-
-
-
-
 
 
 

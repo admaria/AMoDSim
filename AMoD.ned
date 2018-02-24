@@ -65,7 +65,7 @@ network AMoD
                 y=index / width;
                 @display("p=,,m,$width,$xNodeDistance,$yNodeDistance");
             gates:
-                port[5];
+                port[4];
         }
         
         

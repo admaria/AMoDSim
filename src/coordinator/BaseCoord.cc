@@ -161,18 +161,6 @@ int BaseCoord::minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> veh
           }
           if(toEmit)
               emit(newTripAssigned, (double)vehicleID);
-
-          std::ostringstream s;
-          s << "FINAL LIST ACCEPTED: ";
-
-          std::list<StopPoint*> l = rPerVehicle[vehicleID];
-          for (std::list<StopPoint*>::const_iterator it=l.begin(); it != l.end(); ++it)
-          {
-              s << (*it)->getLocation();
-              s << " ";
-          }
-          EV << s.str() << endl;
-
       }
       else
       {
