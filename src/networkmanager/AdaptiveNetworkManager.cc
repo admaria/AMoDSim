@@ -22,6 +22,7 @@ void AdaptiveNetworkManager::initialize()
     bool onlineRouting = par("onlineRouting").boolValue();
     numberOfVehicles = par("numberOfVehicles");
     numberOfNodes = par("numberOfNodes");
+    additionalTravelTime = setAdditionalTravelTime(getParentModule()->par("speed"), getParentModule()->par("acceleration"));
 
     for(int i=0; i<numberOfVehicles; i++)
         vehiclesPerNode[intuniform(0, numberOfNodes-1, 4)]+=1;
@@ -87,6 +88,9 @@ double AdaptiveNetworkManager::timeDistanceToTarget(cTopology::Node *thisNode)
 
         thisNode = linkOut->getRemoteNode();
     }
+
+    if(timeDistance != 0)
+        timeDistance+=additionalTravelTime;
 
     return timeDistance;
 }

@@ -21,10 +21,14 @@
 #include "Vehicle.h"
 #include "VehicleState.h"
 #include "AbstractNetworkManager.h"
+#include "StopPointOrderingProposal.h"
 #include <list>
 #include <algorithm>
 
 class BaseCoord : public cSimpleModule, cListener{
+
+private:
+    virtual void updateVehicleStopPoints(int vehicleID, std::list<StopPoint*> spList, StopPoint *pickupSP);
 
     protected:
         double totrequests;
@@ -32,6 +36,8 @@ class BaseCoord : public cSimpleModule, cListener{
         double totalPickedupRequests;
         double totalDroppedoffRequest;
         double freeVehicles;
+        double minTripLength;
+        int requestAssignmentStrategy;
 
         int boardingTime;
         int alightingTime;
@@ -83,8 +89,9 @@ class BaseCoord : public cSimpleModule, cListener{
         virtual void receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj) = 0;
         virtual void handleTripRequest(TripRequest *tr) = 0;
         bool eval_feasibility(int vehicleID, StopPoint *sp); //Evaluate if the new stop-point is feasible by a vehicle
-        virtual std::list<StopPoint*> eval_requestAssignment(int vehicleID, TripRequest* newTR) = 0; //Sort the stop-points related to the specified vehicle including the new request's pickup and dropoff point, if feasible.
-        int minWaitingTimeAssignment (std::map<int,std::list<StopPoint*>> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
+        virtual StopPointOrderingProposal* eval_requestAssignment(int vehicleID, TripRequest* newTR) = 0; //Sort the stop-points related to the specified vehicle including the new request's pickup and dropoff point, if feasible.
+        int minWaitingTimeAssignment (std::map<int,StopPointOrderingProposal*> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the pickup waiting time
+        int minCostAssignment(std::map<int,StopPointOrderingProposal*> vehicleProposal, TripRequest* newTR); //Assign the new trip request to the vehicle which minimize the cost
 
         StopPoint* getRequestPickup(std::list<StopPoint*> spList, int requestID);
         StopPoint* getRequestDropOff(std::list<StopPoint*> spList, int requestID);
@@ -103,6 +110,7 @@ class BaseCoord : public cSimpleModule, cListener{
         bool isRequestValid(const TripRequest tr);
         int countOnBoardRequests(int vehicleID);
         StopPoint* getNewAssignedStopPoint(int vehicleID);
+        inline double getMinTripLength(){return minTripLength;}
 };
 
 #endif /* BASECOORD_H_ */

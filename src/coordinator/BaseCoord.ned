@@ -4,6 +4,9 @@ package src.coordinator;
 simple BaseCoord like ICoord
 {
     parameters:
+        double minTripLength @unit(m) = default(1000m);
+        int requestAssignmentStrategy = default(0); //Allowed are: 0(MinCost) - 1(MinWaitingTime)
+        
         @display("i=block/cogwheel_s");
         
         // ------ SIGNALS -------- //

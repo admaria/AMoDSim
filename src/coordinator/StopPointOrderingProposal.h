@@ -23,11 +23,13 @@ class StopPointOrderingProposal : public cObject{
 private:
     int proposalID;
     int vehicleID;
-    double additionalTime;
+    double additionalCost;
+    double actualPickupTime;
     std::list<StopPoint*> spList;
     
 public:
     StopPointOrderingProposal();
+    StopPointOrderingProposal(int proposalID, int vehicleID, double additionalCost, double actualPickupTime, std::list<StopPoint*> spList);
     virtual ~StopPointOrderingProposal();
 
     virtual void setProposalID(int proposalID);
@@ -36,9 +38,12 @@ public:
     virtual void setVehicleID(int vehicleID);
     virtual int getVehicleID() const;
 
-    virtual void setAdditionalTime(double additionalTime);
-    virtual double getAdditionalTime() const;
+    virtual void setAdditionalCost(double additionalCost);
+    virtual double getAdditionalCost() const;
     
+    virtual void setActualPickupTime(double actualPickupTime);
+    virtual double getActualPickupTime() const;
+
     virtual void setSpList(std::list<StopPoint*> spList);
     virtual std::list<StopPoint*> getSpList() const;
 };

@@ -15,14 +15,15 @@ network AMoD
         double w @unit(m) = width * xNodeDistance + 100m; 	//simulation area: x size
         
         //------Vehicle Parameters------
-        double velocity @unit(mps) = default (9.7mps); 		//Vehicles velocity
+        double speed @unit(mps) = default (9.7mps); 		//Vehicles speed
+        double acceleration @unit(mpss) = default (1.676mpss); //Vehicles acceleration/deceleration
         int boardingTime @unit(s) = default (0s);  			//Time needed for boarding passengers
         int alightingTime @unit(s) = default (0s); 			//Time needed for alighting passengers
         
         //------Channel Parameters------
         //--Don't touch 
-        double xTravelTime @unit(s) = (dropUnit(xNodeDistance)/dropUnit(velocity))*1s; //time needed to travel a street
-        double yTravelTime @unit(s) = (dropUnit(yNodeDistance)/dropUnit(velocity))*1s; //time needed to travel a street
+        double xTravelTime @unit(s) = (dropUnit(xNodeDistance)/dropUnit(speed))*1s; //time needed to travel a street at cruise speed
+        double yTravelTime @unit(s) = (dropUnit(yNodeDistance)/dropUnit(speed))*1s; //time needed to travel a street at cruise speed
         
         //------Coordinator type--------
         string coordType = default ("RadioTaxiCoord");

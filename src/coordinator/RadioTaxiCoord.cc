@@ -18,7 +18,6 @@
 Define_Module(RadioTaxiCoord);
 
 double currentTime = 0.0;
-double currentTimeCost = -1.0;
 
 void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj)
 {
@@ -47,30 +46,24 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
 void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
 {
-    std::map<int,std::list<StopPoint*>> vehicleProposals;
+    std::map<int,StopPointOrderingProposal*> vehicleProposals;
 
     for (auto const &x : vehicles)
     {
         //Check if the vehicle has enough seats to serve the request
         if(x.first->getSeats() >= tr->getPickupSP()->getNumberOfPassengers())
         {
-            std::list<StopPoint *> tmp = eval_requestAssignment(x.first->getID(), tr);
-            if(!tmp.empty())
-            {
-                if(!vehicleProposals.empty())
-                {
-                    cleanStopPointList(vehicleProposals.begin()->second);
-                    vehicleProposals.clear();
-                }
+            StopPointOrderingProposal *tmp = eval_requestAssignment(x.first->getID(), tr);
+            if(tmp)
                 vehicleProposals[x.first->getID()] = tmp;
-            }
         }
     }
 
-    currentTimeCost = -1.0;
     //Assign the request to the vehicle which minimize the waiting time
-    minWaitingTimeAssignment(vehicleProposals, tr);
-
+    if(requestAssignmentStrategy == 0)
+        minCostAssignment(vehicleProposals, tr);
+    else
+        minWaitingTimeAssignment(vehicleProposals, tr);
 }
 
 
@@ -83,7 +76,7 @@ void RadioTaxiCoord::handleTripRequest(TripRequest *tr)
  *
  * @return The sorted list of stop-point related to the vehicle.
  */
-std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, TripRequest* tr)
+StopPointOrderingProposal* RadioTaxiCoord::eval_requestAssignment(int vehicleID, TripRequest* tr)
 {
     StopPoint *pickupSP = new StopPoint(*tr->getPickupSP());
     StopPoint *dropoffSP = new StopPoint(*tr->getDropoffSP());
@@ -91,15 +84,18 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
 
     double dst_to_pickup = -1;
     double dst_to_dropoff = -1;
+    double additionalCost = -1;
     std::list<StopPoint*> old = rPerVehicle[vehicleID];
     std::list<StopPoint*> newList;
+    StopPointOrderingProposal *proposal = NULL;
 
     //-----The Vehicle is empty-----
     if(rPerVehicle.find(vehicleID) == rPerVehicle.end() || old.empty())
     {
         EV << "The vehicle " << vehicleID << " has not other stop points!" << endl;
         dst_to_pickup = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), pickupSP->getLocation());
-        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
+        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + (boardingTime*abs(pickupSP->getNumberOfPassengers()));
+        additionalCost = dst_to_pickup + dst_to_dropoff;
 
         if (dst_to_pickup >= 0 && dst_to_dropoff >= 0)
         {
@@ -116,8 +112,10 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         EV << "The vehicle " << vehicleID << " has other stop points!" << endl;
         //Get last stop point for the vehicle
         StopPoint *sp = old.back();
-        dst_to_pickup = netmanager->getTimeDistance(sp->getLocation(), pickupSP->getLocation()) + (sp->getActualTime() - currentTime) + alightingTime; //The last stop point is a dropOff point.
-        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + boardingTime;
+        additionalCost = netmanager->getTimeDistance(sp->getLocation(), pickupSP->getLocation());
+        dst_to_pickup = additionalCost + (sp->getActualTime() - currentTime) + (alightingTime*abs(sp->getNumberOfPassengers())); //The last stop point is a dropOff point.
+        dst_to_dropoff = netmanager->getTimeDistance(pickupSP->getLocation(), dropoffSP->getLocation()) + (boardingTime*pickupSP->getNumberOfPassengers());
+        additionalCost += dst_to_dropoff;
 
         if (dst_to_pickup >= 0 && dst_to_dropoff >= 0)
         {
@@ -129,28 +127,24 @@ std::list<StopPoint*> RadioTaxiCoord::eval_requestAssignment(int vehicleID, Trip
         }
     }
 
+    //The vehicle can satisfy the request within its deadline
     if(dst_to_pickup != -1 && pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
     {
-        if(currentTimeCost == -1.0 || dst_to_pickup < currentTimeCost)
-        {
-            currentTimeCost = dst_to_pickup;
-            for (auto const &x : old)
-                newList.push_back(new StopPoint(*x));
+        for (auto const &x : old)
+            newList.push_back(new StopPoint(*x));
 
-            pickupSP->setActualNumberOfPassengers(pickupSP->getNumberOfPassengers());
-            dropoffSP->setActualNumberOfPassengers(0);
-            newList.push_back(pickupSP);
-            newList.push_back(dropoffSP);
-        }
-        else{
-                delete pickupSP;
-                delete dropoffSP;
-        }
-    }
-    else{
+        pickupSP->setActualNumberOfPassengers(pickupSP->getNumberOfPassengers());
+        dropoffSP->setActualNumberOfPassengers(0);
+        newList.push_back(pickupSP);
+        newList.push_back(dropoffSP);
+
+        proposal = new StopPointOrderingProposal(vehicleID,vehicleID, additionalCost, pickupSP->getActualTime(), newList);
+
+     }
+     else{
         delete pickupSP;
         delete dropoffSP;
     }
 
-    return newList;
+    return proposal;
 }

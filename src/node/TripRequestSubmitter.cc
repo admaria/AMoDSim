@@ -26,6 +26,7 @@ class TripRequestSubmitter : public cSimpleModule
         int y_coord;
 
         double maxSubmissionTime;
+        double minTripLength;
         int destAddresses;
 
         cPar *sendIATime;
@@ -65,6 +66,7 @@ void TripRequestSubmitter::initialize()
 {
     myAddress = par("address");
     destAddresses = par("destAddresses");
+    minTripLength = par("minTripLength");
     sendIATime = &par("sendIaTime");  // volatile parameter
     maxDelay = &par("maxDelay");
     maxSubmissionTime = par("maxSubmissionTime");
@@ -116,8 +118,8 @@ TripRequest* TripRequestSubmitter::buildTripRequest()
     double simtime = simTime().dbl();
 
     // Generate a random destination address for the request
-    int destAddress = myAddress;
-    while (destAddress == myAddress)
+    int destAddress = intuniform(0, destAddresses-1, 3);
+    while (destAddress == myAddress || netmanager->getSpaceDistance(myAddress, destAddress) < minTripLength)
         destAddress = intuniform(0, destAddresses-1, 3);
 
     StopPoint *pickupSP = new StopPoint(request->getID(), myAddress, true, simtime, maxDelay->doubleValue());

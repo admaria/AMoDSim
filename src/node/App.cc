@@ -38,6 +38,10 @@ class App : public cSimpleModule,cListener
     int myAddress;
     int numberOfVehicles;
     int seatsPerVehicle;
+    int boardingTime;
+    int alightingTime;
+    double additionalTravelTime;
+
     BaseCoord *tcoord;
     AbstractNetworkManager *netmanager;
 
@@ -71,10 +75,13 @@ void App::initialize()
 {
     myAddress = par("address");
     seatsPerVehicle = par("seatsPerVehicle");
+    alightingTime = getParentModule()->getParentModule()->par("alightingTime");
+    boardingTime = getParentModule()->getParentModule()->par("boardingTime");
 
     tcoord = check_and_cast<BaseCoord *>(getParentModule()->getParentModule()->getSubmodule("tcoord"));
     netmanager = check_and_cast<AbstractNetworkManager *>(getParentModule()->getParentModule()->getSubmodule("netmanager"));
     numberOfVehicles = netmanager->getVehiclesPerNode(myAddress);
+    additionalTravelTime = netmanager->getAdditionalTravelTime();
 
     newTripAssigned = registerSignal("newTripAssigned");
 
@@ -104,6 +111,7 @@ void App::initialize()
 void App::handleMessage(cMessage *msg)
 {
     Vehicle *vehicle = NULL;
+    double sendDelayTime = additionalTravelTime;
 
     try{
         //A vehicle is here
@@ -132,7 +140,15 @@ void App::handleMessage(cMessage *msg)
         vehicle->setSrcAddr(myAddress);
         vehicle->setDestAddr(nextStopPoint->getLocation());
 
-        send(vehicle,"out");
+        //Time for boarding or drop-off passengers
+        double delays = (nextStopPoint->getActualTime() - simTime().dbl()) - netmanager->getTimeDistance(myAddress, nextStopPoint->getLocation());
+        if(delays <0)
+            delays=0;
+
+        if(nextStopPoint->getLocation() == myAddress)
+            sendDelayed(vehicle,delays,"out");
+        else
+            sendDelayed(vehicle,sendDelayTime+delays,"out");
     }
 
     //No other stop point for the vehicle. The vehicle stay here
@@ -174,14 +190,26 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicle
 
           if (veic != NULL)
           {
+              double sendDelayTime = additionalTravelTime;
+
               StopPoint* sp =tcoord->getNewAssignedStopPoint(veic->getID());
               EV << "The proposal of vehicle: " << veic->getID() << " has been accepted for requestID:  " << sp->getRequestID() << endl;
               veic->setSrcAddr(myAddress);
               veic->setDestAddr(sp->getLocation());
 
+              //Time for boarding or dropoff
+              double delays = (sp->getActualTime() - simTime().dbl()) - netmanager->getTimeDistance(myAddress, sp->getLocation());
+              if(delays < 0)
+                  delays = 0;
+
+              if(sp->getLocation() == myAddress)
+                  sendDelayTime = delays;
+              else
+                  sendDelayTime = sendDelayTime+delays;
+
               EV << "Sending Vehicle from: " << veic->getSrcAddr() << "to " << veic->getDestAddr() << endl;
-              Enter_Method("send",veic,"out");
-              send(veic, "out");
+              Enter_Method("sendDelayed",veic,sendDelayTime,"out");
+              sendDelayed(veic,sendDelayTime,"out");
 
               if (ev.isGUI())
                 getParentModule()->getDisplayString().setTagArg("i",1,"gold");

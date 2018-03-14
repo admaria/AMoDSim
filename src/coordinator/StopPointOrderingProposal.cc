@@ -18,8 +18,16 @@
 StopPointOrderingProposal::StopPointOrderingProposal() {
     this->proposalID = -1;
     this->vehicleID = -1;
-    this->additionalTime = -1.0;
+    this->additionalCost = -1.0;
+    this->actualPickupTime = -1.0;
+}
 
+StopPointOrderingProposal::StopPointOrderingProposal(int proposalID, int vehicleID, double additionalCost, double actualPickupTime, std::list<StopPoint*> spList) {
+    this->proposalID = proposalID;
+    this->vehicleID = vehicleID;
+    this->additionalCost = additionalCost;
+    this->actualPickupTime = actualPickupTime;
+    this->spList = spList;
 }
 
 StopPointOrderingProposal::~StopPointOrderingProposal() {
@@ -27,8 +35,6 @@ StopPointOrderingProposal::~StopPointOrderingProposal() {
 
     spList.clear();
 }
-
-
 
 int StopPointOrderingProposal::getProposalID() const {
     return proposalID;
@@ -46,12 +52,20 @@ void StopPointOrderingProposal::setVehicleID(int vehicleID) {
     this->vehicleID = vehicleID;
 }
 
-double StopPointOrderingProposal::getAdditionalTime() const {
-    return additionalTime;
+double StopPointOrderingProposal::getAdditionalCost() const {
+    return additionalCost;
 }
 
-void StopPointOrderingProposal::setAdditionalTime(double additionalTime) {
-    this->additionalTime = additionalTime;
+void StopPointOrderingProposal::setAdditionalCost(double additionalCost) {
+    this->additionalCost = additionalCost;
+}
+
+double StopPointOrderingProposal::getActualPickupTime() const {
+    return actualPickupTime;
+}
+
+void StopPointOrderingProposal::setActualPickupTime(double actualPickupTime) {
+    this->actualPickupTime = actualPickupTime;
 }
 
 std::list<StopPoint*> StopPointOrderingProposal::getSpList() const {

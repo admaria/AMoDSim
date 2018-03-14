@@ -34,6 +34,8 @@ void ManhattanNetworkManager::initialize()
 
     xTravelTime = parentModule->par("xTravelTime");
     yTravelTime = parentModule->par("yTravelTime");
+
+    additionalTravelTime = setAdditionalTravelTime(parentModule->par("speed"), parentModule->par("acceleration"));
 }
 
 /**
@@ -78,6 +80,9 @@ double ManhattanNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
     time_distance = abs(xSource - xDest) * xTravelTime;
     double yTime = abs(ySource - yDest) * yTravelTime;
     time_distance += yTime;
+
+    if(time_distance != 0)
+        time_distance+=additionalTravelTime;
 
     return time_distance;
 }
