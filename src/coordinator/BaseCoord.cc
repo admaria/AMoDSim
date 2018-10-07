@@ -24,6 +24,9 @@ void BaseCoord::initialize()
 
     traveledDistance = registerSignal("traveledDistance");
     waitingTime = registerSignal("waitingTime");
+    accessTime = registerSignal("accessTime");
+    totalWalkTime = registerSignal("totalWalkTime");
+    totalWalkDistance = registerSignal("totalWalkDistance");
     actualTripTime = registerSignal("actualTripTime");
     stretch = registerSignal("stretch");
     tripDistance = registerSignal("tripDistance");
@@ -39,6 +42,9 @@ void BaseCoord::initialize()
     freeVehiclesPerTime = registerSignal("freeVehiclesPerTime");
 
     totrequests = 0.0;
+    abortedRequestsWTExceeded = 0.0;
+    abortedRequestsWTRatioExceeded = 0.0;
+    abortedRequests = 0.0;
     totalAssignedRequests = 0.0;
     totalPickedupRequests = 0.0;
     totalDroppedoffRequest = 0.0;
@@ -165,7 +171,6 @@ int BaseCoord::minCostAssignment(std::map<int, StopPointOrderingProposal*> vehic
         return -1;
     }
     delete tr;
-
     return vehicleID;
 }
 
@@ -179,32 +184,37 @@ int BaseCoord::minCostAssignment(std::map<int, StopPointOrderingProposal*> vehic
  */
 void BaseCoord::updateVehicleStopPoints(int vehicleID, std::list<StopPoint*> spList, StopPoint *pickupSP)
 {
-      rAssignedPerVehicle[vehicleID]++;
-      totalAssignedRequests++;
-      emit(assignedRequestsPerTime, totalAssignedRequests);
+  rAssignedPerVehicle[vehicleID]++;
+  totalAssignedRequests++;
+  emit(assignedRequestsPerTime, totalAssignedRequests);
 
-      bool toEmit = false;
-      if(rPerVehicle[vehicleID].empty())
-      {
-          //The node which handle the selected vehicle should be notified
-          toEmit = true;
-          freeVehicles--;
-          emit(freeVehiclesPerTime, freeVehicles);
+  for (auto const &x : spList) {
+      if (x->getActualTime() < (x->getTime() - 1 ) || x->getActualTime() > (x->getTime() + x->getMaxDelay()))
+          //throw "ERROR";
+          std::cerr << "ActualTime: " << x->getActualTime() << "; TIME: " << x->getTime() << "; MAX ALLOWED: " << (x->getTime() + x->getMaxDelay()) << endl;
+  }
+  bool toEmit = false;
+  if(rPerVehicle[vehicleID].empty())
+  {
+      //The node which handle the selected vehicle should be notified
+      toEmit = true;
+      freeVehicles--;
+      emit(freeVehiclesPerTime, freeVehicles);
 
-          updateStateElapsedTime(vehicleID, -1); //update IDLE elapsed time
-      }
-      else
-      {
-          //clean the old stop point list assigned to the vehicle
-          cleanStopPointList(rPerVehicle[vehicleID]);
-      }
+      updateStateElapsedTime(vehicleID, -1); //update IDLE elapsed time
+  }
+  else
+  {
+      //clean the old stop point list assigned to the vehicle
+      cleanStopPointList(rPerVehicle[vehicleID]);
+  }
 
-      rPerVehicle[vehicleID] = spList;
-      if(toEmit)
-      {
-          (statePerVehicle[vehicleID][0])->setStartingTime(simTime().dbl());
-          emit(newTripAssigned, (double)vehicleID);
-      }
+  rPerVehicle[vehicleID] = spList;
+  if(toEmit)
+  {
+      (statePerVehicle[vehicleID][0])->setStartingTime(simTime().dbl());
+      emit(newTripAssigned, (double)vehicleID);
+  }
 }
 
 
@@ -218,9 +228,24 @@ void BaseCoord::finish()
     sprintf(totalRequestSignal, "Total Requests");
     recordScalar(totalRequestSignal, totrequests);
 
+    /*--- Aborted Requests Statistic ---*/
+    char abortedRequestSignal[32];
+    sprintf(abortedRequestSignal, "Aborted Requests-Others");
+    recordScalar(abortedRequestSignal, abortedRequests);
+
+    /*--- Aborted Requests - Walk Time Statistic ---*/
+    char abortedRequestWTSignal[32];
+    sprintf(abortedRequestWTSignal, "Aborted Requests-WT Exceed");
+    recordScalar(abortedRequestWTSignal, abortedRequestsWTExceeded);
+
+    /*--- Aborted Requests - Walk Time Ratio Statistic ---*/
+    char abortedRequestWTRatioSignal[32];
+    sprintf(abortedRequestWTRatioSignal, "Aborted Requests-WT Ratio Exceed");
+    recordScalar(abortedRequestWTRatioSignal, abortedRequestsWTRatioExceeded);
+
     /*--- Unserved Requests Statistic ---*/
     char unservedRequestSignal[32];
-    sprintf(unservedRequestSignal, "Unserved Requests");
+    sprintf(unservedRequestSignal, "Unsatisfiable Requests");
     recordScalar(unservedRequestSignal, uRequests.size());
 
     /*--- Pending Requests Statistic ---*/
@@ -315,6 +340,9 @@ void BaseCoord::finish()
     collectPercentileStats("toDropoffRequests", toDropoffRequestsVector);
     collectPercentileStats("toPickupRequests", toPickupRequestsVector);
     collectPercentileStats("waitingTime", waitingTimeVector);
+    collectPercentileStats("accessTime", accessTimeVector);
+    collectPercentileStats("totalWalkTime", totalWalkTimeVector);
+    collectPercentileStats("totalWalkDistance", totalWalkDistanceVector);
     collectPercentileStats("actualTripTime", actualTripTimeVector);
     collectPercentileStats("stretch",stretchVector);
     collectPercentileStats("tripDistance", tripDistanceVector);
@@ -359,8 +387,9 @@ void BaseCoord::finish()
  */
 int BaseCoord::countOnBoardRequests(int vehicleID)
 {
-    std::list<StopPoint*> requests = rPerVehicle[vehicleID];
     int onBoard = 0;
+
+    std::list<StopPoint*> requests = rPerVehicle[vehicleID];
     std::set<int> pickupSP;
 
     for (std::list<StopPoint*>::const_iterator it=requests.begin(); it != requests.end(); ++it)
@@ -389,7 +418,6 @@ StopPoint* BaseCoord::getRequestPickup(std::list<StopPoint*> spList, int request
         if(((*it)->getRequestID() == requestID) && (*it)->getIsPickup())
             return (*it);
     }
-
     return nullptr;
 }
 
@@ -409,7 +437,6 @@ StopPoint* BaseCoord::getRequestDropOff(std::list<StopPoint*> spList, int reques
         if(((*it)->getRequestID() == requestID) && !(*it)->getIsPickup())
             return (*it);
     }
-
     return nullptr;
 }
 
@@ -467,27 +494,42 @@ StopPoint* BaseCoord::getCurrentStopPoint(int vehicleID)
         {
             StopPoint *sPickup = new StopPoint(*r);
             servedPickup[r->getRequestID()] = sPickup;
-            double tmp = (simTime().dbl()-r->getTime())/60;
+            double tmp = abs((simTime().dbl() - r->getTime())/60);
+            double aTime = tmp + (r->getWalkTime() / 60); //accessTime = walk_time + wait_at_stop
+
+            EV << "Access Time: " << aTime << "; Waiting: " << tmp << "; Walk: "<< (r->getWalkTime() / 60) << endl;
 
             totalPickedupRequests++;
             emit(pickedupRequestsPerTime, totalPickedupRequests);
             emit(waitingTime, tmp);
                 waitingTimeVector.push_back(tmp);
+            emit(accessTime, aTime);
+                accessTimeVector.push_back(aTime);
         }
         else
         {
-            double att = (simTime().dbl() - servedPickup[r->getRequestID()]->getActualTime()); //ActualTripTime
-            double str = (netmanager->getTimeDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation())) / att; //Trip Efficiency Ratio
+            if (simTime().dbl() + r->getWalkTime() > (r->getTimeToRequiredLocation() + r->getMaxDelayRequired()))
+                throw std::invalid_argument("a or b negative");
+            EV << "Served at: " << simTime().dbl() + r->getWalkTime() << ", Max allowed: " << r->getTimeToRequiredLocation() + r->getMaxDelayRequired() << endl;
+            double att = (simTime().dbl() - servedPickup[r->getRequestID()]->getTimeToRequiredLocation())+r->getWalkTime(); //ActualTripTime
+            double str = att/netmanager->getTimeDistance(servedPickup[r->getRequestID()]->getRequiredLocation(), r->getRequiredLocation()); //Trip Efficiency Ratio
+            double totalWTime = (servedPickup[r->getRequestID()]->getWalkTime() + r->getWalkTime())/60;
+            double totalWDistance = (servedPickup[r->getRequestID()]->getWalkDistance() + r->getWalkDistance()) / 1000;
             totalDroppedoffRequest++;
             emit(droppedoffRequestsPerTime, totalDroppedoffRequest);
 
-            double trip_distance = netmanager->getSpaceDistance(servedPickup[r->getRequestID()]->getLocation(), r->getLocation()) / 1000;
+            double trip_distance = netmanager->getSpaceDistance(servedPickup[r->getRequestID()]->getRequiredLocation(), r->getRequiredLocation()) / 1000;
             emit(actualTripTime, (att/60));
                 actualTripTimeVector.push_back((att/60));
             emit(stretch, str);
                 stretchVector.push_back(str);
             emit(tripDistance, trip_distance);
                 tripDistanceVector.push_back(trip_distance);
+            emit(totalWalkTime, totalWTime);
+                totalWalkTimeVector.push_back(totalWTime);
+            emit(totalWalkDistance, totalWDistance);
+                totalWalkDistanceVector.push_back(totalWDistance);
+
         }
         return r;
     }
@@ -537,7 +579,6 @@ void BaseCoord::registerVehicle(Vehicle *v, int address)
     }
     vehicles[v] = address;
     EV << "Registered vehicle " << v->getID() << " in node: " << address << endl;
-
 }
 
 
@@ -596,12 +637,10 @@ void BaseCoord::cleanStopPointList(std::list<StopPoint*> spList)
 bool BaseCoord::isRequestValid(const TripRequest tr)
 {
     bool valid = false;
-
     if(tr.getPickupSP() && tr.getDropoffSP() &&
             netmanager->isValidAddress(tr.getPickupSP()->getLocation()) && netmanager->isValidAddress(tr.getDropoffSP()->getLocation()))
                 valid = true;
     return valid;
-
 }
 
 /**
@@ -612,7 +651,6 @@ bool BaseCoord::isRequestValid(const TripRequest tr)
 int BaseCoord::getMaxVehiclesSeats()
 {
     int vSeats = 0;
-
     for(auto &it:vehicles)
     {
         if(it.first->getSeats() > vSeats)

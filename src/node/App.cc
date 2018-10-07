@@ -127,7 +127,7 @@ void App::handleMessage(cMessage *msg)
     if (currentStopPoint != NULL && currentStopPoint->getLocation() != -1 && currentStopPoint->getIsPickup())
     {
         //This is a PICK-UP stop-point
-        double waitTimeMinutes = (simTime().dbl() - currentStopPoint->getTime()) / 60;
+        double waitTimeMinutes = abs((simTime().dbl() - currentStopPoint->getTime()) / 60);
         EV << "The vehicle is here! Pickup time: " << simTime() << "; Request time: " << currentStopPoint->getTime() << "; Waiting time: " << waitTimeMinutes << "minutes." << endl;
     }
 
@@ -163,8 +163,6 @@ void App::handleMessage(cMessage *msg)
         if (!simulation.getSystemModule()->isSubscribed("newTripAssigned",this))
             simulation.getSystemModule()->subscribe("newTripAssigned",this);
     }
-
-
 }
 
 /**
@@ -182,7 +180,6 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicle
    */
   if(signalID == newTripAssigned)
   {
-
       if(tcoord->getLastVehicleLocation(vehicleID) == myAddress)
       {
           //The vehicle that should serve the request is in this node
@@ -218,5 +215,4 @@ void App::receiveSignal(cComponent *source, simsignal_t signalID, double vehicle
           }
       }
   }
-
 }

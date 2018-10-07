@@ -25,6 +25,32 @@ void ManhattanNetworkManager::initialize()
 
     numberOfVehicles = par("numberOfVehicles");
     numberOfNodes = par("numberOfNodes");
+    numberOfFixedStops = par("numberOfFixedStops");
+    fixedStopPointsDistribution = par("fixedStopPointsDistribution").stdstringValue();
+
+    if (numberOfFixedStops > 0)
+    {
+        if (fixedStopPointsDistribution.compare("Random") == 0)
+        {
+            //srand(time(NULL));
+            int randN;
+
+            for(int i=0; i<numberOfFixedStops; i++)
+            {
+                randN = intuniform(0, numberOfNodes -1, 6); //rand() % numberOfNodes;
+                while(std::find(std::begin(fixedStops), std::end(fixedStops), randN) != std::end(fixedStops))
+                    randN = intuniform(0, numberOfNodes -1, 6);
+                fixedStops.push_back(randN);
+                EV <<  fixedStops.back() << endl;
+            }
+         }
+
+        //TODO implement different distributions
+
+        // locate vehicles only in the fixed stop-points
+        //for(int i=0; i<numberOfVehicles; i++)
+          //  vehiclesPerNode[fixedStops[rand() % fixedStops.size()]]+=1;
+    }
 
     for(int i=0; i<numberOfVehicles; i++)
         vehiclesPerNode[intuniform(0, numberOfNodes-1, 4)]+=1;
@@ -34,6 +60,9 @@ void ManhattanNetworkManager::initialize()
 
     xTravelTime = parentModule->par("xTravelTime");
     yTravelTime = parentModule->par("yTravelTime");
+
+    xWalkingTime = parentModule->par("xWalkingTime");
+    yWalkingTime = parentModule->par("yWalkingTime");
 
     additionalTravelTime = setAdditionalTravelTime(parentModule->par("speed"), parentModule->par("acceleration"));
 }
@@ -59,6 +88,26 @@ double ManhattanNetworkManager::getSpaceDistance(int srcAddr, int dstAddr)
     space_distance += abs(ySource - yDest) * yChannelLength;
 
     return space_distance;
+}
+
+int ManhattanNetworkManager::getCloserStopPoint(int srcAddr) {
+    double distance = -1;
+    int node = srcAddr;
+
+    for(auto const& value: fixedStops) {
+        if (value == srcAddr)
+            return srcAddr;
+        else
+        {
+            double dist = getSpaceDistance(srcAddr, value);
+            if (dist < distance || distance == -1)
+            {
+                distance = dist;
+                node = value;
+            }
+        }
+    }
+    return node;
 }
 
 /**
@@ -87,6 +136,23 @@ double ManhattanNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
     return time_distance;
 }
 
+double ManhattanNetworkManager::getWalkTimeDistance(int srcAddr, int dstAddr) {
+  double time_distance = 0;
+
+  int xSource = srcAddr % rows;
+  int xDest = dstAddr % rows;
+
+  int ySource = srcAddr / rows;
+  int yDest = dstAddr / rows;
+
+  time_distance = abs(xSource - xDest) * xWalkingTime;
+  double yTime = abs(ySource - yDest) * yWalkingTime;
+  time_distance += yTime;
+
+  return time_distance;
+}
+
+
 /**
  * Return the vehicles started from nodeAddr.
  *
@@ -95,6 +161,7 @@ double ManhattanNetworkManager::getTimeDistance(int srcAddr, int dstAddr)
  */
 int ManhattanNetworkManager::getVehiclesPerNode(int nodeAddr)
 {
+
     int nVehicles = 0;
     std::map<int,int>::iterator it;
 
@@ -117,6 +184,16 @@ bool ManhattanNetworkManager::isValidAddress(int nodeAddr)
     if(nodeAddr >= 0 && nodeAddr < numberOfNodes)
         return true;
     return false;
+}
+
+int ManhattanNetworkManager::getNodeXCoord(int nodeAddr)
+{
+    return nodeAddr % rows;;
+}
+
+int ManhattanNetworkManager::getNodeYCoord(int nodeAddr)
+{
+    return nodeAddr / rows;;
 }
 
 /**

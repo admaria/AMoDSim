@@ -16,6 +16,15 @@ simple BaseCoord like ICoord
         @signal[waitingTime](type="double");				//Pick-up waiting time per request
         @statistic[waitingTime](title="Waiting time (minute)";source="waitingTime";unit=minute;record=vector,stats;interpolationmode=none);
 
+		@signal[accessTime](type="double");				//walk time + wait at stop per request
+        @statistic[accessTime](title="Access time (minute)";source="accessTime";unit=minute;record=vector,stats;interpolationmode=none);
+        
+        @signal[totalWalkTime](type="double");				//walk time to pickup + walk time to dropoff per request
+        @statistic[totalWalkTime](title="Total walk time (minute)";source="totalWalkTime";unit=minute;record=vector,stats;interpolationmode=none);
+
+		@signal[totalWalkDistance](type="double");				//walk distance to pickup + walk distance to dropoff per request
+        @statistic[totalWalkTime](title="Total walk Distance (km)";source="totalWalkTime";unit=km;record=vector,stats;interpolationmode=none);
+
         @signal[actualTripTime](type="double");				//Actual time scored on vehicle (per request)
         @statistic[actualTripTime](title="Actual Trip Time (minute)";source="actualTripTime";unit=minute;record=vector,stats;interpolationmode=none);
 

@@ -22,6 +22,8 @@ void AdaptiveNetworkManager::initialize()
     bool onlineRouting = par("onlineRouting").boolValue();
     numberOfVehicles = par("numberOfVehicles");
     numberOfNodes = par("numberOfNodes");
+    numberOfFixedStops = par("numberOfFixedStops");
+    fixedStopPointsDistribution = par("fixedStopPointsDistribution").stdstringValue();
     additionalTravelTime = setAdditionalTravelTime(getParentModule()->par("speed"), getParentModule()->par("acceleration"));
 
     for(int i=0; i<numberOfVehicles; i++)
@@ -234,4 +236,27 @@ bool AdaptiveNetworkManager::isValidAddress(int nodeAddr)
 void AdaptiveNetworkManager::handleMessage(cMessage *msg)
 {
     // TODO - Generated method body
+}
+
+int AdaptiveNetworkManager::getCloserStopPoint(int srcAddr)
+{
+    // TODO
+    return -1;
+}
+
+double AdaptiveNetworkManager::getWalkTimeDistance(int src, int dst)
+{
+    // TODO
+    return -1;
+}
+
+int AdaptiveNetworkManager::getNodeXCoord(int nodeAddress)
+{
+    // TODO
+    return 0;
+}
+int AdaptiveNetworkManager::getNodeYCoord(int nodeAddress)
+{
+    // TODO
+    return 0;
 }

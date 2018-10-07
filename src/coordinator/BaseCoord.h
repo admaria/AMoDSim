@@ -32,9 +32,15 @@ private:
 
     protected:
         double totrequests;
+
+        double abortedRequestsWTExceeded; // aborted requests due to walk time exceeded
+        double abortedRequestsWTRatioExceeded; // aborted requests due to WalkWithoutService/WalkWithService exceeded
+        double abortedRequests; // aborted requests due to other reasons
+
         double totalAssignedRequests;
         double totalPickedupRequests;
         double totalDroppedoffRequest;
+
         double freeVehicles;
         double minTripLength;
         int requestAssignmentStrategy;
@@ -51,6 +57,12 @@ private:
         simsignal_t traveledDistance;
         simsignal_t waitingTime;
         std::vector<double> waitingTimeVector;
+        simsignal_t accessTime;
+        std::vector<double> accessTimeVector;
+        simsignal_t totalWalkTime;
+        std::vector<double> totalWalkTimeVector;
+        simsignal_t totalWalkDistance;
+        std::vector<double> totalWalkDistanceVector;
         simsignal_t actualTripTime;
         std::vector<double> actualTripTimeVector;
         simsignal_t stretch;
@@ -111,6 +123,10 @@ private:
         int countOnBoardRequests(int vehicleID);
         StopPoint* getNewAssignedStopPoint(int vehicleID);
         inline double getMinTripLength(){return minTripLength;}
+        inline void abortRequest(std::string type){
+            if (type.compare("walktime") == 0) abortedRequestsWTExceeded++;
+            else if (type.compare("walkratio")) abortedRequestsWTRatioExceeded++;
+            else abortedRequests++;}
 };
 
 #endif /* BASECOORD_H_ */

@@ -25,6 +25,7 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
 
     if(signalID == tripRequest)
     {
+        try{
         TripRequest *tr = check_and_cast<TripRequest *>(obj);
         EV << "New TRIP request from: " << source->getFullPath() << endl;
 
@@ -39,6 +40,8 @@ void RadioTaxiCoord::receiveSignal(cComponent *source, simsignal_t signalID, cOb
         {
             EV << "The request " << tr->getID() << " is not valid!" << endl;
         }
+        }catch (...) {std::cerr << "receiveSignal" << endl;}
+
     }
 
 }
@@ -128,7 +131,7 @@ StopPointOrderingProposal* RadioTaxiCoord::eval_requestAssignment(int vehicleID,
     }
 
     //The vehicle can satisfy the request within its deadline
-    if(dst_to_pickup != -1 && pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()))// && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxWaitingTime()))
+    if(dst_to_pickup != -1 && pickupSP->getActualTime() <= (pickupSP->getTime() + pickupSP->getMaxDelay()) && dropoffSP->getActualTime() <= (dropoffSP->getTime() + dropoffSP->getMaxDelay()))
     {
         for (auto const &x : old)
             newList.push_back(new StopPoint(*x));
@@ -147,4 +150,5 @@ StopPointOrderingProposal* RadioTaxiCoord::eval_requestAssignment(int vehicleID,
     }
 
     return proposal;
+return nullptr;
 }

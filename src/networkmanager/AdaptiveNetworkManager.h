@@ -42,11 +42,15 @@ private:
     virtual ~AdaptiveNetworkManager();
 
     virtual double getTimeDistance(int srcAddr, int dstAddr) override;
+    virtual double getWalkTimeDistance(int srcAddr, int dstAddr) override;
     virtual double getSpaceDistance(int srcAddr, int dstAddr) override;
+    virtual int getCloserStopPoint(int srcAddr) override;
     virtual double getChannelLength(int nodeAddr, int gateIndex) override;
     virtual int getOutputGate(int srcAddr, int destAddr) override;
     virtual int getVehiclesPerNode(int nodeAddr) override;
     virtual bool isValidAddress(int nodeAddr) override;
+    virtual int getNodeXCoord(int nodeAddress) override;
+    virtual int getNodeYCoord(int nodeAddress) override;
 };
 
 #endif

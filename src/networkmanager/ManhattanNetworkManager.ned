@@ -5,6 +5,8 @@ simple ManhattanNetworkManager like INetworkManager
 {
     parameters:
         int numberOfVehicles = default(1);
-        int numberOfNodes;        
+        int numberOfNodes; 
+        int numberOfFixedStops = default(0);
+        string fixedStopPointsDistribution = default("Grid");       
         @display("i=block/network2_l");
 }

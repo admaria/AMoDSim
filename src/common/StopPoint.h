@@ -24,15 +24,26 @@ class StopPoint : public cObject{
 
     protected:
         int requestID;
-        int location;
-        int x_coord;
-        int y_coord;
+
+        int location;                   // the pickup or dropoff location
+        int x_coord;                    // the pickup or dropoff x coordinate
+        int y_coord;                    // the pickup or dropoff y coordinate
+
+        int requiredLocation;           // the required pickup or dropoff location
+        double walkDistance;               // the walk distance from requiredLocation to location (meters)
+        double walkTime;                   // the walk time distance from requiredLocation to location (meters)
+
         int numberOfPassengers;
         int actualNumberOfPassengers;
         bool isPickup;
-        double time;
-        double actualTime;
-        double maxDelay;
+
+        double timeToRequiredLocation;  // the ideal time to reach the required location
+        double time;                    // the ideal time to reach the fixed stop-point location
+        double actualTimeToRequiredLocation; // the actual time at the required location
+        double actualTime;              // the actual time at the fixed stop-point location
+        double maxDelay;                // the maximum delay allowed over the time
+        double maxDelayRequired;        // the maximum delay allowed over the timeToRequiredLocation
+
 
     public:
         StopPoint();
@@ -40,36 +51,134 @@ class StopPoint : public cObject{
         StopPoint(const StopPoint& other);
         virtual ~StopPoint();
 
-        virtual void setRequestID(int requestID);
-        virtual int getRequestID() const;
+        int getActualNumberOfPassengers() const {
+            return actualNumberOfPassengers;
+        }
 
-        virtual void setNumberOfPassengers(int passengers);
-        virtual int getNumberOfPassengers() const;
+        void setActualNumberOfPassengers(int actualNumberOfPassengers) {
+            this->actualNumberOfPassengers = actualNumberOfPassengers;
+        }
 
-        virtual void setActualNumberOfPassengers(int passengers);
-        virtual int getActualNumberOfPassengers() const;
+        double getActualTime() const {
+            return actualTime;
+        }
 
-        virtual void setLocation(int location);
-        virtual int getLocation() const;
+        void setActualTime(double actualTime) {
+            this->actualTime = actualTime;
+        }
 
-        virtual void setIsPickup(bool isPickup);
-        virtual bool getIsPickup() const;
+        double getActualTimeToRequiredLocation() const {
+            return actualTimeToRequiredLocation;
+        }
 
-        virtual void setTime(double time);
-        virtual double getTime() const;
+        void setActualTimeToRequiredLocation(double actualTimeToRequiredLocation) {
+            this->actualTimeToRequiredLocation = actualTimeToRequiredLocation;
+        }
 
-        virtual void setActualTime(double actualTime);
-        virtual double getActualTime() const;
+        bool getIsPickup() const {
+            return isPickup;
+        }
 
-        virtual void setMaxDelay(double maxDelay);
-        virtual double getMaxDelay() const;
+        void setIsPickup(bool isPickup) {
+            this->isPickup = isPickup;
+        }
 
-        virtual void setXcoord(int x_coord);
-        virtual int getXcoord() const;
+        int getLocation() const {
+            return location;
+        }
 
-        virtual void setYcoord(int y_coord);
-        virtual int getYcoord() const;
-        
+        void setLocation(int location) {
+            this->location = location;
+        }
+
+        double getMaxDelay() const {
+            return maxDelay;
+        }
+
+        void setMaxDelay(double maxDelay) {
+            this->maxDelay = maxDelay;
+        }
+
+
+        int getNumberOfPassengers() const {
+            return numberOfPassengers;
+        }
+
+        void setNumberOfPassengers(int numberOfPassengers) {
+            this->numberOfPassengers = numberOfPassengers;
+        }
+
+        int getRequestID() const {
+            return requestID;
+        }
+
+        void setRequestID(int requestId) {
+            requestID = requestId;
+        }
+
+        int getRequiredLocation() const {
+            return requiredLocation;
+        }
+
+        void setRequiredLocation(int requiredLocation) {
+            this->requiredLocation = requiredLocation;
+        }
+
+        double getTime() const {
+            return time;
+        }
+
+        void setTime(double time) {
+            this->time = time;
+        }
+
+        double getTimeToRequiredLocation() const {
+            return timeToRequiredLocation;
+        }
+
+        void setTimeToRequiredLocation(double timeToRequiredLocation) {
+            this->timeToRequiredLocation = timeToRequiredLocation;
+        }
+
+        double getWalkDistance() const {
+            return walkDistance;
+        }
+
+        void setWalkDistance(double walkDistance) {
+            this->walkDistance = walkDistance;
+        }
+
+        double getWalkTime() const {
+            return walkTime;
+        }
+
+        void setWalkTime(double walkTime) {
+            this->walkTime = walkTime;
+        }
+
+        int getXCoord() const {
+            return x_coord;
+        }
+
+        void setXCoord(int coord) {
+            x_coord = coord;
+        }
+
+        int getYCoord() const {
+            return y_coord;
+        }
+
+        void setYCoord(int coord) {
+            y_coord = coord;
+        }
+
+    double getMaxDelayRequired() const {
+        return maxDelayRequired;
+    }
+
+    void setMaxDelayRequired(double maxDelayRequired) {
+        this->maxDelayRequired = maxDelayRequired;
+    }
 };
 
 #endif /* STOPPOINT_H_ */

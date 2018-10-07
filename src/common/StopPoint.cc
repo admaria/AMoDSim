@@ -26,6 +26,13 @@ StopPoint::StopPoint() {
     this->y_coord = -1;
     this->isPickup = false;
     this->maxDelay = 0;
+
+    this->requiredLocation = -1;
+    this->walkDistance = -1;
+    this->walkTime = 0.0;
+    this->timeToRequiredLocation = 0.0;
+    this->actualTimeToRequiredLocation = 0.0;
+    this->maxDelayRequired = 0;
 }
 
 StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, double maxDelay)
@@ -40,6 +47,12 @@ StopPoint::StopPoint(int requestID, int location, bool isPickup, double time, do
     this->y_coord = -1; //TODO
     this->isPickup = isPickup;
     this->maxDelay = maxDelay;
+    this->requiredLocation = -1;
+    this->walkDistance = -1;
+    this->walkTime = 0.0;
+    this->timeToRequiredLocation = 0.0;
+    this->actualTimeToRequiredLocation = 0.0;
+    this->maxDelayRequired = 0;
 }
 
 StopPoint::StopPoint(const StopPoint& other)
@@ -59,109 +72,14 @@ void StopPoint::copy(const StopPoint& other)
     this->y_coord = other.y_coord;
     this->isPickup = other.isPickup;
     this->maxDelay = other.maxDelay;
+    this->requiredLocation = other.requiredLocation;
+    this->walkDistance = other.walkDistance;
+    this->walkTime = other.walkTime;
+    this->timeToRequiredLocation = other.timeToRequiredLocation;
+    this->actualTimeToRequiredLocation = other.actualTimeToRequiredLocation;
+    this->maxDelayRequired = other.maxDelayRequired;
 }
 
 
 StopPoint::~StopPoint() {
-}
-
-
-void StopPoint::setRequestID(int requestID)
-{
-    this->requestID = requestID;
-}
-
-int StopPoint::getRequestID() const
-{
-    return requestID;
-}
-
-void StopPoint::setNumberOfPassengers(int numberOfPassengers)
-{
-    this->numberOfPassengers = numberOfPassengers;
-}
-
-int StopPoint::getNumberOfPassengers() const
-{
-    return numberOfPassengers;
-}
-
-void StopPoint::setActualNumberOfPassengers(int numberOfPassengers)
-{
-    this->actualNumberOfPassengers = numberOfPassengers;
-}
-
-int StopPoint::getActualNumberOfPassengers() const
-{
-    return actualNumberOfPassengers;
-}
-
-void StopPoint::setLocation(int location)
-{
-    this->location = location;
-}
-
-int StopPoint::getLocation() const
-{
-    return location;
-}
-
-void StopPoint::setIsPickup(bool isPickup)
-{
-    this->isPickup = isPickup;
-}
-
-bool StopPoint::getIsPickup() const
-{
-    return isPickup;
-}
-
-void StopPoint::setTime(double time)
-{
-    this->time = time;
-}
-
-double StopPoint::getTime() const
-{
-    return time;
-}
-
-void StopPoint::setActualTime(double actualTime)
-{
-    this->actualTime = actualTime;
-}
-
-double StopPoint::getActualTime() const
-{
-    return actualTime;
-}
-
-void StopPoint::setMaxDelay(double maxDelay)
-{
-    this->maxDelay = maxDelay;
-}
-
-double StopPoint::getMaxDelay() const
-{
-    return maxDelay;
-}
-
-void StopPoint::setXcoord(int x_coord)
-{
-    this->x_coord = x_coord;
-}
-
-int StopPoint::getXcoord() const
-{
-    return x_coord;
-}
-
-void StopPoint::setYcoord(int y_coord)
-{
-    this->y_coord = y_coord;
-}
-
-int StopPoint::getYcoord() const
-{
-    return y_coord;
 }

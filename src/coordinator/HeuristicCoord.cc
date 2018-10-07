@@ -90,12 +90,14 @@ StopPointOrderingProposal* HeuristicCoord::eval_requestAssignment(int vehicleID,
         additionalCost = netmanager->getTimeDistance(getLastVehicleLocation(vehicleID), newTRpickup->getLocation());
         double timeToPickup = additionalCost + simTime().dbl();
         additionalCost+=netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getNumberOfPassengers());
+        double timeToDropoff = timeToPickup + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getActualNumberOfPassengers());
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()) &&
+                timeToDropoff <= (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()))
         {
             newTRpickup->setActualTime(timeToPickup);
             newTRpickup->setActualNumberOfPassengers(newTRpickup->getNumberOfPassengers());
-            newTRdropoff->setActualTime(newTRpickup->getActualTime() + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getActualNumberOfPassengers()));
+            newTRdropoff->setActualTime(timeToDropoff);
             newTRdropoff->setActualNumberOfPassengers(0);
             newList.push_back(newTRpickup);
             newList.push_back(newTRdropoff);
@@ -106,7 +108,7 @@ StopPointOrderingProposal* HeuristicCoord::eval_requestAssignment(int vehicleID,
         }
         else
         {
-            EV << " The vehicle " << vehicleID << " can not serve the Request " << tr->getID() << endl;
+            EV << " The vehicle " << vehicleID << " can not serve the Request " << tr->getID() << ". Time to pickup: " << timeToPickup << "; Time to dropoff: " << timeToDropoff << endl;
             delete newTRpickup;
             delete newTRdropoff;
         }
@@ -121,11 +123,13 @@ StopPointOrderingProposal* HeuristicCoord::eval_requestAssignment(int vehicleID,
         additionalCost = netmanager->getTimeDistance(last->getLocation(), newTRpickup->getLocation());
         double timeToPickup = additionalCost + last->getActualTime() + (alightingTime*abs(last->getNumberOfPassengers())); //The last SP is a dropOff point.
         additionalCost+= netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getNumberOfPassengers());
+        double timeToDropoff= timeToPickup + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getNumberOfPassengers());
 
-        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay()))
+        if(timeToPickup <= (newTRpickup->getTime() + newTRpickup->getMaxDelay())&&
+                timeToDropoff <= (newTRdropoff->getTime() + newTRdropoff->getMaxDelay()))
         {
             newTRpickup->setActualTime(timeToPickup);
-            newTRdropoff->setActualTime(newTRpickup->getActualTime() + netmanager->getTimeDistance(newTRpickup->getLocation(), newTRdropoff->getLocation()) + (boardingTime*newTRpickup->getNumberOfPassengers()));
+            newTRdropoff->setActualTime(timeToDropoff);
             newTRpickup->setActualNumberOfPassengers(newTRpickup->getNumberOfPassengers());
             newTRdropoff->setActualNumberOfPassengers(0);
             newList.push_back(last);

@@ -1,17 +1,6 @@
-/*
-########################################################
-##           __  __       _____   _____ _             ##
-##     /\   |  \/  |     |  __ \ / ____(_)            ##
-##    /  \  | \  / | ___ | |  | | (___  _ _ __ ___    ##
-##   / /\ \ | |\/| |/ _ \| |  | |\___ \| | '_ ` _ \   ##
-##  / ____ \| |  | | (_) | |__| |____) | | | | | | |  ##
-## /_/    \_\_|  |_|\___/|_____/|_____/|_|_| |_| |_|  ##
-##                                                    ##
-## Author:                                            ##
-##    Andrea Di Maria                                 ##
-##    <andrea.dimaria90@gmail.com>                    ##
-########################################################
-*/
+//
+// Generated file, do not edit! Created by nedtool 4.6 from src/common/Packet.msg.
+//
 
 #ifndef _PACKET_M_H_
 #define _PACKET_M_H_
@@ -25,6 +14,21 @@
 #endif
 
 
+
+/**
+ * Class generated from <tt>src/common/Packet.msg:5</tt> by nedtool.
+ * <pre>
+ * //
+ * // Represents a packet in the network.
+ * //
+ * packet Packet
+ * {
+ *     int srcAddr;
+ *     int destAddr;
+ *     int hopCount;
+ * }
+ * </pre>
+ */
 class Packet : public ::cPacket
 {
   protected:

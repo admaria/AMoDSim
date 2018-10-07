@@ -20,10 +20,16 @@ network AMoD
         int boardingTime @unit(s) = default (0s);  			//Time needed for boarding passengers
         int alightingTime @unit(s) = default (0s); 			//Time needed for alighting passengers
         
+        //-------Pedestrian Parameters----
+        double walkSpeed @unit(mps) = default (1mps);
+        
         //------Channel Parameters------
         //--Don't touch 
         double xTravelTime @unit(s) = (dropUnit(xNodeDistance)/dropUnit(speed))*1s; //time needed to travel a street at cruise speed
         double yTravelTime @unit(s) = (dropUnit(yNodeDistance)/dropUnit(speed))*1s; //time needed to travel a street at cruise speed
+        double xWalkingTime @unit(s) = (dropUnit(xNodeDistance)/dropUnit(walkSpeed))*1s; //time needed to travel a street at cruise speed
+        double yWalkingTime @unit(s) = (dropUnit(yNodeDistance)/dropUnit(walkSpeed))*1s; //time needed to travel a street at cruise speed
+        
         
         //------Coordinator type--------
         string coordType = default ("RadioTaxiCoord");
@@ -38,6 +44,7 @@ network AMoD
         {
             parameters:
                 delay = xTravelTime; //time needed to travel the street (x axes). (propagation delay)
+                double walkTime @unit(s) = xWalkingTime;
                 double length @unit(m) = xNodeDistance;
         }
         
@@ -45,6 +52,7 @@ network AMoD
         {
             parameters:
                 delay = yTravelTime; //time needed to travel the street (y axes). (propagation delay)
+                double walkTime @unit(s) = yWalkingTime;
                 double length @unit(m) = yNodeDistance;
         }
 
