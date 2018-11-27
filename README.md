@@ -56,29 +56,34 @@ From within Omnet, delete the package.ned automatically created by Omnet into AM
 
 * **Andrea Di Maria** 
 
-    Aucta Cognitio R&amp;D Labs, Catania 95123, Italy
-    
-    <andrea.dimaria90@gmail.com>, <adimaria@auctacognitio.net>
+    Aucta Cognitio R&amp;D Labs, Catania 95123, Italy  
+    Università di Catania, Catania 95125, Italy  
+    [andrea.dimaria90@gmail.com](andrea.dimaria90@gmail.com), [adimaria@auctacognitio.net](adimaria@auctacognitio.net)
 
 ## Contributors
 
 * **Andrea Araldo**
 
-    Massachusetts Institute of Technology, Cambridge MA 02139, USA
-    
-    <{last}@mit.edu>
+    Massachusetts Institute of Technology, Cambridge MA 02139, USA  
+    [araldo@mit.edu](araldo@mit.edu)
 
 * **Giovanni Morana** 
 
-    Aucta Cognitio R&amp;D Labs, Catania 95123, Italy
-    
-    <gmorana@auctacognitio.net>
+    Aucta Cognitio R&amp;D Labs, Catania 95123, Italy  
+    [gmorana@auctacognitio.net](gmorana@auctacognitio.net)
     
 * **Antonella Di Stefano**
 
-    Università di Catania, Catania 95125, Italy
-    
-    <ad@dieei.unict.it>
+    Università di Catania, Catania 95125, Italy  
+    [ad@dieei.unict.it](ad@dieei.unict.it)
+
+## Reference
+The simulator is presented in the following article:
+
+Di Maria, A., Araldo, A., Morana, G., Di Stefano, A.,  
+**AMoDSim: An Efficient and Modular Simulation Framework for Autonomous Mobility on Demand**, Internet of Vehicles, 2018.
+
+Link to a draft of the paper: https://arxiv.org/pdf/1808.04813.pdf
 
 ## License
 
