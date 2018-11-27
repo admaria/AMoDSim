@@ -14,6 +14,7 @@
 */
 
 #include "ManhattanNetworkManager.h"
+#include <math.h>
 
 Define_Module(ManhattanNetworkManager);
 
@@ -26,9 +27,19 @@ void ManhattanNetworkManager::initialize()
     numberOfVehicles = par("numberOfVehicles");
     numberOfNodes = par("numberOfNodes");
     numberOfFixedStops = par("numberOfFixedStops");
+    minFixedStopsDistance = par("minFixedStopsDistance");
     fixedStopPointsDistribution = par("fixedStopPointsDistribution").stdstringValue();
 
-    if (numberOfFixedStops > 0)
+    xChannelLength = parentModule->par("xNodeDistance");
+    yChannelLength = parentModule->par("yNodeDistance");
+
+    xTravelTime = parentModule->par("xTravelTime");
+    yTravelTime = parentModule->par("yTravelTime");
+
+    xWalkingTime = parentModule->par("xWalkingTime");
+    yWalkingTime = parentModule->par("yWalkingTime");
+
+    if (numberOfFixedStops > 0 || minFixedStopsDistance > 0)
     {
         if (fixedStopPointsDistribution.compare("Random") == 0)
         {
@@ -45,24 +56,58 @@ void ManhattanNetworkManager::initialize()
             }
          }
 
+        else if (fixedStopPointsDistribution.compare("Grid") == 0)
+        {
+            EV <<  "SONO ENTRATO" << endl;
+            int startNode = 0;
+            int xJump, yJump;
+            double jump, fractpart, intpart;
+
+            jump = minFixedStopsDistance / xChannelLength;
+            fractpart = modf (jump , &intpart);
+            if (fractpart > 0)
+                xJump = intpart + 1;
+            else
+                xJump = intpart;
+
+            jump = minFixedStopsDistance / yChannelLength;
+            fractpart = modf (jump , &intpart);
+            if (fractpart > 0)
+                yJump = intpart + 1;
+            else
+                yJump = intpart;
+
+            EV << "xJump: " << xJump << endl;
+            EV << "yJump: " << yJump << endl;
+
+            for (int i=1; i<=columns; i+=yJump)
+            {
+                EV << "Row: " << i << endl;
+                int tmp = rows*i;
+                startNode = rows*(i-1);
+                fixedStops.push_back(startNode);
+                EV <<  fixedStops.back() << endl;
+
+                while (startNode < (tmp-xJump))
+                {
+                    startNode+=xJump;
+                    fixedStops.push_back(startNode);
+                    EV <<  fixedStops.back() << endl;
+                }
+
+                //i+=yJump;
+            }
+        }
+
         //TODO implement different distributions
 
-        // locate vehicles only in the fixed stop-points
-        //for(int i=0; i<numberOfVehicles; i++)
-          //  vehiclesPerNode[fixedStops[rand() % fixedStops.size()]]+=1;
     }
+
+    EV << "FIXED STOPS: " << fixedStops.size() << endl;
 
     for(int i=0; i<numberOfVehicles; i++)
         vehiclesPerNode[intuniform(0, numberOfNodes-1, 4)]+=1;
 
-    xChannelLength = parentModule->par("xNodeDistance");
-    yChannelLength = parentModule->par("yNodeDistance");
-
-    xTravelTime = parentModule->par("xTravelTime");
-    yTravelTime = parentModule->par("yTravelTime");
-
-    xWalkingTime = parentModule->par("xWalkingTime");
-    yWalkingTime = parentModule->par("yWalkingTime");
 
     additionalTravelTime = setAdditionalTravelTime(parentModule->par("speed"), parentModule->par("acceleration"));
 }

@@ -6,6 +6,7 @@ moduleinterface INetworkManager
         int numberOfVehicles;
         int numberOfNodes;
         int numberOfFixedStops;
+        int minFixedStopsDistance;
         string fixedStopPointsDistribution;
 		@display("i=block/network2_l");    
 }

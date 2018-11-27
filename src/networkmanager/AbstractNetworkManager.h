@@ -24,6 +24,7 @@ protected:
     int numberOfVehicles;               //Number of vehicles in the network
     int numberOfNodes;                  //Number of crossroads(nodes) in the network
     int numberOfFixedStops;
+    int minFixedStopsDistance;
     std::vector<int> fixedStops;
     std::string fixedStopPointsDistribution;
     double additionalTravelTime;        //Additional Travel Time due to acceleration and deceleration

@@ -17,7 +17,7 @@
 #include "TripRequest.h"
 #include <map>
 #include "AbstractNetworkManager.h"
-#include <unordered_map>
+//#include <unordered_map>
 #include "BaseCoord.h"
 
 class TripRequestSubmitter : public cSimpleModule
@@ -49,7 +49,7 @@ class TripRequestSubmitter : public cSimpleModule
         cMessage *emitRequest;
         long pkCounter;
 
-        std::unordered_map<long, TripRequest *> requestsToEmit;
+        std::map<long, TripRequest *> requestsToEmit;
 
         // signals
         simsignal_t tripRequest;
@@ -130,6 +130,14 @@ void TripRequestSubmitter::handleMessage(cMessage *msg)
 
         StopPoint *p = tr->getPickupSP();
         StopPoint *d = tr->getDropoffSP();
+        if (p->getMaxDelay()<0)
+        {
+            EV << "Aborting request due to exceed in walkTime to pickup." << endl;
+            tcoord->abortRequest("walktime");
+            delete(tr);
+            return ;
+        }
+        
         if (maxWalkTime >= 0 && walkWithService > maxWalkTime)
         {
             EV << "Aborting request due to exceed in walkTime. Source: " << p->getRequiredLocation() << ", Pickup: " << p->getLocation() <<
@@ -183,7 +191,7 @@ void TripRequestSubmitter::handleMessage(cMessage *msg)
     else if (strcmp(msg->getName(), "emitRequest") == 0)
     {
         EV<< "Emitting the old scheduled request with ID: " << msg->getId() << endl;
-        std::unordered_map<long, TripRequest *>::iterator it = requestsToEmit.find(msg->getId());
+        std::map<long, TripRequest *>::iterator it = requestsToEmit.find(msg->getId());
         if (it != requestsToEmit.end())
             emit(tripRequest, (TripRequest*)it->second);
         else
@@ -230,7 +238,8 @@ TripRequest* TripRequestSubmitter::buildTripRequest()
     pickupSP->setTimeToRequiredLocation(simtime);
     pickupSP->setMaxDelayRequired(maxDelay);
     pickupSP->setTime(pickupSP->getTimeToRequiredLocation() + pickupSP->getWalkTime());
-    pickupSP->setMaxDelay(maxDelay);
+    //pickupSP->setMaxDelay(maxDelay);
+    pickupSP->setMaxDelay(maxDelay-pickupSP->getWalkTime());
 
     // **** Dropoff Stop-point **** //
     StopPoint *dropoffSP = new StopPoint();
