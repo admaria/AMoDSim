@@ -62,10 +62,10 @@ From within Omnet, delete the package.ned automatically created by Omnet into AM
 
 ## Contributors
 
-* **Andrea Araldo**
+Assoc. Prof. * **Andrea Araldo**
 
-    Massachusetts Institute of Technology, Cambridge MA 02139, USA  
-    [araldo@mit.edu](araldo@mit.edu)
+    Télécom SudParis - Institut Polytechnique de Paris
+    [andrea.araldo@telecom-sudparis.eu](andrea.araldo@telecom-sudparis.eu)
 
 * **Giovanni Morana** 
 
