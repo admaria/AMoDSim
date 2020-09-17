@@ -81,13 +81,11 @@ From within Omnet, delete the package.ned automatically created by Omnet into AM
 The simulator is presented in the following article:
 
 Di Maria, A., Araldo, A., Morana, G., Di Stefano, A.,  
-**AMoDSim: An Efficient and Modular Simulation Framework for Autonomous Mobility on Demand**, Internet of Vehicles Conference, 2018.
-
-Link to a draft of the paper: https://arxiv.org/pdf/1808.04813.pdf
+**AMoDSim: An Efficient and Modular Simulation Framework for Autonomous Mobility on Demand**, Internet of Vehicles Conference, 2018 [paper-draft](https://arxiv.org/pdf/1808.04813.pdf) [slides](https://github.com/admaria/AMoDSim/blob/master/scientific-documents/slides/01.presentation-of-amodsim.iov.pdf)
 
 
 It has been used in this other article:
-A. Araldo, A. Di Maria, A. Di Stefano, G. Morana, “On the Importance of demand Consolidation inMobility on Demand,”IEEE/ACM International Symposium on Distributed Simulation and Real Time Applications (DS-RT), 2019 [pdf](https://arxiv.org/pdf/1907.02933)
+A. Araldo, A. Di Maria, A. Di Stefano, G. Morana, “On the Importance of demand Consolidation inMobility on Demand,”IEEE/ACM International Symposium on Distributed Simulation and Real Time Applications (DS-RT), 2019 [paper-draft](https://arxiv.org/pdf/1907.02933) [slides](https://github.com/admaria/AMoDSim/blob/master/scientific-documents/slides/02.demand-consolidation.ds-rt.pdf)
 
 
 ## License
